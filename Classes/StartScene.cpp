@@ -1,4 +1,4 @@
-#include "HelloWorldScene.h"
+#include "StartScene.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
@@ -6,7 +6,7 @@ USING_NS_CC;
 
 using namespace cocostudio::timeline;
 
-Scene* HelloWorld::createScene()
+Scene* StartScene::createScene()
 {
     // 'scene' is an autorelease object
     auto scene = Scene::create();
@@ -22,7 +22,7 @@ Scene* HelloWorld::createScene()
 }
 
 // on "init" you need to initialize your instance
-bool HelloWorld::init()
+bool StartScene::init()
 {
     /**  you can create scene with following comment code instead of using csb file.
     // 1. super init first
