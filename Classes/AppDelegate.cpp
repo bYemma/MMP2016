@@ -1,13 +1,21 @@
 #include "AppDelegate.h"
-#include "StartScene.h"
+
+#include "GameLayer.h"
 
 USING_NS_CC;
+
+
+
+static cocos2d::Size designResolutionSize = cocos2d::Size(800, 1000);
+static cocos2d::Size smallResolutionSize = cocos2d::Size(400, 500);
+static cocos2d::Size mediumResolutionSize = cocos2d::Size(400, 500);
+static cocos2d::Size largeResolutionSize = cocos2d::Size(400, 500);
 
 AppDelegate::AppDelegate() {
 
 }
 
-AppDelegate::~AppDelegate() 
+AppDelegate::~AppDelegate()
 {
 }
 
@@ -15,53 +23,84 @@ AppDelegate::~AppDelegate()
 //it will takes effect on all platforms
 void AppDelegate::initGLContextAttrs()
 {
-    //set OpenGL context attributions,now can only set six attributions:
-    //red,green,blue,alpha,depth,stencil
-    GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
+	//set OpenGL context attributions,now can only set six attributions:
+	//red,green,blue,alpha,depth,stencil
+	GLContextAttrs glContextAttrs = { 8, 8, 8, 8, 24, 8 };
 
-    GLView::setGLContextAttrs(glContextAttrs);
+	GLView::setGLContextAttrs(glContextAttrs);
+}
+
+// If you want to use packages manager to install more packages, 
+// don't modify or remove this function
+static int register_all_packages()
+{
+	return 0; //flag for packages manager
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
-    // initialize director
-    auto director = Director::getInstance();
-    auto glview = director->getOpenGLView();
-    if(!glview) {
-		glview = GLViewImpl::createWithFullScreen("MMP2016");
+	auto fileUtils = FileUtils::getInstance();
+
+	// initialize director
+	auto director = Director::getInstance();
+	auto glview = director->getOpenGLView();
+	if (!glview) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
+		glview = GLViewImpl::createWithRect("Chipmunk Hello World", Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
+#else
+		glview = GLViewImpl::create("Chipmunk Hello World");
+#endif
 		director->setOpenGLView(glview);
-    }
+	}
 
-    director->getOpenGLView()->setDesignResolutionSize(glview->getFrameSize().width, glview->getFrameSize().height, ResolutionPolicy::SHOW_ALL);
+	// turn on display FPS
+	director->setDisplayStats(true);
 
-    // turn on display FPS
-    director->setDisplayStats(true);
+	// set FPS. the default value is 1.0/60 if you don't call this
+	director->setAnimationInterval(1.0 / 60);
 
-    // set FPS. the default value is 1.0/60 if you don't call this
-    director->setAnimationInterval(1.0 / 60);
+	// Set the design resolution
+	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
+	Size frameSize = glview->getFrameSize();
 
-    FileUtils::getInstance()->addSearchPath("res");
+	// if the frame's height is larger than the height of medium size.
+	if (frameSize.height > mediumResolutionSize.height)
+	{
+		director->setContentScaleFactor(MIN(largeResolutionSize.height / designResolutionSize.height, largeResolutionSize.width / designResolutionSize.width));
+	}
+	// if the frame's height is larger than the height of small size.
+	else if (frameSize.height > smallResolutionSize.height)
+	{
+		director->setContentScaleFactor(MIN(mediumResolutionSize.height / designResolutionSize.height, mediumResolutionSize.width / designResolutionSize.width));
+	}
+	// if the frame's height is smaller than the height of medium size.
+	else
+	{
+		director->setContentScaleFactor(MIN(smallResolutionSize.height / designResolutionSize.height, smallResolutionSize.width / designResolutionSize.width));
+	}
 
-    // create a scene. it's an autorelease object
-    auto scene = StartScene::createScene();
+	register_all_packages();
 
-    // run
-    director->runWithScene(scene);
+	// create a scene. it's an autorelease object
+	auto scene = GameLayer::scene();
 
-    return true;
+	// run
+	director->runWithScene(scene);
+
+	return true;
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground() {
-    Director::getInstance()->stopAnimation();
+	Director::getInstance()->stopAnimation();
 
-    // if you use SimpleAudioEngine, it must be pause
-    // SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+	// if you use SimpleAudioEngine, it must be pause
+	// SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
-    Director::getInstance()->startAnimation();
+	Director::getInstance()->startAnimation();
 
-    // if you use SimpleAudioEngine, it must resume here
-    // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+	// if you use SimpleAudioEngine, it must resume here
+	// SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }
