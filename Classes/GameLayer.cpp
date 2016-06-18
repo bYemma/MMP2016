@@ -12,6 +12,7 @@ GameLayer::GameLayer() {
 }
 
 Scene* GameLayer::scene() {
+
 	auto scene = Scene::createWithPhysics();;
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	scene->getPhysicsWorld()->setGravity(Vec2(0.0f, -350.0f));
@@ -39,7 +40,7 @@ bool GameLayer::init() {
 
 	//Ground
 	auto groundBody = PhysicsBody::createBox(
-		Size(800.0f, 32.0f),
+		Size(1920.0f, 32.0f),
 		PhysicsMaterial(0.1f, 1.0f, 0.5f)
 	);
 
