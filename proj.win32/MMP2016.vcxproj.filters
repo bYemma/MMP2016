@@ -86,4 +86,15 @@
       <Filter>resource</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resources\res\ball.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resources\res\box.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resources\res\ground.png">
+      <Filter>resource</Filter>
+    </Image>
+  </ItemGroup>
 </Project>
