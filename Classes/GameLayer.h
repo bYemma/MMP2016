@@ -31,13 +31,14 @@ public:
 
 	static cocos2d::Scene* scene();
 
+	bool isKeyPressed(cocos2d::EventKeyboard::KeyCode);
+	double keyPressedDuration(cocos2d::EventKeyboard::KeyCode);
+
 	CREATE_FUNC(GameLayer);
 
-	void onTouchesBegan(const std::vector<Touch*> &touches, cocos2d::Event* event);
-	void onTouchesMoved(const std::vector<Touch*> &touches, cocos2d::Event* event);
-	void onTouchesEnded(const std::vector<Touch*> &touches, cocos2d::Event* event);
-
 private:
+	static std::map<cocos2d::EventKeyboard::KeyCode,
+		std::chrono::high_resolution_clock::time_point> keys;
 	void update(float dt);
 };
 

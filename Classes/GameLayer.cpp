@@ -2,7 +2,7 @@
 #define SCALE_RATIO 200
 #define COCOS2D_DEBUG 1
 #include "GameLayer.h"
-
+#include "ProjectileFactory.h"
 #include <iostream>
 
 using namespace cocos2d;
@@ -20,7 +20,6 @@ Scene* GameLayer::scene() {
 
 	scene->addChild(layer);
 	
-
 	return scene;
 }
 
@@ -50,11 +49,8 @@ bool GameLayer::init() {
 	_ground->setPosition(Vec2(_center.x, 16.0f));
 	this->addChild(_ground);
 
-	//apply physicsBody to the sprite
 	_ground->setPhysicsBody(groundBody);
 
-
-	//Small box
 	auto boxBody = PhysicsBody::createBox(
 		Size(32.0f, 32.0f),
 		PhysicsMaterial(0.1f, 0.1f, 0.5f)
@@ -64,10 +60,8 @@ bool GameLayer::init() {
 	_box->setPosition(Vec2(600.0f, 32.0f));
 	this->addChild(_box);
 
-	//apply physicsBody to the sprite
 	_box->setPhysicsBody(boxBody);
 
-	//ball
 	auto ballBody = PhysicsBody::createCircle(
 		17.5f,
 		PhysicsMaterial(0.5f, 0.4f, 1.0f)
@@ -79,62 +73,90 @@ bool GameLayer::init() {
 	this->addChild(_ball);
 
 	_ball->setPhysicsBody(ballBody);
-
-	auto listener = EventListenerTouchAllAtOnce::create();
-	listener->onTouchesBegan = CC_CALLBACK_2(GameLayer::onTouchesBegan, this);
-	listener->onTouchesMoved = CC_CALLBACK_2(GameLayer::onTouchesMoved, this);
-	listener->onTouchesEnded = CC_CALLBACK_2(GameLayer::onTouchesEnded, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 	
+	auto pf = ProjectileFactory::ProjectileFactory();
+
+	auto eventListener = EventListenerKeyboard::create();
+	eventListener->onKeyPressed = [&](EventKeyboard::KeyCode keyCode, Event* event) {
+
+		if (keys.find(keyCode) == keys.end()) {
+			keys[keyCode] = std::chrono::high_resolution_clock::now();
+		}
+
+		double deltaT =  keyPressedDuration(EventKeyboard::KeyCode::KEY_CTRL);
+
+		Vec2 loc = event->getCurrentTarget()->getPosition();
+		switch (keyCode) {
+		case EventKeyboard::KeyCode::KEY_ESCAPE:
+			Director::getInstance()->end();
+			break;
+		case EventKeyboard::KeyCode::KEY_A:
+		case EventKeyboard::KeyCode::KEY_LEFT_ARROW: //switch aiming direction to left side
+			event->getCurrentTarget()->setPosition(--loc.x, loc.y);
+			break;
+		case EventKeyboard::KeyCode::KEY_RIGHT_ARROW: //switch aiming direction to right side
+		case EventKeyboard::KeyCode::KEY_D:
+			event->getCurrentTarget()->setPosition(++loc.x, loc.y);
+			break;
+		case EventKeyboard::KeyCode::KEY_UP_ARROW: //aim up -> increase aimangle(from 0 to 90)
+		case EventKeyboard::KeyCode::KEY_W: {
+			auto ball = GameSprite::gameSpriteWithFile("res/ball.png");
+			ball->setPosition(Vec2(400.0f, 500.0f));
+			ball->setPhysicsBody(pf.createMunitionPhysics(ProjectileFactory::MunitionType::NADE));
+			Vec2 force = Vec2(200*10.0f, 400 * 10.0f);
+			CCLOG("Force: %f %f", force.x, force.y);
+			ball->getPhysicsBody()->applyImpulse(force);
+			this->addChild(ball);
+
+			break;
+		}
+
+		case EventKeyboard::KeyCode::KEY_DOWN_ARROW: //aim down -> decrease aimangle(from 0 to 90)
+		case EventKeyboard::KeyCode::KEY_S:
+			event->getCurrentTarget()->setPosition(loc.x, --loc.y);
+			break;
+		}
+	};
+
+	eventListener->onKeyReleased = [=](EventKeyboard::KeyCode keyCode, Event* event) {
+		keys.erase(keyCode);
+	};
+
+	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, _ball);
+
 
 	//create main loop
 	this->scheduleUpdate();
 	return true;
 
 }
+std::map<cocos2d::EventKeyboard::KeyCode,
+std::chrono::high_resolution_clock::time_point> GameLayer::keys;
 
+bool GameLayer::isKeyPressed(EventKeyboard::KeyCode code) {
+	// Check if the key is currently pressed by seeing it it's in the std::map keys
+	// In retrospect, keys is a terrible name for a key/value paried datatype isnt it?
+	if (keys.find(code) != keys.end())
+		return true;
+	return false;
+}
+// Useful for measuring how long the player "loaded" the shot
+//-> we can set velocity of a shot depending on that time
+double GameLayer::keyPressedDuration(EventKeyboard::KeyCode code) {
+	if (!isKeyPressed(EventKeyboard::KeyCode::KEY_CTRL))
+		return 0;  // Not pressed, so no duration obviously
 
+				   // Return the amount of time that has elapsed between now and when the user
+				   // first started holding down the key in milliseconds
+				   // Obviously the start time is the value we hold in our std::map keys
+	return std::chrono::duration_cast<std::chrono::milliseconds>
+		(std::chrono::high_resolution_clock::now() - keys[code]).count();
+}
 
 void GameLayer::update(float dt) {
 
 
 }
-
-
-
-void GameLayer::onTouchesBegan(const std::vector<Touch*> &touches, Event* event)
-{
-	for (auto touch : touches) {
-		if (touch != nullptr) {
-			_delta = touch->getLocation();
-		}
-	}
-}
-
-void GameLayer::onTouchesMoved(const std::vector<Touch*> &touches, Event* event){
-	for (auto touch : touches) {
-		if (touch != nullptr) {
-			auto tap = touch->getLocation();
-		
-			
-		}
-	}
-}
-
-void GameLayer::onTouchesEnded(const std::vector<Touch*> &touches, Event* event)
-{
-	for (auto touch : touches) {
-		if (touch != nullptr) {
-			
-			Vec2 tap = touch->getLocation();
-			Vec2 force = Vec2( (tap.x - _delta.x)*10.0f, 350 *10.0f + (tap.y - _delta.y));
-			CCLOG("Force: %f %f", force.x, force.y);
-			_ball->getPhysicsBody()->applyImpulse(force);
-		}
-	}
-}
-
-
 
 
 
