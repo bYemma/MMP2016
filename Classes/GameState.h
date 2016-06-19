@@ -13,7 +13,7 @@ class GameState
 
 {
 
-public:
+public: // Create GameState as Singleton(?)
 	static GameState & getInstance() {
 		static GameState instance;
 		return instance;
@@ -24,9 +24,13 @@ public:
 	GameState& operator=(GameState const&) = delete;
 	GameState& operator=(GameState&&) = delete;
 
-	bool hasWinner(); // check for winner
-
+	//maybe controllerfunctions(?)
+	void initGame(); //create players and their stats
+	bool hasWinner(); //check for winner
 	void nextPlayer(); //switch to next player
+	void startRoundTimer(); //starts timer for player to finish his round
+	void startGameTimer(); //starts timer for game to finish
+	void currentPlayer(); //return currently playing player
 protected:
 	GameState();
 	virtual ~GameState();

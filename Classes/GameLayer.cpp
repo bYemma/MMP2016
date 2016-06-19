@@ -16,8 +16,8 @@ Scene* GameLayer::scene() {
 	auto scene = Scene::createWithPhysics();;
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	scene->getPhysicsWorld()->setGravity(Vec2(0.0f, -350.0f));
-	auto layer = GameLayer::create();
 
+	auto layer = GameLayer::create();
 	scene->addChild(layer);
 	
 	return scene;
@@ -35,8 +35,8 @@ bool GameLayer::init() {
 	_center = Vec2(_screenSize.width * 0.5, _screenSize.height * 0.5);
 	_delta = Vec2(0,0);
 	
-
-	//Ground
+	
+	//Ground evtl erstellen als Polygon mit "random noise" werten(siehe simplexnoise google)
 	auto groundBody = PhysicsBody::createBox(
 		Size(1920.0f, 32.0f),
 		PhysicsMaterial(0.1f, 1.0f, 0.5f)
