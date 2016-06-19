@@ -36,7 +36,6 @@ bool GameLayer::init() {
 	_delta = Vec2(0,0);
 	
 
-
 	//Ground
 	auto groundBody = PhysicsBody::createBox(
 		Size(1920.0f, 32.0f),
@@ -100,6 +99,8 @@ bool GameLayer::init() {
 			break;
 		case EventKeyboard::KeyCode::KEY_UP_ARROW: //aim up -> increase aimangle(from 0 to 90)
 		case EventKeyboard::KeyCode::KEY_W: {
+			//todo pack this in one class / method for every munition
+			//todo: geht force from input, http://www.cocos2d-x.org/wiki/Physics for more 
 			auto ball = GameSprite::gameSpriteWithFile("res/ball.png");
 			ball->setPosition(Vec2(400.0f, 500.0f));
 			ball->setPhysicsBody(pf.createMunitionPhysics(ProjectileFactory::MunitionType::NADE));
