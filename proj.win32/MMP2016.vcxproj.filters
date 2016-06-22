@@ -22,6 +22,9 @@
     <Filter Include="src\view">
       <UniqueIdentifier>{672bf287-5487-4bed-bf7f-5d78489d05c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\controller\collision">
+      <UniqueIdentifier>{c5989fba-8504-4852-a060-5da6057a9262}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,6 +54,9 @@
     <ClCompile Include="..\Classes\StartScene.cpp">
       <Filter>src\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Player.cpp">
+      <Filter>src\data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -79,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\StartScene.h">
       <Filter>src\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>src\data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
