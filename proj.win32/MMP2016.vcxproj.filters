@@ -57,6 +57,9 @@
     <ClCompile Include="..\Classes\Player.cpp">
       <Filter>src\data</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Entity.cpp">
+      <Filter>src\data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -87,6 +90,9 @@
       <Filter>src\view</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Player.h">
+      <Filter>src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Entity.h">
       <Filter>src\data</Filter>
     </ClInclude>
   </ItemGroup>
