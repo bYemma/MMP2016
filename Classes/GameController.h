@@ -1,4 +1,5 @@
 #include "cocos2d.h"
+#include "ProjectileFactory.h"
 
 class GameController
 
@@ -11,6 +12,8 @@ public:
 	void startRoundTimer(); //starts timer for player to finish his round
 	void startGameTimer(); //starts timer for game to finish
 	void currentPlayer(); //return currently playing player
+	void handleCollision();
+	void applyDamage(ProjectileFactory::MunitionType mt);
 protected:
 	GameController();
 	virtual ~GameController();

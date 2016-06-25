@@ -2,6 +2,7 @@
 #include <iostream>
 #include <list>
 #include "Entity.h"
+#include "Player.h"
 #include "cocos2d.h"
 
 using namespace std;

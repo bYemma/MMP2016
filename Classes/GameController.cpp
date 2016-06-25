@@ -12,9 +12,18 @@ void GameController::initGame()
 
 bool GameController::hasWinner()
 {
-	list<Player>* playerptrs;
-	for (Player* p : playerptrs) {
+	vector<Player*> *playerptrs;
+	int playeramount = playerptrs->size();
+	int deadplayers = 0;
+	for (vector<Player*>::iterator it = playerptrs->begin(); it != playerptrs->end(); ++it) {
+		int entamount = (*it)->getEntities().size();
+		if (entamount == 0) {
+			deadplayers++;
+		}
+	}
 
+	if (playeramount - deadplayers == 1) { 
+		return true;
 	}
 	return false;
 }

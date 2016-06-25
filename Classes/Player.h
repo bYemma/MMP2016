@@ -9,10 +9,10 @@ class Player {
 public:
 	Player();
 	virtual ~Player();
-
+	vector<Entity*> getEntities();
 private:
 	string name;
 	int points;
-	list<Entity>* entPtrs;
+	vector<Entity*> entPtrs;
 
 };

@@ -9,3 +9,8 @@ Player::Player() {
 Player::~Player()
 {
 }
+
+vector<Entity*> Player::getEntities()
+{
+	return entPtrs;
+}
