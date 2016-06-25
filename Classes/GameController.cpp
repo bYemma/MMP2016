@@ -9,27 +9,40 @@ GameController::GameController() {
 void GameController::initGame()
 {
 }
-
+//Wenn ein Spieler keine Worms mehr hat(in player: entityptrs gespeichert)
+//dann hat er verloren. Der der als letztes noch min einen Worm hat gewinnt
 bool GameController::hasWinner()
 {
-	vector<Player*> *playerptrs;
-	int playeramount = playerptrs->size();
+	vector<Player*> playerptrs; //todo füllen aus Model
+	int playeramount = playerptrs.size();
 	int deadplayers = 0;
-	for (vector<Player*>::iterator it = playerptrs->begin(); it != playerptrs->end(); ++it) {
+	for (vector<Player*>::iterator it = playerptrs.begin(); it != playerptrs.end(); ++it) {
 		int entamount = (*it)->getEntities().size();
 		if (entamount == 0) {
 			deadplayers++;
 		}
 	}
 
-	if (playeramount - deadplayers == 1) { 
+	if (playeramount - deadplayers == 1) { //todo gleichzeitiger tod
 		return true;
 	}
 	return false;
 }
-
+// Verschiebt Reihenfolge der Spieler [p1,p2,p3]->[p2,p3,p1] falls mal mehr als zwei Spieler spielen sollten
 void GameController::nextPlayer()
 {
+	vector<Player*> playerptrs; //todo füllen aus Model
+	int end = playerptrs.size();
+	playerptrs[end - 1] = playerptrs[0];
+	for (int i = 0; i < end; i++) {
+		if (i + 1 < end-1) {
+			playerptrs[i] = playerptrs[i + 1];
+		}
+		else {
+			playerptrs[i] = playerptrs[i + 1];
+		}
+	}
+
 }
 
 void GameController::startRoundTimer()
@@ -39,9 +52,11 @@ void GameController::startRoundTimer()
 void GameController::startGameTimer()
 {
 }
-
-void GameController::currentPlayer()
+//Spieler der in der Reihenfolge als erster dran ist.
+Player* GameController::currentPlayer()
 {
+	vector<Player*> playerptrs; //todo füllen aus Model
+	return playerptrs[0];
 }
 
 

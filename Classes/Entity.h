@@ -18,4 +18,6 @@ private:
 	int hitpoints;
 	Vec2 position;
 
+	PhysicsBody* body;
+
 };

@@ -46,6 +46,28 @@ PhysicsBody* ProjectileFactory::createMunitionPhysics(MunitionType mt) {
 	}
 	return nullptr;
 }
+//Create a projectile of type mt for player p on position pos
+Projectile * ProjectileFactory::createProjectile(MunitionType mt, Player * p, Vec2 pos, Vec2 force)
+{
+	GameSprite* ball = nullptr;
+	switch (mt) {
+		case NADE: {
+			ball = GameSprite::gameSpriteWithFile("res/ball.png");
+		}
+		case ROCKET: {
+			ball = GameSprite::gameSpriteWithFile("res/ball.png");
+		}
+		case BULLET: {
+			ball = GameSprite::gameSpriteWithFile("res/ball.png");
+		}
+	}
+
+	ball->setPosition(pos);
+	ball->setPhysicsBody(createMunitionPhysics(mt));
+	CCLOG("Force: %f %f", force.x, force.y);
+	ball->getPhysicsBody()->applyImpulse(force);
+	return ball;
+}
 
 
 ProjectileFactory::~ProjectileFactory()

@@ -1,6 +1,10 @@
 #pragma once
 #include "ProjectileFactory.h"
+#include "Projectile.h"
+#include "Player.h"
 #include "cocos2d.h"
+#include "../view/GameSprite.h"
+
 
 using namespace cocos2d;
 
@@ -15,6 +19,7 @@ public:
 	ProjectileFactory();
 	virtual ~ProjectileFactory();
 	PhysicsBody* createMunitionPhysics(MunitionType mt);
+	Projectile* createProjectile(MunitionType mt, Player* p, Vec2 pos, Vec2 force);
 
 private:
 
