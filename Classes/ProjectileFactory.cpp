@@ -66,7 +66,7 @@ Projectile * ProjectileFactory::createProjectile(MunitionType mt, Player * p, Ve
 	ball->setPhysicsBody(createMunitionPhysics(mt));
 	CCLOG("Force: %f %f", force.x, force.y);
 	ball->getPhysicsBody()->applyImpulse(force);
-	return ball;
+	return nullptr;
 }
 
 

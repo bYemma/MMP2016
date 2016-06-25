@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <list>
-#include "Entity.h"
 #include "Player.h"
 #include "cocos2d.h"
 
@@ -14,7 +13,7 @@ public:
 	virtual ~Entity();
 
 private:
-	Player* owner;
+	//Player* owner;
 	int hitpoints;
 	Vec2 position;
 

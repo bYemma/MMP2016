@@ -13,7 +13,7 @@ void GameController::initGame()
 //dann hat er verloren. Der der als letztes noch min einen Worm hat gewinnt
 bool GameController::hasWinner()
 {
-	vector<Player*> playerptrs; //todo füllen aus Model
+/*	vector<Player*> playerptrs; //todo füllen aus Model
 	int playeramount = playerptrs.size();
 	int deadplayers = 0;
 	for (vector<Player*>::iterator it = playerptrs.begin(); it != playerptrs.end(); ++it) {
@@ -25,7 +25,7 @@ bool GameController::hasWinner()
 
 	if (playeramount - deadplayers == 1) { //todo gleichzeitiger tod
 		return true;
-	}
+	} */
 	return false;
 }
 // Verschiebt Reihenfolge der Spieler [p1,p2,p3]->[p2,p3,p1] falls mal mehr als zwei Spieler spielen sollten

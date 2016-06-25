@@ -16,6 +16,7 @@ class GameLayer : public cocos2d::Layer
 	GameSprite* _ball;
 	GameSprite* _box;
 	GameSprite* _ground;
+	ProgressTimer* roundTimer;
 
 	Size _screenSize;
 	Vec2 _center;
@@ -28,6 +29,8 @@ public:
 	GameLayer();
 	virtual ~GameLayer();
 	virtual bool init();
+
+	void updateTime(float dt);
 
 	static cocos2d::Scene* scene();
 

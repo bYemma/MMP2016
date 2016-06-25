@@ -10,7 +10,7 @@ Player::~Player()
 {
 }
 
-vector<Entity*> Player::getEntities()
+/*vector<Entity*> Player::getEntities()
 {
 	return entPtrs;
-}
+}*/

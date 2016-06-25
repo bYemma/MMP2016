@@ -131,6 +131,8 @@ bool GameLayer::init() {
 	return true;
 
 }
+
+
 std::map<cocos2d::EventKeyboard::KeyCode,
 std::chrono::high_resolution_clock::time_point> GameLayer::keys;
 
