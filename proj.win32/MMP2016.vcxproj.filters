@@ -25,13 +25,13 @@
     <Filter Include="src\controller\collision">
       <UniqueIdentifier>{c5989fba-8504-4852-a060-5da6057a9262}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\data\gamestate">
+      <UniqueIdentifier>{f9c48a02-2755-41db-9968-71aac86433f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameState.cpp">
-      <Filter>src\data</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Projectile.cpp">
       <Filter>src\data</Filter>
@@ -60,13 +60,19 @@
     <ClCompile Include="..\Classes\Entity.cpp">
       <Filter>src\data</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameState.cpp">
+      <Filter>src\data\gamestate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameContext.cpp">
+      <Filter>src\data\gamestate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameState_Running.cpp">
+      <Filter>src\data\gamestate</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameState.h">
-      <Filter>src\data</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Projectile.h">
       <Filter>src\data</Filter>
@@ -94,6 +100,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Entity.h">
       <Filter>src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameState.h">
+      <Filter>src\data\gamestate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameContext.h">
+      <Filter>src\data\gamestate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameState_Running.h">
+      <Filter>src\data\gamestate</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

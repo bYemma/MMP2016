@@ -12,7 +12,10 @@
 class GameLayer : public cocos2d::Layer
 
 {
+	float gametime, roundtime;
 
+	Label* _gametimelabel;
+	Label* _roundtimelabel;
 	GameSprite* _ball;
 	GameSprite* _box;
 	GameSprite* _ground;

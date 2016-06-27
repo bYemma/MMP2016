@@ -1,6 +1,6 @@
 #include "GameController.h"
 #include "Player.h"
-#include <list>
+#include <vector>
 
 GameController::GameController() {
 
@@ -13,10 +13,10 @@ void GameController::initGame()
 //dann hat er verloren. Der der als letztes noch min einen Worm hat gewinnt
 bool GameController::hasWinner()
 {
-/*	vector<Player*> playerptrs; //todo füllen aus Model
+/*	std::vector<Player*> playerptrs; //todo füllen aus Model
 	int playeramount = playerptrs.size();
 	int deadplayers = 0;
-	for (vector<Player*>::iterator it = playerptrs.begin(); it != playerptrs.end(); ++it) {
+	for (std::vector<Player*>::iterator it = playerptrs.begin(); it != playerptrs.end(); ++it) {
 		int entamount = (*it)->getEntities().size();
 		if (entamount == 0) {
 			deadplayers++;
@@ -31,7 +31,7 @@ bool GameController::hasWinner()
 // Verschiebt Reihenfolge der Spieler [p1,p2,p3]->[p2,p3,p1] falls mal mehr als zwei Spieler spielen sollten
 void GameController::nextPlayer()
 {
-	vector<Player*> playerptrs; //todo füllen aus Model
+	std::vector<Player*> playerptrs; //todo füllen aus Model
 	int end = playerptrs.size();
 	playerptrs[end - 1] = playerptrs[0];
 	for (int i = 0; i < end; i++) {
@@ -55,7 +55,7 @@ void GameController::startGameTimer()
 //Spieler der in der Reihenfolge als erster dran ist.
 Player* GameController::currentPlayer()
 {
-	vector<Player*> playerptrs; //todo füllen aus Model
+	std::vector<Player*> playerptrs; //todo füllen aus Model
 	return playerptrs[0];
 }
 

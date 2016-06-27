@@ -1,36 +1,34 @@
-#pragma once
-#ifndef __GAMELAYER_H__
-#define __GAMELAYER_H__
-
-#define GOAL_WIDTH 400
-
-
-#include "GameSprite.h"
-#include "cocos2d.h"
-
 
 class GameState 
-
 {
+public:
+	//pressed = man hält die taste gedrückt, released = man lässt eine taste los
 
-public: // Create GameState as Singleton(?)
-	static GameState & getInstance() {
-		static GameState instance;
-		return instance;
-	}
+	//Move
+	virtual void handle_A_Pressed() = 0;
+	virtual void handle_D_Pressed() = 0;
+	
+	//Jump
+	virtual void handle_SHIFT_Pressed() = 0;
+	
+	//Aim
+	virtual void handle_UP_Pressed() = 0;
+	virtual void handle_DOWN_Pressed() = 0;
+	virtual void handle_LEFT_Pressed() = 0;
+	virtual void handle_RIGHT_Pressed() = 0;
 
-	GameState(GameState const&) = delete;
-	GameState(GameState&&) = delete;
-	GameState& operator=(GameState const&) = delete;
-	GameState& operator=(GameState&&) = delete;
+	//Load shot and fire
+	virtual void handle_SPACE_Pressed() = 0;
+	virtual void handle_SPACE_Released() = 0;
 
-	//maybe controllerfunctions(?)
-	void initGame(); //create players and their stats
-	bool hasWinner(); //check for winner
-	void nextPlayer(); //switch to next player
-	void startRoundTimer(); //starts timer for player to finish his round
-	void startGameTimer(); //starts timer for game to finish
-	void currentPlayer(); //return currently playing player
+	//Beende Spiel
+	virtual void handle_ESC_Released() = 0;
+
+	//Auswahl der Waffen
+	virtual void handle_1_Released() = 0;
+	virtual void handle_2_Released() = 0;
+	virtual void handle_3_Released() = 0;
+
 protected:
 	GameState();
 	virtual ~GameState();
@@ -38,5 +36,4 @@ protected:
 };
 
 
-#endif
 

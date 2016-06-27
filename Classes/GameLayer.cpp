@@ -24,18 +24,30 @@ Scene* GameLayer::scene() {
 }
 
 bool GameLayer::init() {
+
+	gametime = 1200.0f; //20 Minutes for a game
+	roundtime = 45.0f; //45 seconds for a round
+
 	// call to super
 	if (!Layer::init())
 	{
 		return false;
 	}
 
-	
 	_screenSize = Director::getInstance()->getWinSize();
 	_center = Vec2(_screenSize.width * 0.5, _screenSize.height * 0.5);
 	_delta = Vec2(0,0);
 	
-	
+	_gametimelabel = Label::createWithTTF("0", "res/fonts/Minecraft.ttf", 32);
+	_gametimelabel->setPosition(Vec2(_screenSize.width*0.9, _screenSize.height * 0.1));
+	_gametimelabel->setTextColor(Color4B::WHITE);
+	this->addChild(_gametimelabel);
+
+	_roundtimelabel = Label::createWithTTF("0", "res/fonts/Minecraft.ttf", 32);
+	_roundtimelabel->setPosition(Vec2(_screenSize.width*0.9, _screenSize.height * 0.2));
+	_roundtimelabel->setTextColor(Color4B::RED);
+	this->addChild(_gametimelabel);
+
 	//Ground evtl erstellen als Polygon mit "random noise" werten(siehe simplexnoise google)
 	auto groundBody = PhysicsBody::createBox(
 		Size(1920.0f, 32.0f),
@@ -157,7 +169,19 @@ double GameLayer::keyPressedDuration(EventKeyboard::KeyCode code) {
 }
 
 void GameLayer::update(float dt) {
+	gametime -= dt;
+	roundtime -= dt;
 
+	int minutes = (int)gametime/60;
+	int seconds = (int)gametime % 60;
+
+	_gametimelabel->setString(std::to_string(minutes) + ":" + std::to_string(seconds));
+	_roundtimelabel->setString(std::to_string(roundtime));
+
+	if (roundtime <= 0) {
+		roundtime = 0;
+		//GAME OVER
+	}
 
 }
 

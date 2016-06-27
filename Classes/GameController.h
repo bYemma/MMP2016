@@ -1,7 +1,6 @@
 #include "cocos2d.h"
 #include "ProjectileFactory.h"
 #include "Player.h"
-
 class GameController
 
 {
