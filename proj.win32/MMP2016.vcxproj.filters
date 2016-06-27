@@ -51,9 +51,6 @@
     <ClCompile Include="..\Classes\GameSprite.cpp">
       <Filter>src\view</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\StartScene.cpp">
-      <Filter>src\view</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Player.cpp">
       <Filter>src\data</Filter>
     </ClCompile>
@@ -68,6 +65,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\GameState_Running.cpp">
       <Filter>src\data\gamestate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MenuScene.cpp">
+      <Filter>src\view</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,9 +92,6 @@
     <ClInclude Include="..\Classes\GameSprite.h">
       <Filter>src\view</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\StartScene.h">
-      <Filter>src\view</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Player.h">
       <Filter>src\data</Filter>
     </ClInclude>
@@ -109,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GameState_Running.h">
       <Filter>src\data\gamestate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MenuScene.h">
+      <Filter>src\view</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
