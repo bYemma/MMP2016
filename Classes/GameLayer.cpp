@@ -46,7 +46,7 @@ bool GameLayer::init() {
 	_roundtimelabel = Label::createWithTTF("0", "res/fonts/Minecraft.ttf", 32);
 	_roundtimelabel->setPosition(Vec2(_screenSize.width*0.9, _screenSize.height * 0.2));
 	_roundtimelabel->setTextColor(Color4B::RED);
-	this->addChild(_gametimelabel);
+	this->addChild(_roundtimelabel);
 
 	//Ground evtl erstellen als Polygon mit "random noise" werten(siehe simplexnoise google)
 	auto groundBody = PhysicsBody::createBox(
@@ -176,7 +176,7 @@ void GameLayer::update(float dt) {
 	int seconds = (int)gametime % 60;
 
 	_gametimelabel->setString(std::to_string(minutes) + ":" + std::to_string(seconds));
-	_roundtimelabel->setString(std::to_string(roundtime));
+	_roundtimelabel->setString(std::to_string((int)roundtime));
 
 	if (roundtime <= 0) {
 		roundtime = 0;
