@@ -1,7 +1,7 @@
 #include "AppDelegate.h"
+#include "MenuScene.h"
 
-#include "GameLayer.h"
-
+using namespace cocos2d;
 
 AppDelegate::AppDelegate() {
 
@@ -48,7 +48,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	glview->setDesignResolutionSize(glview->getFrameSize().width, glview->getFrameSize().height, ResolutionPolicy::SHOW_ALL);
 
 	// create a scene. it's an autorelease object
-	auto scene = GameLayer::scene();
+	auto scene = MenuScene::createScene();
 
 	// run
 	director->runWithScene(scene);

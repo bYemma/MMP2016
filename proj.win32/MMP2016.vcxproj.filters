@@ -60,6 +60,9 @@
     <ClCompile Include="..\Classes\Entity.cpp">
       <Filter>src\data</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\MenuScene.cpp">
+      <Filter>src\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -94,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Entity.h">
       <Filter>src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MenuScene.h">
+      <Filter>src\view</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
