@@ -38,12 +38,13 @@ bool GameLayer::init() {
 	_center = Vec2(_screenSize.width * 0.5, _screenSize.height * 0.5);
 	_delta = Vec2(0,0);
 	
+	//Create Labels to show round and game time
 	_gametimelabel = Label::createWithTTF("0", "res/fonts/Minecraft.ttf", 32);
 	_gametimelabel->setPosition(Vec2(_screenSize.width*0.9, _screenSize.height * 0.1));
 	_gametimelabel->setTextColor(Color4B::WHITE);
 	this->addChild(_gametimelabel);
 
-	_roundtimelabel = Label::createWithTTF("0", "res/fonts/Minecraft.ttf", 32);
+	_roundtimelabel = Label::createWithTTF("0", "res/fonts/Minecraft.ttf", 72);
 	_roundtimelabel->setPosition(Vec2(_screenSize.width*0.9, _screenSize.height * 0.2));
 	_roundtimelabel->setTextColor(Color4B::RED);
 	this->addChild(_roundtimelabel);
@@ -87,6 +88,7 @@ bool GameLayer::init() {
 	
 	auto pf = ProjectileFactory::ProjectileFactory();
 
+
 	auto eventListener = EventListenerKeyboard::create();
 	eventListener->onKeyPressed = [&](EventKeyboard::KeyCode keyCode, Event* event) {
 
@@ -112,7 +114,7 @@ bool GameLayer::init() {
 		case EventKeyboard::KeyCode::KEY_UP_ARROW: //aim up -> increase aimangle(from 0 to 90)
 		case EventKeyboard::KeyCode::KEY_W: {
 			//todo pack this in one class / method for every munition
-			//todo: geht force from input, http://www.cocos2d-x.org/wiki/Physics for more 
+			//todo: geht force from input, http://www.cocos2d-x.org/wiki/Physics for more
 			auto ball = GameSprite::gameSpriteWithFile("res/ball.png");
 			ball->setPosition(Vec2(400.0f, 500.0f));
 			ball->setPhysicsBody(pf.createMunitionPhysics(ProjectileFactory::MunitionType::NADE));
