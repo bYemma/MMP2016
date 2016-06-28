@@ -100,11 +100,12 @@ bool GameLayer::init() {
 
 	auto eventListener = EventListenerKeyboard::create();
 	eventListener->onKeyPressed = [&](EventKeyboard::KeyCode keyCode, Event* event) {
-
+		//Register key for time measurement
 		if (keys.find(keyCode) == keys.end()) {
 			keys[keyCode] = std::chrono::high_resolution_clock::now();
 		}
-		Vec2 aiming_direction;
+
+
 		Vec2 loc = event->getCurrentTarget()->getPosition();
 		switch (keyCode) {
 			case EventKeyboard::KeyCode::KEY_ESCAPE:
@@ -120,15 +121,6 @@ bool GameLayer::init() {
 				break;
 			case EventKeyboard::KeyCode::KEY_UP_ARROW: //aim up -> increase aimangle(from 0 to 90)
 			case EventKeyboard::KeyCode::KEY_W: {
-				//todo pack this in one class / method for every munition
-				//todo: geht force from input, http://www.cocos2d-x.org/wiki/Physics for more
-				auto ball = GameSprite::gameSpriteWithFile("res/ball.png");
-				ball->setPosition(Vec2(400.0f, 500.0f));
-				ball->setPhysicsBody(pf.createMunitionPhysics(ProjectileFactory::MunitionType::NADE));
-				Vec2 force = Vec2(200.0f * 10.0f, 400.0f * 10.0f);
-				CCLOG("Force: %f %f", force.x, force.y);
-				ball->getPhysicsBody()->applyImpulse(force);
-				this->addChild(ball);
 
 				break;
 			}
@@ -141,26 +133,54 @@ bool GameLayer::init() {
 	};
 
 	eventListener->onKeyReleased = [&](EventKeyboard::KeyCode keyCode, Event* event) {
-		//measure time key was pressed
+
+		float aimangle;
+		Vec2 aimingdirection;
+
+		//measure time key was hold down
 		double shotstrengthtime_mili = keyPressedDuration(EventKeyboard::KeyCode::KEY_SPACE);
-		double shotstrengthtime_sec = shotstrengthtime_mili/1000;
+		float shotstrengthtime_sec = shotstrengthtime_mili/1000.0f;
+
+		float aimUp_time_mili = keyPressedDuration(EventKeyboard::KeyCode::KEY_UP_ARROW);
+		float aimDown_time_mili = keyPressedDuration(EventKeyboard::KeyCode::KEY_DOWN_ARROW);
+
 		//remove key from notifier list
 		keys.erase(keyCode);
 
 		switch (keyCode) {
-			case EventKeyboard::KeyCode::KEY_SPACE: {
-				Vec2 force = Vec2(200.0f * shotstrengthtime_sec, 400.0f * shotstrengthtime_sec);
-				CCLOG("Time: %f", shotstrengthtime_sec);
-				auto ball = GameSprite::gameSpriteWithFile("res/ball.png");
-				ball->setPosition(Vec2(400.0f, 500.0f));
-				ball->setPhysicsBody(pf.createMunitionPhysics(ProjectileFactory::MunitionType::NADE));
-				CCLOG("Force: %f %f", force.x, force.y);
-				ball->getPhysicsBody()->applyImpulse(force);
-				this->addChild(ball);
+		case EventKeyboard::KeyCode::KEY_SPACE: {
+			//todo pack this in one class / method for every munition
+			//todo: geht force from input, http://www.cocos2d-x.org/wiki/Physics for more
+			Vec2 force = Vec2(1000.0f * shotstrengthtime_sec, 3000.0f * shotstrengthtime_sec);
+			CCLOG("Time: %f", shotstrengthtime_sec);
+			auto ball = GameSprite::gameSpriteWithFile("res/ball.png");
+			ball->setPosition(Vec2(400.0f, 500.0f));
+			ball->setPhysicsBody(pf.createMunitionPhysics(ProjectileFactory::MunitionType::NADE));
+			CCLOG("Force: %f %f", force.x, force.y);
+			ball->getPhysicsBody()->applyImpulse(force);
+			this->addChild(ball);
 
-				break;
-			}
+			break; 
 		}
+		case EventKeyboard::KeyCode::KEY_UP_ARROW: { //todo:Stimmt noch nicht
+			if (aimingdirection.x < 0) { //aim to the left
+				aimangle += aimangle*aimUp_time_mili; //increase angle
+			} else {
+				aimangle -= aimangle*aimUp_time_mili; //decrease angle
+			}
+
+			break;
+		}
+		case EventKeyboard::KeyCode::KEY_DOWN_ARROW: {
+			if (aimingdirection.x < 0) { //aim to the left
+				aimangle -= aimangle*aimDown_time_mili; //increase angle
+			}
+			else {
+				aimangle += aimangle*aimDown_time_mili; //increase angle
+			}
+			break; 
+		}
+			}
 	};
 
 	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, _ball);
