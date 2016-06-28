@@ -134,8 +134,8 @@ bool GameLayer::init() {
 
 	eventListener->onKeyReleased = [&](EventKeyboard::KeyCode keyCode, Event* event) {
 
-		float aimangle;
-		Vec2 aimingdirection;
+		float aimangle = 0.0f;
+		Vec2 aimingdirection = Vec2(0.0f,0.0f);
 
 		//measure time key was hold down
 		double shotstrengthtime_mili = keyPressedDuration(EventKeyboard::KeyCode::KEY_SPACE);
