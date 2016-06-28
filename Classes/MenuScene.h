@@ -19,6 +19,7 @@ public:
 
 	// Button-Klick Callback
 	void buttonPressed();
+	void button2Pressed();
 };
 
 #endif // __MENUSCENE_H__

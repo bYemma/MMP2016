@@ -1,4 +1,5 @@
 #include "MenuScene.h"
+#include "MapScene.h"
 #include "GameLayer.h"
 #include "iostream"
 
@@ -31,11 +32,22 @@ bool MenuScene::init()
 	btn->addClickEventListener(CC_CALLBACK_0(MenuScene::buttonPressed, this));
 	this->addChild(btn);
 
+	ui::Button* btn2 = ui::Button::create("res/menu-button.png");
+	btn2->setPosition(Vec2(_sSize.width * 0.5 + 143, _sSize.height * 0.5 - 254));
+	btn2->addClickEventListener(CC_CALLBACK_0(MenuScene::button2Pressed, this));
+	this->addChild(btn2);
+
 	return true;
 }
 
 void MenuScene::buttonPressed() {
 	auto director = Director::getInstance();
 	auto scene = GameLayer::scene();
+	director->replaceScene(scene);
+}
+
+void MenuScene::button2Pressed() {
+	auto director = Director::getInstance();
+	auto scene = MapScene::createScene();
 	director->replaceScene(scene);
 }
