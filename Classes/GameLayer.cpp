@@ -49,7 +49,7 @@ bool GameLayer::init() {
 	_roundtimelabel->setTextColor(Color4B::RED);
 	this->addChild(_roundtimelabel);
 
-	//Ground evtl erstellen als Polygon mit "random noise" werten(siehe simplexnoise google)
+	//Ground
 	auto groundBody = PhysicsBody::createBox(
 		Size(1920.0f, 32.0f),
 		PhysicsMaterial(0.1f, 1.0f, 0.5f)
