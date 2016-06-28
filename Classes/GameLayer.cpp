@@ -34,10 +34,19 @@ bool GameLayer::init() {
 		return false;
 	}
 
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Point origin = Director::getInstance()->getVisibleOrigin();
 	_screenSize = Director::getInstance()->getWinSize();
 	_center = Vec2(_screenSize.width * 0.5, _screenSize.height * 0.5);
 	_delta = Vec2(0,0);
-	
+
+	//Create background and scale to screensize
+	auto bgImage = Sprite::create("res/ballz_background.png");
+	bgImage->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	bgImage->setScaleX((_screenSize.width / bgImage->getContentSize().width));
+	bgImage->setScaleY((_screenSize.height / bgImage->getContentSize().height));
+	this->addChild(bgImage);
+
 	//Create Labels to show round and game time
 	_gametimelabel = Label::createWithTTF("0", "res/fonts/Minecraft.ttf", 32);
 	_gametimelabel->setPosition(Vec2(_screenSize.width*0.9, _screenSize.height * 0.1));
@@ -95,46 +104,63 @@ bool GameLayer::init() {
 		if (keys.find(keyCode) == keys.end()) {
 			keys[keyCode] = std::chrono::high_resolution_clock::now();
 		}
-
-		double deltaT =  keyPressedDuration(EventKeyboard::KeyCode::KEY_CTRL);
-
+		Vec2 aiming_direction;
 		Vec2 loc = event->getCurrentTarget()->getPosition();
 		switch (keyCode) {
-		case EventKeyboard::KeyCode::KEY_ESCAPE:
-			Director::getInstance()->end();
-			break;
-		case EventKeyboard::KeyCode::KEY_A:
-		case EventKeyboard::KeyCode::KEY_LEFT_ARROW: //switch aiming direction to left side
-			event->getCurrentTarget()->setPosition(--loc.x, loc.y);
-			break;
-		case EventKeyboard::KeyCode::KEY_RIGHT_ARROW: //switch aiming direction to right side
-		case EventKeyboard::KeyCode::KEY_D:
-			event->getCurrentTarget()->setPosition(++loc.x, loc.y);
-			break;
-		case EventKeyboard::KeyCode::KEY_UP_ARROW: //aim up -> increase aimangle(from 0 to 90)
-		case EventKeyboard::KeyCode::KEY_W: {
-			//todo pack this in one class / method for every munition
-			//todo: geht force from input, http://www.cocos2d-x.org/wiki/Physics for more
-			auto ball = GameSprite::gameSpriteWithFile("res/ball.png");
-			ball->setPosition(Vec2(400.0f, 500.0f));
-			ball->setPhysicsBody(pf.createMunitionPhysics(ProjectileFactory::MunitionType::NADE));
-			Vec2 force = Vec2(200*10.0f, 400 * 10.0f);
-			CCLOG("Force: %f %f", force.x, force.y);
-			ball->getPhysicsBody()->applyImpulse(force);
-			this->addChild(ball);
+			case EventKeyboard::KeyCode::KEY_ESCAPE:
+				Director::getInstance()->end();
+				break;
+			case EventKeyboard::KeyCode::KEY_A:
+			case EventKeyboard::KeyCode::KEY_LEFT_ARROW: //switch aiming direction to left side
+				event->getCurrentTarget()->setPosition(--loc.x, loc.y);
+				break;
+			case EventKeyboard::KeyCode::KEY_RIGHT_ARROW: //switch aiming direction to right side
+			case EventKeyboard::KeyCode::KEY_D:
+				event->getCurrentTarget()->setPosition(++loc.x, loc.y);
+				break;
+			case EventKeyboard::KeyCode::KEY_UP_ARROW: //aim up -> increase aimangle(from 0 to 90)
+			case EventKeyboard::KeyCode::KEY_W: {
+				//todo pack this in one class / method for every munition
+				//todo: geht force from input, http://www.cocos2d-x.org/wiki/Physics for more
+				auto ball = GameSprite::gameSpriteWithFile("res/ball.png");
+				ball->setPosition(Vec2(400.0f, 500.0f));
+				ball->setPhysicsBody(pf.createMunitionPhysics(ProjectileFactory::MunitionType::NADE));
+				Vec2 force = Vec2(200.0f * 10.0f, 400.0f * 10.0f);
+				CCLOG("Force: %f %f", force.x, force.y);
+				ball->getPhysicsBody()->applyImpulse(force);
+				this->addChild(ball);
 
-			break;
-		}
+				break;
+			}
 
-		case EventKeyboard::KeyCode::KEY_DOWN_ARROW: //aim down -> decrease aimangle(from 0 to 90)
-		case EventKeyboard::KeyCode::KEY_S:
-			event->getCurrentTarget()->setPosition(loc.x, --loc.y);
-			break;
+			case EventKeyboard::KeyCode::KEY_DOWN_ARROW: //aim down -> decrease aimangle(from 0 to 90)
+			case EventKeyboard::KeyCode::KEY_S:
+				event->getCurrentTarget()->setPosition(loc.x, --loc.y);
+				break;
 		}
 	};
 
-	eventListener->onKeyReleased = [=](EventKeyboard::KeyCode keyCode, Event* event) {
+	eventListener->onKeyReleased = [&](EventKeyboard::KeyCode keyCode, Event* event) {
+		//measure time key was pressed
+		double shotstrengthtime_mili = keyPressedDuration(EventKeyboard::KeyCode::KEY_SPACE);
+		double shotstrengthtime_sec = shotstrengthtime_mili/1000;
+		//remove key from notifier list
 		keys.erase(keyCode);
+
+		switch (keyCode) {
+			case EventKeyboard::KeyCode::KEY_SPACE: {
+				Vec2 force = Vec2(200.0f * shotstrengthtime_sec, 400.0f * shotstrengthtime_sec);
+				CCLOG("Time: %f", shotstrengthtime_sec);
+				auto ball = GameSprite::gameSpriteWithFile("res/ball.png");
+				ball->setPosition(Vec2(400.0f, 500.0f));
+				ball->setPhysicsBody(pf.createMunitionPhysics(ProjectileFactory::MunitionType::NADE));
+				CCLOG("Force: %f %f", force.x, force.y);
+				ball->getPhysicsBody()->applyImpulse(force);
+				this->addChild(ball);
+
+				break;
+			}
+		}
 	};
 
 	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, _ball);
@@ -160,7 +186,7 @@ bool GameLayer::isKeyPressed(EventKeyboard::KeyCode code) {
 // Useful for measuring how long the player "loaded" the shot
 //-> we can set velocity of a shot depending on that time
 double GameLayer::keyPressedDuration(EventKeyboard::KeyCode code) {
-	if (!isKeyPressed(EventKeyboard::KeyCode::KEY_CTRL))
+	if (!isKeyPressed(code))
 		return 0;  // Not pressed, so no duration obviously
 
 				   // Return the amount of time that has elapsed between now and when the user
@@ -182,9 +208,13 @@ void GameLayer::update(float dt) {
 
 	if (roundtime <= 0) {
 		roundtime = 0;
-		//GAME OVER
+		//ROUND OVER
 	}
 
+	if (gametime <= 0) {
+		gametime = 0;
+		//GAME OVER
+	}
 }
 
 
