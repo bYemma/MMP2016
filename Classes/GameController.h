@@ -17,8 +17,11 @@ public:
 	void startRoundTimer(); //starts timer for player to finish his round
 	void startGameTimer(); //starts timer for game to finish
 
+	void moveSelectedEntity(); //moves currently played figure through the terrain by userinput
+
 	void handleCollision();
-	void applyDamage(ProjectileFactory::MunitionType mt);
+	void applyDamage();
+	void destroyTerrain();
 
 protected:
 	GameController();

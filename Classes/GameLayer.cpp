@@ -24,6 +24,8 @@ Scene* GameLayer::scene() {
 	return scene;
 }
 
+static std::map<cocos2d::EventKeyboard::KeyCode, std::chrono::high_resolution_clock::time_point> keys;
+
 bool GameLayer::init() {
 
 	gametime = 1200.0f; //20 Minutes for a game
@@ -68,7 +70,7 @@ bool GameLayer::init() {
 	//Create Ground
 	auto groundBody = PhysicsBody::createBox(
 		Size(1920.0f, 32.0f),
-		PhysicsMaterial(0.1f, 1.0f, 0.5f)
+		PhysicsMaterial(0.1f, 0.0f, 0.5f)
 	);
 
 	groundBody->setDynamic(false);
@@ -111,7 +113,7 @@ bool GameLayer::init() {
 
 		target = event->getCurrentTarget();
 
-		//Register key for time measurement
+		//Register key for time and hold down measurement
 		if (keys.find(keyCode) == keys.end()) {
 			keys[keyCode] = std::chrono::high_resolution_clock::now();
 		}
@@ -120,6 +122,9 @@ bool GameLayer::init() {
 		switch (keyCode) {
 			case EventKeyboard::KeyCode::KEY_ESCAPE:
 				Director::getInstance()->end();
+				break;
+			case EventKeyboard::KeyCode::KEY_SHIFT:
+				event->getCurrentTarget()->getPhysicsBody()->applyImpulse(Vec2(3000.0f, 12000.0f));
 				break;
 			case EventKeyboard::KeyCode::KEY_A:
 			case EventKeyboard::KeyCode::KEY_LEFT_ARROW: //switch aiming direction to left side
@@ -162,7 +167,7 @@ bool GameLayer::init() {
 				//todo: geht force from input, http://www.cocos2d-x.org/wiki/Physics for more
 				Vec2 force = Vec2(1000.0f * shotstrengthtime_sec, 3000.0f * shotstrengthtime_sec);
 				CCLOG("Time: %f", shotstrengthtime_sec);
-				auto ball = GameSprite::gameSpriteWithFile("res/ball.png");
+				auto ball = GameSprite::createWithTexture(_ball->getTexture());
 				ball->setPhysicsBody(PhysicsBody::createCircle(
 					17.5f,
 					PhysicsMaterial(0.0f, 0.4f, 1.0f)
@@ -196,8 +201,18 @@ bool GameLayer::init() {
 		}
 	};
 
+	//Probably usefull if physics bugs...dont know yet why 
+	auto contactListener = EventListenerPhysicsContact::create();
+	//contactListener->onContactBegin = CC_CALLBACK_1(GameLayer::onContactBegin, this);
+	contactListener->onContactPreSolve = CC_CALLBACK_2(GameLayer::onContactPreSolve, this);
+	//contactListener->onContactPostSolve = CC_CALLBACK_2(GameLayer::onContactPostSolve, this);
+	//contactListener->onContactSeperate = CC_CALLBACK_1(GameLayer::onContactSeperate, this);
+	
+	
+	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, _ground);
 	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, _ball);
 
+	//Schedule all events where key is hold down
 	this->schedule(schedule_selector(GameLayer::onKeyHold));
 
 	//create main loop
@@ -205,6 +220,14 @@ bool GameLayer::init() {
 	return true;
 
 }
+
+// Calling it to eliminate The Jumping Effect... Restitution
+bool GameLayer::onContactPreSolve(PhysicsContact& contact,
+	PhysicsContactPreSolve& solve) {
+	solve.setRestitution(0);
+	return true;
+}
+
 
 void GameLayer::onKeyHold(float interval) {
 
@@ -216,15 +239,12 @@ void GameLayer::onKeyHold(float interval) {
 	}
 
 	if (keys.find(EventKeyboard::KeyCode::KEY_LEFT_ARROW) != keys.end()) {
-		// right pressed
+		// left pressed
 		Vec2 loc = target->getPosition();
 		target->setPosition(--loc.x, loc.y);
 	}
 
 }
-
-std::map<cocos2d::EventKeyboard::KeyCode,
-std::chrono::high_resolution_clock::time_point> GameLayer::keys;
 
 bool GameLayer::isKeyPressed(EventKeyboard::KeyCode code) {
 	// Check if the key is currently pressed by seeing it it's in the std::map keys

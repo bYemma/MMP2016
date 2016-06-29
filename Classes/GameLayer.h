@@ -13,8 +13,10 @@
 class GameLayer : public cocos2d::Layer
 
 {
+
+	//all in one data /controller class?!?@TODO
 	float gametime, roundtime;
-	Node* target = nullptr;
+	Node* target = nullptr; // currently controlled entity via eventlistener
 
 	Label* _gametimelabel;
 	Label* _roundtimelabel;
@@ -28,27 +30,33 @@ class GameLayer : public cocos2d::Layer
 	Size _screenSize;
 	Vec2 _center;
 	Vec2 _delta;
-
-	
-	
+		
 
 public:
 	GameLayer();
 	virtual ~GameLayer();
 	virtual bool init();
 
-	void onKeyHold(float interval);
 
 	static cocos2d::Scene* scene();
 
 	bool isKeyPressed(cocos2d::EventKeyboard::KeyCode);
 	double keyPressedDuration(cocos2d::EventKeyboard::KeyCode);
+	void onKeyHold(float interval);
+
+
+	// Physics Contact Listener.....
+	bool onContactBegin(PhysicsContact& contact);
+	bool onContactPreSolve(PhysicsContact& contact,
+		PhysicsContactPreSolve& solve);
+	void onContactPostSolve(PhysicsContact& contact,
+		const PhysicsContactPostSolve& solve);
+	void onContactSeperate(PhysicsContact& contact);
 
 	CREATE_FUNC(GameLayer);
 
 private:
-	static std::map<cocos2d::EventKeyboard::KeyCode,
-		std::chrono::high_resolution_clock::time_point> keys;
+	//key = keycode, value = time
 	void update(float dt);
 };
 

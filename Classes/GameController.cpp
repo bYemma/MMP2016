@@ -19,7 +19,7 @@ void GameController::endGame()
 //dann hat er verloren. Der der als letztes noch min einen Worm hat gewinnt
 bool GameController::hasWinner()
 {
-/*	std::vector<Player*> playerptrs; //todo füllen aus Model
+	std::vector<Player*> playerptrs; //todo füllen aus Model
 	int playeramount = playerptrs.size();
 	int deadplayers = 0;
 	for (std::vector<Player*>::iterator it = playerptrs.begin(); it != playerptrs.end(); ++it) {
@@ -31,7 +31,7 @@ bool GameController::hasWinner()
 
 	if (playeramount - deadplayers == 1) { //todo gleichzeitiger tod
 		return true;
-	} */
+	}
 	return false;
 }
 // Verschiebt Reihenfolge der Spieler [p1,p2,p3]->[p2,p3,p1] falls mal mehr als zwei Spieler spielen sollten
@@ -39,16 +39,12 @@ void GameController::nextPlayer()
 {
 	std::vector<Player*> playerptrs; //todo füllen aus Model
 	int end = playerptrs.size();
-	playerptrs[end - 1] = playerptrs[0];
-	for (int i = 0; i < end; i++) {
-		if (i + 1 < end-1) {
-			playerptrs[i] = playerptrs[i + 1];
-		}
-		else {
-			playerptrs[i] = playerptrs[i + 1];
-		}
+	Player* last = playerptrs[end - 1];//first player is now last
+	playerptrs[end - 1] = playerptrs[0];//first player is now last
+	for (int i = 0; i < end-1; i++) { //move all players forward
+		playerptrs[i] = playerptrs[i + 1];
 	}
-
+	playerptrs[end - 2] = last;
 }
 
 void GameController::startRoundTimer()
