@@ -17,11 +17,17 @@ public:
 	enum MunitionType { ROCKET, NADE, BULLET };
 
 	ProjectileFactory();
+
 	virtual ~ProjectileFactory();
-	PhysicsBody* createMunitionPhysics(MunitionType mt);
-	Projectile* createProjectile(MunitionType mt, Player* p, Vec2 pos, Vec2 force);
+
+	virtual Projectile* createProjectile() = 0;
 
 private:
-
 };
 
+template <class T>
+class ProjectileFactoryFor : public ProjectileFactory
+{
+public:
+	virtual Projectile* createProjectile() { return new T(); }
+};

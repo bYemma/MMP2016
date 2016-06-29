@@ -3,6 +3,7 @@
 #define COCOS2D_DEBUG 1
 #include "GameLayer.h"
 #include "ProjectileFactory.h"
+#include "NadeProjectile.h"
 #include <iostream>
 
 using namespace cocos2d;
@@ -58,7 +59,13 @@ bool GameLayer::init() {
 	_roundtimelabel->setTextColor(Color4B::RED);
 	this->addChild(_roundtimelabel);
 
-	//Ground
+	//Windlabel
+	_windlabel = Label::createWithTTF("Wind: 0", "res/fonts/Minecraft.ttf", 42);
+	_windlabel->setPosition(Vec2(_screenSize.width*0.88, _screenSize.height * 0.11));
+	_windlabel->setTextColor(Color4B::BLUE);
+	this->addChild(_windlabel);
+
+	//Create Ground
 	auto groundBody = PhysicsBody::createBox(
 		Size(1920.0f, 32.0f),
 		PhysicsMaterial(0.1f, 1.0f, 0.5f)
@@ -85,26 +92,29 @@ bool GameLayer::init() {
 
 	auto ballBody = PhysicsBody::createCircle(
 		17.5f,
-		PhysicsMaterial(0.5f, 0.4f, 1.0f)
+		PhysicsMaterial(0.0f, 0.4f, 1.0f)
 	);
 
-	ballBody->setMass(10.0f);
+	ballBody->setMass(50.0f);
 	_ball = GameSprite::gameSpriteWithFile("res/ball.png");
 	_ball->setPosition(Vec2(400.0f, 500.0f));
 	this->addChild(_ball);
 
 	_ball->setPhysicsBody(ballBody);
 	
-	auto pf = ProjectileFactory::ProjectileFactory();
+	ProjectileFactory* pf_nade = new ProjectileFactoryFor<NadeProjectile>();
 
 
+	//Eventlistening for Keyboard
 	auto eventListener = EventListenerKeyboard::create();
 	eventListener->onKeyPressed = [&](EventKeyboard::KeyCode keyCode, Event* event) {
+
+		target = event->getCurrentTarget();
+
 		//Register key for time measurement
 		if (keys.find(keyCode) == keys.end()) {
 			keys[keyCode] = std::chrono::high_resolution_clock::now();
 		}
-
 
 		Vec2 loc = event->getCurrentTarget()->getPosition();
 		switch (keyCode) {
@@ -124,7 +134,6 @@ bool GameLayer::init() {
 
 				break;
 			}
-
 			case EventKeyboard::KeyCode::KEY_DOWN_ARROW: //aim down -> decrease aimangle(from 0 to 90)
 			case EventKeyboard::KeyCode::KEY_S:
 				event->getCurrentTarget()->setPosition(loc.x, --loc.y);
@@ -148,43 +157,48 @@ bool GameLayer::init() {
 		keys.erase(keyCode);
 
 		switch (keyCode) {
-		case EventKeyboard::KeyCode::KEY_SPACE: {
-			//todo pack this in one class / method for every munition
-			//todo: geht force from input, http://www.cocos2d-x.org/wiki/Physics for more
-			Vec2 force = Vec2(1000.0f * shotstrengthtime_sec, 3000.0f * shotstrengthtime_sec);
-			CCLOG("Time: %f", shotstrengthtime_sec);
-			auto ball = GameSprite::gameSpriteWithFile("res/ball.png");
-			ball->setPosition(Vec2(400.0f, 500.0f));
-			ball->setPhysicsBody(pf.createMunitionPhysics(ProjectileFactory::MunitionType::NADE));
-			CCLOG("Force: %f %f", force.x, force.y);
-			ball->getPhysicsBody()->applyImpulse(force);
-			this->addChild(ball);
+			case EventKeyboard::KeyCode::KEY_SPACE: {
+				//todo pack this in one class / method for every munition
+				//todo: geht force from input, http://www.cocos2d-x.org/wiki/Physics for more
+				Vec2 force = Vec2(1000.0f * shotstrengthtime_sec, 3000.0f * shotstrengthtime_sec);
+				CCLOG("Time: %f", shotstrengthtime_sec);
+				auto ball = GameSprite::gameSpriteWithFile("res/ball.png");
+				ball->setPhysicsBody(PhysicsBody::createCircle(
+					17.5f,
+					PhysicsMaterial(0.0f, 0.4f, 1.0f)
+				));
+				ball->getPhysicsBody()->setMass(10);
+				ball->setPosition(Vec2(500, 500));
+				CCLOG("Force: %f %f", force.x, force.y);
+				ball->getPhysicsBody()->applyImpulse(force);
+				this->addChild(ball);
 
-			break; 
-		}
-		case EventKeyboard::KeyCode::KEY_UP_ARROW: { //todo:Stimmt noch nicht
-			if (aimingdirection.x < 0) { //aim to the left
-				aimangle += aimangle*aimUp_time_mili; //increase angle
-			} else {
-				aimangle -= aimangle*aimUp_time_mili; //decrease angle
+				break; 
 			}
+			case EventKeyboard::KeyCode::KEY_UP_ARROW: { //todo:Stimmt noch nicht
+				if (aimingdirection.x < 0) { //aim to the left
+					aimangle += aimangle*aimUp_time_mili; //increase angle
+				} else {
+					aimangle -= aimangle*aimUp_time_mili; //decrease angle
+				}
 
-			break;
+				break;
+			}
+			case EventKeyboard::KeyCode::KEY_DOWN_ARROW: {
+				if (aimingdirection.x < 0) { //aim to the left
+					aimangle -= aimangle*aimDown_time_mili; //increase angle
+				}
+				else {
+					aimangle += aimangle*aimDown_time_mili; //increase angle
+				}
+				break; 
+			}
 		}
-		case EventKeyboard::KeyCode::KEY_DOWN_ARROW: {
-			if (aimingdirection.x < 0) { //aim to the left
-				aimangle -= aimangle*aimDown_time_mili; //increase angle
-			}
-			else {
-				aimangle += aimangle*aimDown_time_mili; //increase angle
-			}
-			break; 
-		}
-			}
 	};
 
 	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, _ball);
 
+	this->schedule(schedule_selector(GameLayer::onKeyHold));
 
 	//create main loop
 	this->scheduleUpdate();
@@ -192,6 +206,22 @@ bool GameLayer::init() {
 
 }
 
+void GameLayer::onKeyHold(float interval) {
+
+
+	if (keys.find(EventKeyboard::KeyCode::KEY_RIGHT_ARROW) != keys.end()) {
+		// right pressed
+		Vec2 loc = target->getPosition();
+		target->setPosition(++loc.x, loc.y);
+	}
+
+	if (keys.find(EventKeyboard::KeyCode::KEY_LEFT_ARROW) != keys.end()) {
+		// right pressed
+		Vec2 loc = target->getPosition();
+		target->setPosition(--loc.x, loc.y);
+	}
+
+}
 
 std::map<cocos2d::EventKeyboard::KeyCode,
 std::chrono::high_resolution_clock::time_point> GameLayer::keys;

@@ -3,9 +3,11 @@
 
 
 Projectile::Projectile() {
-
 }
 
-Projectile::~Projectile()
+GameSprite * Projectile::getSprite()
 {
+	return sprite;
 }
+
+

@@ -9,6 +9,12 @@ GameController::GameController() {
 void GameController::initGame()
 {
 }
+
+void GameController::endGame()
+{
+	Director::getInstance()->end();
+}
+
 //Wenn ein Spieler keine Worms mehr hat(in player: entityptrs gespeichert)
 //dann hat er verloren. Der der als letztes noch min einen Worm hat gewinnt
 bool GameController::hasWinner()

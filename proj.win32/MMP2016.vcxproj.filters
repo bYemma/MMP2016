@@ -28,16 +28,13 @@
     <Filter Include="src\data\gamestate">
       <UniqueIdentifier>{f9c48a02-2755-41db-9968-71aac86433f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\data\projectiles">
+      <UniqueIdentifier>{587e99a5-8a1c-471a-ae17-911ea0602177}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Projectile.cpp">
-      <Filter>src\data</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\ProjectileFactory.cpp">
-      <Filter>src\data</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameController.cpp">
       <Filter>src\controller</Filter>
@@ -75,16 +72,20 @@
     <ClCompile Include="..\Classes\MapScene.cpp">
       <Filter>src\view</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Terrain.cpp" />
+    <ClCompile Include="..\Classes\NadeProjectile.cpp">
+      <Filter>src\data\projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Projectile.cpp">
+      <Filter>src\data\projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ProjectileFactory.cpp">
+      <Filter>src\data\projectiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Projectile.h">
-      <Filter>src\data</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ProjectileFactory.h">
-      <Filter>src\data</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameController.h">
       <Filter>src\controller</Filter>
@@ -121,6 +122,16 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MapScene.h">
       <Filter>src\view</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Terrain.h" />
+    <ClInclude Include="..\Classes\NadeProjectile.h">
+      <Filter>src\data\projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Projectile.h">
+      <Filter>src\data\projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ProjectileFactory.h">
+      <Filter>src\data\projectiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

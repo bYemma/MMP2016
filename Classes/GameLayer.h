@@ -7,19 +7,23 @@
 
 #include "GameSprite.h"
 #include "cocos2d.h"
+#include <vector>
 
 
 class GameLayer : public cocos2d::Layer
 
 {
 	float gametime, roundtime;
+	Node* target = nullptr;
 
 	Label* _gametimelabel;
 	Label* _roundtimelabel;
+	Label* _windlabel;
 	GameSprite* _ball;
 	GameSprite* _box;
 	GameSprite* _ground;
-	ProgressTimer* roundTimer;
+
+	std::vector<GameSprite*> gameobjects;
 
 	Size _screenSize;
 	Vec2 _center;
@@ -33,7 +37,7 @@ public:
 	virtual ~GameLayer();
 	virtual bool init();
 
-	void updateTime(float dt);
+	void onKeyHold(float interval);
 
 	static cocos2d::Scene* scene();
 
