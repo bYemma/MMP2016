@@ -4,7 +4,7 @@
 
 GameMap::GameMap()
 {
-	
+	createMap(0.5, 0.1, 0.1, 100);
 }
 
 GameMap::~GameMap()

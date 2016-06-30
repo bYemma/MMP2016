@@ -33,7 +33,7 @@ bool MenuScene::init()
 	this->addChild(btn);
 
 	ui::Button* btn2 = ui::Button::create("res/menu-button.png");
-	btn2->setPosition(Vec2(_sSize.width * 0.9, _sSize.height * 0.9));
+	btn2->setPosition(Vec2(_sSize.width * 0.5 + 143, _sSize.height * 0.5 - 254));
 	btn2->addClickEventListener(CC_CALLBACK_0(MenuScene::button2Pressed, this));
 	this->addChild(btn2);
 
