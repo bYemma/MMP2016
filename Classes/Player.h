@@ -1,17 +1,18 @@
 #pragma once
+#include <vector>
 
-#include <iostream>
-#include <cmath>
-#include <cstdlib>
-#include "Entity.h"
+
+class Entity; // no need to include Entity
 
 class Player {
 	public:
 		Player();
 		virtual ~Player();
-		//std::vector<Entity> getEntities();
-	private:
-		std::string name;
-		int points;
-		//std::vector<Entity> entPtrs;
+		std::vector<Entity> getEntities();
+		void increasePlayerPoints(int newpoints);
+private:
+		int playerid;
+		std::string name; //name of the player
+		int points; //scored points
+		std::vector<Entity> entPtrs; //entities he owns
 };

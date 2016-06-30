@@ -7,44 +7,56 @@
 
 #include "GameSprite.h"
 #include "cocos2d.h"
+#include <vector>
 
 
 class GameLayer : public cocos2d::Layer
 
 {
+
+	//all in one data /controller class?!?@TODO
 	float gametime, roundtime;
+	Node* target = nullptr; // currently controlled entity via eventlistener
 
 	Label* _gametimelabel;
 	Label* _roundtimelabel;
+	Label* _windlabel;
 	GameSprite* _ball;
 	GameSprite* _box;
 	GameSprite* _ground;
-	ProgressTimer* roundTimer;
+
+	std::vector<GameSprite*> gameobjects;
 
 	Size _screenSize;
 	Vec2 _center;
 	Vec2 _delta;
-
-	
-	
+		
 
 public:
 	GameLayer();
 	virtual ~GameLayer();
 	virtual bool init();
 
-	void updateTime(float dt);
 
 	static cocos2d::Scene* scene();
 
 	bool isKeyPressed(cocos2d::EventKeyboard::KeyCode);
 	double keyPressedDuration(cocos2d::EventKeyboard::KeyCode);
+	void onKeyHold(float interval);
+
+
+	// Physics Contact Listener.....
+	bool onContactBegin(PhysicsContact& contact);
+	bool onContactPreSolve(PhysicsContact& contact,
+		PhysicsContactPreSolve& solve);
+	void onContactPostSolve(PhysicsContact& contact,
+		const PhysicsContactPostSolve& solve);
+	void onContactSeperate(PhysicsContact& contact);
 
 	CREATE_FUNC(GameLayer);
 
 private:
-	static std::map<cocos2d::EventKeyboard::KeyCode,
-		std::chrono::high_resolution_clock::time_point> keys;
+	//key = keycode, value = time
 	void update(float dt);
 };
 
