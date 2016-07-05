@@ -8,6 +8,7 @@
 #include "GameSprite.h"
 #include "cocos2d.h"
 #include <vector>
+#include "GameController.h"
 
 
 class GameLayer : public cocos2d::Layer
@@ -19,6 +20,7 @@ class GameLayer : public cocos2d::Layer
 	bool gamerunning;
 	Node* target = nullptr; // currently controlled entity via eventlistener
 
+	GameController* _gc;
 	Label* _gametimelabel;
 	Label* _roundtimelabel;
 	Label* _windlabel;
