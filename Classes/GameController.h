@@ -23,14 +23,19 @@ public:
 	void startGameTimer(); //starts timer for game to finish
 
 	void moveSelectedEntity(); //moves currently played figure through the terrain according to userinput
+	void jumpSelectedEntity();
+
+	void setSelectedWeapon(ProjectileFactory::MunitionType selectedWeapon); //moves currently played figure through the terrain according to userinput
+
 	void applyDamage(Entity* e, int dmg);
+
 	void killEntity(Entity* e);
 
 	void handleCollision();
 	void destroyTerrain();
 
-protected:
-
+private:
+	ProjectileFactory::MunitionType selectedWeapon;
 
 };
 

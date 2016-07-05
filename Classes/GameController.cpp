@@ -18,8 +18,9 @@ void GameController::endGame()
 //Wenn ein Spieler keine Worms mehr hat(in player: entityptrs gespeichert)
 //dann hat er verloren. Der der als letztes noch min einen Worm hat gewinnt
 bool GameController::hasWinner()
-{
-	std::vector<Player*> playerptrs; //todo füllen aus Model
+{ 
+	return false;
+	/*std::vector<Player*> playerptrs; //todo füllen aus Model
 	int playeramount = playerptrs.size();
 	int deadplayers = 0;
 	for (std::vector<Player*>::iterator it = playerptrs.begin(); it != playerptrs.end(); ++it) {
@@ -32,7 +33,7 @@ bool GameController::hasWinner()
 	if (playeramount - deadplayers == 1) { //todo gleichzeitiger tod
 		return true;
 	}
-	return false;
+	return false;*/
 }
 // Verschiebt Reihenfolge der Spieler [p1,p2,p3]->[p2,p3,p1] falls mal mehr als zwei Spieler spielen sollten
 void GameController::nextPlayer()
@@ -52,6 +53,21 @@ void GameController::startRoundTimer()
 }
 
 void GameController::startGameTimer()
+{
+}
+void GameController::moveSelectedEntity()
+{
+}
+void GameController::jumpSelectedEntity()
+{
+}
+void GameController::setSelectedWeapon(ProjectileFactory::MunitionType selectedWeapon)
+{
+}
+void GameController::applyDamage(Entity * e, int dmg)
+{
+}
+void GameController::killEntity(Entity * e)
 {
 }
 //Spieler der in der Reihenfolge als erster dran ist.

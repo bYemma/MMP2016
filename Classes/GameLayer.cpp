@@ -7,7 +7,6 @@
 #include "WormEntity.h"
 #include <iostream>
 #include "ImageLoader.h"
-#include "ImageLoader.h"
 
 using namespace cocos2d;
 
@@ -27,11 +26,49 @@ Scene* GameLayer::scene() {
 	return scene;
 }
 
+void GameLayer::update(float dt) { //"GameLoop"
+	if (_gc->hasWinner()) {
+		_gc->endGame();
+	}
+	if (gamerunning == false) {
+		//end game
+	}
+	//Update time
+	gametime -= dt;
+	roundtime -= dt;
+
+	if (roundtime <= 0) {
+		roundtime = 0;
+		//end round
+	}
+
+	if (gametime <= 0) {
+		gametime = 0;
+		gamerunning = false;
+	}
+
+	//Update timelabels
+	int minutes = (int)gametime / 60;
+	int seconds = (int)gametime % 60;
+	std::string secondsstr = "";
+	if (seconds < 10) {
+		secondsstr = "0" + std::to_string(seconds);
+	}
+	else {
+		secondsstr = std::to_string(seconds);
+	}
+	_gametimelabel->setString(std::to_string(minutes) + ":" + secondsstr);
+	_roundtimelabel->setString(std::to_string((int)roundtime));
+
+	//Check if player won
+}
+
 static std::map<cocos2d::EventKeyboard::KeyCode, std::chrono::high_resolution_clock::time_point> keys;
 
 bool GameLayer::init() {
 
-	GameController* gc = new GameController();
+	_gc = new GameController(); // Controll gameflow and actions
+
 	gametime = 1200.0f; //20 Minutes for a game
 	roundtime = 45.0f; //45 seconds for a round
 
@@ -122,36 +159,36 @@ bool GameLayer::init() {
 		Vec2 loc = event->getCurrentTarget()->getPosition();
 		switch (keyCode) {
 			case EventKeyboard::KeyCode::KEY_ESCAPE:
-				Director::getInstance()->end();
+				_gc->endGame();
 				break;
 			case EventKeyboard::KeyCode::KEY_1:
-				Director::getInstance()->end();
+				_gc->setSelectedWeapon(ProjectileFactory::MunitionType::NADE);
 				break;
 			case EventKeyboard::KeyCode::KEY_2:
-				Director::getInstance()->end();
+				_gc->setSelectedWeapon(ProjectileFactory::MunitionType::ROCKET);
 				break;
 			case EventKeyboard::KeyCode::KEY_3:
-				Director::getInstance()->end();
+				_gc->setSelectedWeapon(ProjectileFactory::MunitionType::BULLET);
 				break;
 			case EventKeyboard::KeyCode::KEY_SHIFT:
 				event->getCurrentTarget()->getPhysicsBody()->applyImpulse(Vec2(3000.0f, 12000.0f));
+				_gc->jumpSelectedEntity();
 				break;
-			case EventKeyboard::KeyCode::KEY_A:
+			case EventKeyboard::KeyCode::KEY_A: //move Entity to the left
+				break;
+			case EventKeyboard::KeyCode::KEY_D: //move Entity to the right
+				break;
+
 			case EventKeyboard::KeyCode::KEY_LEFT_ARROW: //switch aiming direction to left side
 				event->getCurrentTarget()->setPosition(--loc.x, loc.y);
 				break;
 			case EventKeyboard::KeyCode::KEY_RIGHT_ARROW: //switch aiming direction to right side
-			case EventKeyboard::KeyCode::KEY_D:
 				event->getCurrentTarget()->setPosition(++loc.x, loc.y);
 				break;
-			case EventKeyboard::KeyCode::KEY_UP_ARROW: //aim up -> increase aimangle(from 0 to 90)
-			case EventKeyboard::KeyCode::KEY_W: {
 
+			case EventKeyboard::KeyCode::KEY_UP_ARROW: //aim up -> increase aimangle(from 0 to 90)
 				break;
-			}
 			case EventKeyboard::KeyCode::KEY_DOWN_ARROW: //aim down -> decrease aimangle(from 0 to 90)
-			case EventKeyboard::KeyCode::KEY_S:
-				event->getCurrentTarget()->setPosition(loc.x, --loc.y);
 				break;
 		}
 	};
@@ -286,41 +323,6 @@ double GameLayer::keyPressedDuration(EventKeyboard::KeyCode code) {
 	return std::chrono::duration_cast<std::chrono::milliseconds>
 		(std::chrono::high_resolution_clock::now() - keys[code]).count();
 }
-
-void GameLayer::update(float dt) {
-	if (gamerunning == false) {
-		//end game
-	}
-	//Update time
-	gametime -= dt;
-	roundtime -= dt;
-
-	if (roundtime <= 0) {
-		roundtime = 0;
-		//end round
-	}
-
-	if (gametime <= 0) {
-		gametime = 0;
-		gamerunning = false;
-	}
-
-	//Update timelabels
-	int minutes = (int)gametime / 60;
-	int seconds = (int)gametime % 60;
-	std::string secondsstr = "";
-	if (seconds < 10) {
-		secondsstr = "0"+std::to_string(seconds);
-	}
-	else {
-		secondsstr = std::to_string(seconds);
-	}
-	_gametimelabel->setString(std::to_string(minutes) + ":" + secondsstr);
-	_roundtimelabel->setString(std::to_string((int)roundtime));
-
-	//Check if player won
-}
-
 
 
 GameLayer::~GameLayer()
