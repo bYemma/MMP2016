@@ -2,19 +2,29 @@
 #include <iostream>
 #include "Player.h"
 #include "cocos2d.h"
+#include "GameSprite.h"
 
 class Entity {
 	public:
 		Entity();
 		virtual ~Entity();
 
-		void updateEntityHealth(int newHealth);
+		void updateHealth(int newHealth);//not every entity has life(projectiles for example)
+
 		void updateEntityPos(cocos2d::Vec2 newPos);
+
 		cocos2d::Vec2 getPosition();
+
 		cocos2d::Label* getEntityLabel();
+
 		cocos2d::PhysicsBody* getPhysicsBody();
+
 		int getEntityID();
 		Player* getOwner();
+
+		bool isKeyPressed(cocos2d::EventKeyboard::KeyCode);
+		double keyPressedDuration(cocos2d::EventKeyboard::KeyCode);
+		void onKeyHold(float interval);
 
 	protected:
 		Player* owner; //Player owning this entity
@@ -27,7 +37,11 @@ class Entity {
 
 		cocos2d::Label* entityLabel; //label showing hitpoints and name
 
-		cocos2d::PhysicsBody* physicsBody; //PhysicsBody for collision
+		EventListenerKeyboard* keylistener; //Inputcomponent(s)
+
+		GameSprite* sprite; //Renderingcomponent(Sprite)
+
+		cocos2d::PhysicsBody* physicsBody; //Physiccomponent (PhysicsBody for collision)
 	private:
 
 

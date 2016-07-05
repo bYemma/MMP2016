@@ -10,12 +10,6 @@ Entity::~Entity()
 }
 
 
-void Entity::updateEntityHealth(int newHealth)
-{
-	health = newHealth;
-	entityLabel->setString(name + std::to_string(health));
-}
-
 void Entity::updateEntityPos(cocos2d::Vec2 newPos)
 {
 	position = newPos;

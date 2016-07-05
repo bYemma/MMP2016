@@ -5,9 +5,14 @@
 Projectile::Projectile() {
 }
 
-GameSprite * Projectile::getSprite()
+Sprite * Projectile::getSprite()
 {
 	return sprite;
 }
 
-
+Projectile* Projectile::assembleProjectile() {
+	if (sprite != nullptr && physicsBody != nullptr) {
+		sprite->setPhysicsBody(physicsBody);
+	}
+	return this;
+}

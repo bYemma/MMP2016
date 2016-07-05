@@ -6,8 +6,13 @@ class GameController
 {
 
 public:
+	GameController();
+	virtual ~GameController();
+
 	void initGame(); //create players and their stats
-	void endGame(); //create players and their stats
+	void endGame(); //close and kill all data
+
+	void endRound(); 
 
 	bool hasWinner(); //check for winner
 
@@ -17,15 +22,15 @@ public:
 	void startRoundTimer(); //starts timer for player to finish his round
 	void startGameTimer(); //starts timer for game to finish
 
-	void moveSelectedEntity(); //moves currently played figure through the terrain by userinput
+	void moveSelectedEntity(); //moves currently played figure through the terrain according to userinput
+	void applyDamage(Entity* e, int dmg);
+	void killEntity(Entity* e);
 
 	void handleCollision();
-	void applyDamage();
 	void destroyTerrain();
 
 protected:
-	GameController();
-	virtual ~GameController();
+
 
 };
 

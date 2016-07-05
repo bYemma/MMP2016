@@ -4,7 +4,10 @@
 #include "GameLayer.h"
 #include "ProjectileFactory.h"
 #include "NadeProjectile.h"
+#include "WormEntity.h"
 #include <iostream>
+#include "ImageLoader.h"
+#include "ImageLoader.h"
 
 using namespace cocos2d;
 
@@ -28,6 +31,7 @@ static std::map<cocos2d::EventKeyboard::KeyCode, std::chrono::high_resolution_cl
 
 bool GameLayer::init() {
 
+	GameController* gc = new GameController();
 	gametime = 1200.0f; //20 Minutes for a game
 	roundtime = 45.0f; //45 seconds for a round
 
@@ -67,6 +71,7 @@ bool GameLayer::init() {
 	_windlabel->setTextColor(Color4B::BLUE);
 	this->addChild(_windlabel);
 
+	ImageLoader::getInstance();
 	//Create Ground
 	auto groundBody = PhysicsBody::createBox(
 		Size(1920.0f, 32.0f),
@@ -83,7 +88,7 @@ bool GameLayer::init() {
 
 	auto boxBody = PhysicsBody::createBox(
 		Size(32.0f, 32.0f),
-		PhysicsMaterial(0.1f, 0.1f, 0.5f)
+		PhysicsMaterial(0.1f, 20.0f, 0.5f)
 	);
 
 	_box = GameSprite::gameSpriteWithFile("res/box.png");
@@ -100,12 +105,8 @@ bool GameLayer::init() {
 	ballBody->setMass(50.0f);
 	_ball = GameSprite::gameSpriteWithFile("res/ball.png");
 	_ball->setPosition(Vec2(400.0f, 500.0f));
-	this->addChild(_ball);
-
 	_ball->setPhysicsBody(ballBody);
-	
-	ProjectileFactory* pf_nade = new ProjectileFactoryFor<NadeProjectile>();
-
+	this->addChild(_ball);
 
 	//Eventlistening for Keyboard
 	auto eventListener = EventListenerKeyboard::create();
@@ -121,6 +122,15 @@ bool GameLayer::init() {
 		Vec2 loc = event->getCurrentTarget()->getPosition();
 		switch (keyCode) {
 			case EventKeyboard::KeyCode::KEY_ESCAPE:
+				Director::getInstance()->end();
+				break;
+			case EventKeyboard::KeyCode::KEY_1:
+				Director::getInstance()->end();
+				break;
+			case EventKeyboard::KeyCode::KEY_2:
+				Director::getInstance()->end();
+				break;
+			case EventKeyboard::KeyCode::KEY_3:
 				Director::getInstance()->end();
 				break;
 			case EventKeyboard::KeyCode::KEY_SHIFT:
@@ -170,7 +180,7 @@ bool GameLayer::init() {
 				auto ball = GameSprite::createWithTexture(_ball->getTexture());
 				ball->setPhysicsBody(PhysicsBody::createCircle(
 					17.5f,
-					PhysicsMaterial(0.0f, 0.4f, 1.0f)
+					PhysicsMaterial(0.0f, 20.0f, 1.0f)
 				));
 				ball->getPhysicsBody()->setMass(10);
 				ball->setPosition(Vec2(500, 500));
@@ -203,24 +213,36 @@ bool GameLayer::init() {
 
 	//Probably usefull if physics bugs...dont know yet why 
 	auto contactListener = EventListenerPhysicsContact::create();
-	//contactListener->onContactBegin = CC_CALLBACK_1(GameLayer::onContactBegin, this);
-	contactListener->onContactPreSolve = CC_CALLBACK_2(GameLayer::onContactPreSolve, this);
+	contactListener->onContactBegin = CC_CALLBACK_1(GameLayer::onContactBegin, this);
+	//contactListener->onContactPreSolve = CC_CALLBACK_2(GameLayer::onContactPreSolve, this);
 	//contactListener->onContactPostSolve = CC_CALLBACK_2(GameLayer::onContactPostSolve, this);
 	//contactListener->onContactSeperate = CC_CALLBACK_1(GameLayer::onContactSeperate, this);
 	
 	
-	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, _ground);
+	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, _ball);
 
 	//Schedule all events where key is hold down
 	this->schedule(schedule_selector(GameLayer::onKeyHold));
 
 	//create main loop
+	gamerunning = true;
 	this->scheduleUpdate();
 	return true;
 
 }
 
+bool GameLayer::onContactBegin(PhysicsContact& contact) {
+	auto nodeA = contact.getShapeA()->getBody()->getNode();
+	auto nodeB = contact.getShapeB()->getBody()->getNode();
+	if (nodeA && nodeB)
+	{
+		//nodeB->removeFromParentAndCleanup(true);
+	}
+
+	//bodies can collide
+	return true;
+}
 // Calling it to eliminate The Jumping Effect... Restitution
 bool GameLayer::onContactPreSolve(PhysicsContact& contact,
 	PhysicsContactPreSolve& solve) {
@@ -230,7 +252,6 @@ bool GameLayer::onContactPreSolve(PhysicsContact& contact,
 
 
 void GameLayer::onKeyHold(float interval) {
-
 
 	if (keys.find(EventKeyboard::KeyCode::KEY_RIGHT_ARROW) != keys.end()) {
 		// right pressed
@@ -267,24 +288,37 @@ double GameLayer::keyPressedDuration(EventKeyboard::KeyCode code) {
 }
 
 void GameLayer::update(float dt) {
+	if (gamerunning == false) {
+		//end game
+	}
+	//Update time
 	gametime -= dt;
 	roundtime -= dt;
 
-	int minutes = (int)gametime/60;
-	int seconds = (int)gametime % 60;
-
-	_gametimelabel->setString(std::to_string(minutes) + ":" + std::to_string(seconds));
-	_roundtimelabel->setString(std::to_string((int)roundtime));
-
 	if (roundtime <= 0) {
 		roundtime = 0;
-		//ROUND OVER
+		//end round
 	}
 
 	if (gametime <= 0) {
 		gametime = 0;
-		//GAME OVER
+		gamerunning = false;
 	}
+
+	//Update timelabels
+	int minutes = (int)gametime / 60;
+	int seconds = (int)gametime % 60;
+	std::string secondsstr = "";
+	if (seconds < 10) {
+		secondsstr = "0"+std::to_string(seconds);
+	}
+	else {
+		secondsstr = std::to_string(seconds);
+	}
+	_gametimelabel->setString(std::to_string(minutes) + ":" + secondsstr);
+	_roundtimelabel->setString(std::to_string((int)roundtime));
+
+	//Check if player won
 }
 
 

@@ -16,6 +16,7 @@ class GameLayer : public cocos2d::Layer
 
 	//all in one data /controller class?!?@TODO
 	float gametime, roundtime;
+	bool gamerunning;
 	Node* target = nullptr; // currently controlled entity via eventlistener
 
 	Label* _gametimelabel;
@@ -36,15 +37,13 @@ public:
 	GameLayer();
 	virtual ~GameLayer();
 	virtual bool init();
-
-
+	
 	static cocos2d::Scene* scene();
 
 	bool isKeyPressed(cocos2d::EventKeyboard::KeyCode);
 	double keyPressedDuration(cocos2d::EventKeyboard::KeyCode);
 	void onKeyHold(float interval);
-
-
+	
 	// Physics Contact Listener.....
 	bool onContactBegin(PhysicsContact& contact);
 	bool onContactPreSolve(PhysicsContact& contact,

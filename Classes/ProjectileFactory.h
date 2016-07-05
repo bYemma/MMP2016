@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "cocos2d.h"
 #include "GameSprite.h"
-
+#include <map>
 
 using namespace cocos2d;
 
@@ -19,15 +19,12 @@ public:
 	ProjectileFactory();
 
 	virtual ~ProjectileFactory();
-
-	virtual Projectile* createProjectile() = 0;
+	void loadProjectileBodies();
+	Projectile* createProjectile(MunitionType mt);
 
 private:
+	bool initalized = false;
+	std::map<MunitionType, PhysicsBody*> bodymap;
+
 };
 
-template <class T>
-class ProjectileFactoryFor : public ProjectileFactory
-{
-public:
-	virtual Projectile* createProjectile() { return new T(); }
-};

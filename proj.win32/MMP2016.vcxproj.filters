@@ -31,6 +31,12 @@
     <Filter Include="src\data\projectiles">
       <UniqueIdentifier>{587e99a5-8a1c-471a-ae17-911ea0602177}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\data\entities">
+      <UniqueIdentifier>{57ca42e9-3abc-4cbd-9874-0ab98d40d988}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\data\utils">
+      <UniqueIdentifier>{24332592-74bb-43b6-aa12-9744ad943c33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,9 +57,6 @@
     <ClCompile Include="..\Classes\Player.cpp">
       <Filter>src\data</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Entity.cpp">
-      <Filter>src\data</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GameState.cpp">
       <Filter>src\data\gamestate</Filter>
     </ClCompile>
@@ -72,7 +75,6 @@
     <ClCompile Include="..\Classes\MapScene.cpp">
       <Filter>src\view</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Terrain.cpp" />
     <ClCompile Include="..\Classes\NadeProjectile.cpp">
       <Filter>src\data\projectiles</Filter>
     </ClCompile>
@@ -81,6 +83,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\ProjectileFactory.cpp">
       <Filter>src\data\projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Entity.cpp">
+      <Filter>src\data\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\WormEntity.cpp">
+      <Filter>src\data\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ImageLoader.cpp">
+      <Filter>src\data\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -102,9 +113,6 @@
     <ClInclude Include="..\Classes\Player.h">
       <Filter>src\data</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Entity.h">
-      <Filter>src\data</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\GameState.h">
       <Filter>src\data\gamestate</Filter>
     </ClInclude>
@@ -123,7 +131,6 @@
     <ClInclude Include="..\Classes\MapScene.h">
       <Filter>src\view</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Terrain.h" />
     <ClInclude Include="..\Classes\NadeProjectile.h">
       <Filter>src\data\projectiles</Filter>
     </ClInclude>
@@ -132,6 +139,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ProjectileFactory.h">
       <Filter>src\data\projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Entity.h">
+      <Filter>src\data\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\WormEntity.h">
+      <Filter>src\data\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ImageLoader.h">
+      <Filter>src\data\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
