@@ -30,16 +30,17 @@ Ground::Ground() {
 		terrainPoints.push_back(newPoint);
 	}
 
-	//init of the attached body
-	body = PhysicsBody::create();
-	body->setDynamic(false);
+	//create and fill an array of points
+	//these will be just the terrain points plus the two corners, plus one last copy of the first point to ensure the polygon is closed
+	Vec2 points[NUM_POINTS + 3];
+	for (i = 0; i < NUM_POINTS; i++){
+		points[i] = terrainPoints[i];
+	}
+	points[NUM_POINTS] = Vec2(0, 0);
+	points[NUM_POINTS + 1] = Vec2(0, winSize.width);
+	points[NUM_POINTS + 2] = points[0];
 
-	//&(terrainPoints[0]) returns the address of the first terrain point, and as of C++11 vector<T>
-	//guarantees to store elements contiguous to each other in memory, so the address of the first one
-	//is the array of the whole set of elements.
-	auto shape = PhysicsShapeEdgeChain::create(&(terrainPoints[0]), terrainPoints.size());
-
-	body->addShape(shape, false);
+	body = PhysicsBody::createEdgeChain(points, NUM_POINTS + 2);
 }
 
 Ground::~Ground() {
@@ -47,19 +48,26 @@ Ground::~Ground() {
 }
 
 void Ground::deform(Entity proj) {
+	Vec2 points[NUM_POINTS + 3];
 	auto originalShape = proj.getPhysicsBody()->getShapes().front();
-	for (int i = 0; i < terrainPoints.size(); i++) {
+
+	for (int i = 0; i < NUM_POINTS; i++) {
 		if (originalShape->containsPoint(terrainPoints[i])) {
-			//execute the deformation process once before checking just in case it is not necessary
+			//execute the deformation process once before checking, just in case it is not necessary
 			terrainPoints[i].y = fmax(terrainPoints[i].y - DEFORMATION, 0);
 
 			while (originalShape->containsPoint(terrainPoints[i]) && terrainPoints[i].y > 0) {
 				terrainPoints[i].y = fmax(terrainPoints[i].y - DEFORMATION, 0);
 			}
 		}
+		points[i] = terrainPoints[i];
 	}
 
-	auto shape = PhysicsShapeEdgeChain::create(&(terrainPoints[0]), terrainPoints.size());
+	points[NUM_POINTS] = Vec2(0, 0);
+	points[NUM_POINTS + 1] = Vec2(0, winSize.width);
+	points[NUM_POINTS + 2] = points[0];
+
+	auto shape = PhysicsShapeEdgeChain::create(points, NUM_POINTS + 3);
 	body->removeAllShapes();
 	body->addShape(shape, false);
 }
