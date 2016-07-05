@@ -93,6 +93,9 @@
     <ClCompile Include="..\Classes\ImageLoader.cpp">
       <Filter>src\data\utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Ground.cpp">
+      <Filter>src\data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ImageLoader.h">
       <Filter>src\data\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Ground.h">
+      <Filter>src\data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

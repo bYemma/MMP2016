@@ -17,7 +17,7 @@
 //using namespace std;
 using namespace cocos2d;
 
-class Ground{
+class Ground {
 public:
 	static Ground & getInstance() {
 		static Ground instance;

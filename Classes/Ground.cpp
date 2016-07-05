@@ -1,8 +1,8 @@
 #include "Ground.h"
 
-Ground::Ground(){
+Ground::Ground() {
 	//this may need to be moved somewhere else
-	if (doSrand){
+	if (doSrand) {
 		doSrand = 0;
 		srand(time(NULL));
 	}
@@ -17,13 +17,13 @@ Ground::Ground(){
 	int dir = rand() % 2; //effectively a random boolean
 	double yOffset = rand() % 100 / 100; //random [0-1) value
 
-	for (i = 1; i < NUM_POINTS; i++){
+	for (i = 1; i < NUM_POINTS; i++) {
 		newPoint.x = terrainPoints[i - 1].x + X_OFFSET;
-		
-		if (dir){//upwards
+
+		if (dir) {//upwards
 			newPoint.y = fmin(MAX_ABS, terrainPoints[i - 1].y + Y_OFFSET*yOffset);
 		}
-		else{//downwards
+		else {//downwards
 			newPoint.y = fmax(MIN_ABS, terrainPoints[i - 1].y - Y_OFFSET*yOffset);
 		}
 
@@ -42,11 +42,11 @@ Ground::Ground(){
 	body->addShape(shape, false);
 }
 
-Ground::~Ground(){
-	
+Ground::~Ground() {
+
 }
 
-void Ground::deform(Entity proj){
+void Ground::deform(Entity proj) {
 	auto originalShape = proj.getPhysicsBody()->getShapes().front();
 	for (int i = 0; i < terrainPoints.size(); i++) {
 		if (originalShape->containsPoint(terrainPoints[i])) {
