@@ -11,6 +11,8 @@ class MapScene : public cocos2d::Layer
 
 	// Params
 	Size _sSize;
+	SpriteBatchNode* spritebatch = SpriteBatchNode::create("spritesheet_walking/walking-0001-default.png");
+	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
 
 public:
 	static cocos2d::Scene* createScene();

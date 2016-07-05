@@ -20,6 +20,7 @@ bool MapScene::init()
 		return false;
 	}
 
+	cache->addSpriteFramesWithFile("spritesheet_walking/walking-0001-default.plist");
 	_sSize = Director::getInstance()->getWinSize();
 
 	return true;
