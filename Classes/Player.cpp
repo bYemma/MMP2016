@@ -19,3 +19,8 @@ void Player::increasePlayerPoints(int newpoints)
 {
 	points += newpoints;
 }
+
+std::string Player::getName()
+{
+	return name;
+}
