@@ -7,25 +7,24 @@ ProjectileFactory::ProjectileFactory() {
 }
 
 
-void ProjectileFactory::loadProjectileTextures() {
-	_rocket = GameSprite::gameSpriteWithFile("res/football.png");
-	_nade = GameSprite::gameSpriteWithFile("res/basketball.png");
-	_bullet = GameSprite::gameSpriteWithFile("res/fussball.png");
+Texture2D* ProjectileFactory::loadTexture(const char* path) {
+	Image* im = new Image();
+	im->initWithImageFile(path);
+	Texture2D* tex = new Texture2D();
+	tex->initWithImage(im);
+	return tex;
 }
-
 
 Projectile * ProjectileFactory::createProjectile(MunitionType mt)
 {
 	int dmg = 0;
 	switch (mt) {
 	case NADE:{
-		Image* im = new Image();
-		im->initWithImageFile("res/basketball.png");
-		Texture2D* tex = new Texture2D();
-		tex->initWithImage(im);
-		Sprite* sn = Sprite::createWithTexture(tex);
+
+		Sprite* sn = Sprite::createWithTexture(loadTexture("res/fussball.png"));
+		sn->setScale(0.4f);
 		PhysicsBody* pn =PhysicsBody::createCircle(
-			8.0f,
+			sn->getContentSize().width/2.0f,
 			PhysicsMaterial(0.5f, 0.1f, 10.0f)
 		);
 		pn->setMass(12.0f);
@@ -35,11 +34,11 @@ Projectile * ProjectileFactory::createProjectile(MunitionType mt)
 	}
 		break;
 	case ROCKET:{		
-		Image* im = new Image();
-		im->initWithImageFile("res/football.png");
-		Texture2D* tex = new Texture2D();
-		tex->initWithImage(im);
-		Sprite* sr = Sprite::createWithTexture(tex);
+
+		Sprite* sr = Sprite::createWithTexture(loadTexture("res/football.png"));
+		sr->setScale(0.3f);
+		float width = sr->getContentSize().width;
+		float height = sr->getContentSize().width;
 		PhysicsBody* pr = PhysicsBody::createCircle(
 			8.0f,
 			PhysicsMaterial(0.5f, 0.1f, 10.0f)
@@ -51,13 +50,10 @@ Projectile * ProjectileFactory::createProjectile(MunitionType mt)
 	}
 		break;
 	case BULLET:{
-		Image* im = new Image();
-		im->initWithImageFile("res/fussball.png");
-		Texture2D* tex = new Texture2D();
-		tex->initWithImage(im);
-		Sprite* sb = Sprite::createWithTexture(tex);
+		Sprite* sb = Sprite::createWithTexture(loadTexture("res/fussball.png"));
+		sb->setScale(0.05f);
 		PhysicsBody* pr = PhysicsBody::createCircle(
-			8.0f,
+			sb->getContentSize().width/2.0f,
 			PhysicsMaterial(0.5f, 0.1f, 10.0f)
 		);
 		pr->setMass(1.0f);
@@ -74,3 +70,4 @@ Projectile * ProjectileFactory::createProjectile(MunitionType mt)
 ProjectileFactory::~ProjectileFactory()
 {
 }
+
