@@ -75,6 +75,12 @@ void GameLayer::createUI()
 	_playerturn->setPosition(Vec2(_screenSize.width*0.5, _screenSize.height * 0.95));
 	_playerturn->setTextColor(Color4B::WHITE);
 	this->addChild(_playerturn);
+
+	//Weaponlabel to show which weapon is currently used
+	_weaponlabel = Label::createWithTTF("Weapon: ", "res/fonts/Minecraft.ttf", 32);
+	_weaponlabel->setPosition(Vec2(_screenSize.width*0.11, _screenSize.height * 0.95));
+	_weaponlabel->setTextColor(Color4B::WHITE);
+	this->addChild(_weaponlabel);
 }
 
 //Map for keyevents
@@ -107,12 +113,11 @@ bool GameLayer::init() {
 	);
 
 	groundBody->setDynamic(false);
-
 	_ground = GameSprite::gameSpriteWithFile("res/ground.png");
 	_ground->setPosition(Vec2(_center.x, 16.0f));
+	_ground->setPhysicsBody(groundBody);
 	this->addChild(_ground);
 
-	_ground->setPhysicsBody(groundBody);
 
 	auto boxBody = PhysicsBody::createBox(
 		Size(32.0f, 32.0f),
@@ -121,20 +126,11 @@ bool GameLayer::init() {
 
 	_box = GameSprite::gameSpriteWithFile("res/box.png");
 	_box->setPosition(Vec2(600.0f, 32.0f));
+	_box->setPhysicsBody(boxBody);
 	this->addChild(_box);
 
-	_box->setPhysicsBody(boxBody);
 
-	auto ballBody = PhysicsBody::createCircle(
-		17.5f,
-		PhysicsMaterial(0.0f, 0.4f, 1.0f)
-	);
 
-	ballBody->setMass(50.0f);
-	_ball = GameSprite::gameSpriteWithFile("res/ball.png");
-	_ball->setPosition(Vec2(400.0f, 500.0f));
-	_ball->setPhysicsBody(ballBody);
-	this->addChild(_ball);
 
 	//
 	//
@@ -165,10 +161,10 @@ bool GameLayer::init() {
 				_gc->endGame();
 				break;
 			case EventKeyboard::KeyCode::KEY_1:
-				_gc->changeEntityWeapon(ProjectileFactory::MunitionType::NADE);
+				_gc->changeEntityWeapon(ProjectileFactory::MunitionType::ROCKET);
 				break;
 			case EventKeyboard::KeyCode::KEY_2:
-				_gc->changeEntityWeapon(ProjectileFactory::MunitionType::ROCKET);
+				_gc->changeEntityWeapon(ProjectileFactory::MunitionType::NADE);
 				break;
 			case EventKeyboard::KeyCode::KEY_3:
 				_gc->changeEntityWeapon(ProjectileFactory::MunitionType::BULLET);
@@ -211,19 +207,7 @@ bool GameLayer::init() {
 			case EventKeyboard::KeyCode::KEY_SPACE: { //Shot on release but measure time shot was hold
 				Vec2 force = Vec2(1000.0f * shotstrengthtime_sec, 3000.0f * shotstrengthtime_sec);
 				CCLOG("Time: %f", shotstrengthtime_sec);
-				//_gc->fireProjectile();
-
-				auto ball = GameSprite::createWithTexture(_ball->getTexture());
-				ball->setPhysicsBody(PhysicsBody::createCircle(
-					17.5f,
-					PhysicsMaterial(0.0f, 20.0f, 1.0f)
-				));
-				ball->getPhysicsBody()->setMass(10);
-				ball->setPosition(Vec2(500, 500));
-				CCLOG("Force: %f %f", force.x, force.y);
-				ball->getPhysicsBody()->applyImpulse(force);
-				this->addChild(ball);
-
+				_gc->fireProjectile(this,force);
 				break; 
 			}
 			case EventKeyboard::KeyCode::KEY_UP_ARROW: {
@@ -248,7 +232,7 @@ bool GameLayer::init() {
 	};
 
 	
-	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, _ball);
+	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, this);
 
 	//Schedule all events
 	this->schedule(schedule_selector(GameLayer::onKeyHold)); //schedule key down

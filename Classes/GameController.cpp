@@ -13,6 +13,7 @@ GameController::GameController() {
 
 void GameController::initGame()
 {
+	pf = new ProjectileFactory();
 	gametime = GAME_TIME; //20 Minutes for a game
 	roundtime = ROUND_TIME; //45 seconds for a round
 
@@ -54,7 +55,7 @@ void GameController::updateGameData(float dt)
 
 void GameController::updateUI(GameLayer* gL)
 {
-	//Update timelabels
+	//Update timelabeldata
 	int minutes = (int)gametime / 60;
 	int seconds = (int)gametime % 60;
 	std::string secondsstr = "";
@@ -64,10 +65,11 @@ void GameController::updateUI(GameLayer* gL)
 	else {
 		secondsstr = std::to_string(seconds);
 	}
-
+	//Update labels
 	gL->_gametimelabel->setString(std::to_string(12) + ":" + "12");
 	gL->_roundtimelabel->setString(std::to_string(minutes) + ":" + secondsstr);
 	gL->_playerturn->setString("It`s your turn: Hans");
+	gL->_weaponlabel->setString("Weapon: " + std::to_string(selectedWeapon+1));
 	
 	//Update Health labels
 	/*std::vector<Player*> playerptrs; //todo füllen aus Model
@@ -146,9 +148,10 @@ void GameController::adjustEntityAimAngle()
 {
 }
 
+//Useless function after we decided not to have different weapons instead fire all projectiles with one weapon
 void GameController::changeEntityWeapon(ProjectileFactory::MunitionType newselectedWeapon)
 {
-	selectedWeapon = newselectedWeapon;
+	setSelectedWeapon(newselectedWeapon);
 }
 
 
@@ -164,6 +167,16 @@ void GameController::applyDamage(Entity* e, int dmg)
 
 void GameController::killEntity(Entity* e)
 {
+}
+
+void GameController::fireProjectile(GameLayer* gL, Vec2 force)
+{
+	Projectile* proj = pf->createProjectile(selectedWeapon);
+	Sprite* projsprite = proj->getSprite();
+	CCLOG("Sprite erstellt");
+	projsprite->setPosition(Vec2(500, 500));
+	projsprite->getPhysicsBody()->applyImpulse(force);
+	gL->addChild(projsprite);
 }
 
 //Spieler der in der Reihenfolge als erster dran ist.

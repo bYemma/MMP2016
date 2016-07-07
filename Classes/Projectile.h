@@ -4,18 +4,16 @@
 
 class Projectile : public Entity {
 
-typedef Projectile* (__stdcall *CreateProjectileFn)(void);
 
 public:
-	Projectile();
-	virtual ~Projectile() {};
-	virtual PhysicsBody* createProjectileBody() = 0;
-	virtual Sprite* createProjectileSprite() = 0;
-
-	virtual Projectile* assembleProjectile() = 0;
+	Projectile(int damage, Sprite* s);
+	~Projectile();
 
 	Sprite* getSprite();
+	PhysicsBody* getPhysicsBody();
+	int getDamage();
 protected:
 	int damage;
 	Sprite* sprite;
+	PhysicsBody* pbody;
 };

@@ -33,21 +33,22 @@ public:
 	void adjustEntityAimAngle(); //change angle of aim
 	void changeEntityWeapon(ProjectileFactory::MunitionType selectedWeapon); //change weapon the entity is holding 
 
-	void setSelectedWeapon(ProjectileFactory::MunitionType selectedWeapon); //select another weapon by pressing 1(Nade) 2(Rocket) 3(Bullet) 
+	void setSelectedWeapon(ProjectileFactory::MunitionType selectedWeapon);  
 	void setSelectedEntity(Entity* e); //
 	Entity* getSelectedEntity(); //
 
 	void applyDamage(Entity* e, int dmg);
 
 	void killEntity(Entity* e);
-	void fireProjectile();
+	void fireProjectile(GameLayer* gL, Vec2 force);
 	void handleCollision();
 	void destroyTerrain();
 
 private:
 	//GameData and UI
 
-	ProjectileFactory::MunitionType selectedWeapon;
+	ProjectileFactory::MunitionType selectedWeapon = ProjectileFactory::MunitionType::NADE;
+	ProjectileFactory* pf;
 
 	Entity* selectedEntity;
 

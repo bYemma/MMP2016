@@ -21,7 +21,6 @@ class GameLayer : public cocos2d::Layer
 
 	GameController* _gc;
 
-	GameSprite* _ball;
 	GameSprite* _box;
 	GameSprite* _ground;
 
@@ -29,8 +28,6 @@ class GameLayer : public cocos2d::Layer
 
 	Size _screenSize;
 	Vec2 _center;
-	Vec2 _delta;
-		
 
 public:
 
@@ -38,7 +35,8 @@ public:
 	Label* _roundtimelabel;
 	Label* _windlabel;
 	Label* _playerturn;
-
+	Label* _weaponlabel;
+	
 	EventListenerKeyboard* _eventListener;
 
 	GameLayer();
