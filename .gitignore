@@ -21,6 +21,7 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+proj.win32/Debug.win32/
 
 # Visual Studio 2015 cache/options directory
 .vs/
