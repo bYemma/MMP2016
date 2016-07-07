@@ -8,23 +8,19 @@
 #include "GameSprite.h"
 #include "cocos2d.h"
 #include <vector>
-#include "GameController.h"
 
+class GameController; // no need to include GameController
 
 class GameLayer : public cocos2d::Layer
 
 {
 
 	//all in one data /controller class?!?@TODO
-	float gametime, roundtime;
-	bool gamerunning;
+
 	Node* target = nullptr; // currently controlled entity via eventlistener
 
 	GameController* _gc;
-	Label* _gametimelabel;
-	Label* _roundtimelabel;
-	Label* _windlabel;
-	GameSprite* _ball;
+
 	GameSprite* _box;
 	GameSprite* _ground;
 
@@ -32,16 +28,26 @@ class GameLayer : public cocos2d::Layer
 
 	Size _screenSize;
 	Vec2 _center;
-	Vec2 _delta;
-		
 
 public:
+
+	Label* _gametimelabel;
+	Label* _roundtimelabel;
+	Label* _windlabel;
+	Label* _playerturn;
+	Label* _weaponlabel;
+	
+	EventListenerKeyboard* _eventListener;
+
 	GameLayer();
 	virtual ~GameLayer();
 	virtual bool init();
 	
 	static cocos2d::Scene* scene();
 
+	void createUI();
+
+	//Key events
 	bool isKeyPressed(cocos2d::EventKeyboard::KeyCode);
 	double keyPressedDuration(cocos2d::EventKeyboard::KeyCode);
 	void onKeyHold(float interval);
@@ -57,6 +63,7 @@ public:
 	CREATE_FUNC(GameLayer);
 
 private:
+
 	//key = keycode, value = time
 	void update(float dt);
 };

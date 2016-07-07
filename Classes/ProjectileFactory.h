@@ -11,7 +11,9 @@ using namespace cocos2d;
 class ProjectileFactory
 
 {
-
+	GameSprite* _rocket;
+	GameSprite* _nade;
+	GameSprite* _bullet;
 
 public:
 	enum MunitionType { ROCKET, NADE, BULLET };
@@ -20,11 +22,12 @@ public:
 
 	virtual ~ProjectileFactory();
 	void loadProjectileBodies();
+	void loadProjectileTextures();
 	Projectile* createProjectile(MunitionType mt);
-
 private:
 	bool initalized = false;
 	std::map<MunitionType, PhysicsBody*> bodymap;
+	std::map<MunitionType, GameSprite*> textmap;
 
 };
 

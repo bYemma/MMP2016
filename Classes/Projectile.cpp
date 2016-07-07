@@ -2,7 +2,10 @@
 #include <iostream>
 
 
-Projectile::Projectile() {
+Projectile::Projectile(int damage, Sprite* s) {
+	this->damage = damage;
+	this->sprite = s;
+	this->pbody = s->getPhysicsBody();
 }
 
 Sprite * Projectile::getSprite()
@@ -10,9 +13,15 @@ Sprite * Projectile::getSprite()
 	return sprite;
 }
 
-Projectile* Projectile::assembleProjectile() {
-	if (sprite != nullptr && physicsBody != nullptr) {
-		sprite->setPhysicsBody(physicsBody);
-	}
-	return this;
+PhysicsBody * Projectile::getPhysicsBody()
+{
+	return sprite->getPhysicsBody();
+}
+
+int Projectile::getDamage()
+{
+	return damage;
+}
+Projectile::~Projectile() {
+
 }

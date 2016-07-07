@@ -87,5 +87,5 @@ double Entity::keyPressedDuration(EventKeyboard::KeyCode code) {
 				   // Obviously the start time is the value we hold in our std::map keys
 	return std::chrono::duration_cast<std::chrono::milliseconds>
 		(std::chrono::high_resolution_clock::now() - keys[code]).count();
-} */
-
+} 
+*/
