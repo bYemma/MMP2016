@@ -6,42 +6,33 @@
 #include <ctime>
 
 #include "Projectile.h"
+#include "GameSprite.h"
 
-#define NUM_POINTS  10                            //to be adjusted
-#define X_OFFSET    NUM_POINTS/winSize.width      //num_points / screen.width
-#define Y_OFFSET    3                             //to be adjusted: how vertically far apart can a point be from its neighbours?
-#define MAX_ABS     40/100*winSize.height         //the highest level a point can be generated at. 40% screen.height?
-#define MIN_ABS     10/100*winSize.height         //the lowest level a point can be generated at. 10% screen.height? 
-#define DEFORMATION 0.5                           //to be adjusted, directly proportional to deformation calculation speed and inversely proportional to precision.
 
-//using namespace std;
+#define Y_OFFSET      3                                      //how vertically far apart a block can be from its neighbours, in number of blocks
+#define MIN_ABS       1                                      //the lowest level a block can be generated at
+#define MAX_ABS       MIN_ABS+5                              //the highest level a block can be generated at. must be MIN_ABS + n
+#define BLOCK_PERCENT 10                                     //number of columns will be generated
+#define BLOCK_Y       int(BLOCK_PERCENT/100*winSize.height)  //vertical size of blocks. must be a divisor of MIN_ABS
+#define BLOCK_X       BLOCK_Y                                //horizontal size of blocks
+
+#define DIRT_FILE     "Resources/res/textures/boden.png"
+#define GRASS_FILE    "Resources/res/textures/oberflaeche_gras.png"
+
 using namespace cocos2d;
 
-//may need to use getWinSizeInPixels()
-const Size winSize = Director::getInstance()->getWinSize();
+const Size winSize = Director::getInstance()->getWinSizeInPixels();
 
 class Ground {
 public:
-	static Ground & getInstance() {
-		static Ground instance;
-		return instance;
-	}
 
-	Ground(Ground const&) = delete;
-	Ground(Ground&&) = delete;
-	Ground& operator=(Ground const&) = delete;
-	Ground& operator=(Ground&&) = delete;
-
-	//to be called at the moment of the explosion/impact
-	void deform(Entity proj);
-protected:
-	Ground();
-	~Ground();
+	//returns a vector containing pointers to all sprites that form the terrain, 
+	//all with physics bodies and rects. They are ordered bottom-up and left-to-right.
+	//call this function only once
+	//to destroy terrain, simply iterate over this and check one by one explosion to block collision
+	static std::vector<Sprite*> createGround();
 
 private:
-	std::vector<Vec2> terrainPoints;
-	PhysicsBody* body;
-
 	static int doSrand;
 };
 

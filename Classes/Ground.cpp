@@ -1,5 +1,8 @@
 #include "Ground.h"
 
+/*
+//Deprecated and useless code, kept just for algorithm reference
+
 Ground::Ground() {
 	//this may need to be moved somewhere else
 	if (doSrand) {
@@ -71,3 +74,49 @@ void Ground::deform(Entity proj) {
 	body->removeAllShapes();
 	body->addShape(shape, false);
 }
+//*/
+
+std::vector<Sprite*> Ground::createGround() {
+	//this may need to be moved somewhere else
+	if (doSrand) {
+		doSrand = 0;
+		srand(time(NULL));
+	}
+
+	std::vector<Sprite*> gndBlocks;
+
+	//generate height of first column, in number of blocks
+	int height = rand() % (MAX_ABS - MIN_ABS) + MIN_ABS;
+	int offset;
+	Sprite *newBlock;
+	PhysicsBody *body = PhysicsBody::createBox(Size(BLOCK_X, BLOCK_Y));
+	body->setDynamic(false);
+
+
+	//iterate over columns
+	for (int i = 0; i < BLOCK_PERCENT; i++){
+		//iterate over the blocks of the current column
+		for (int j = 0; j < height; j++){
+			if (j == height - 1){ //top block of the column
+				newBlock->initWithFile(GRASS_FILE, Rect(i*BLOCK_X, j*BLOCK_Y, BLOCK_X, BLOCK_Y));
+			}
+			else{
+				newBlock->initWithFile(DIRT_FILE, Rect(i*BLOCK_X, j*BLOCK_Y, BLOCK_X, BLOCK_Y));
+			}
+			//should be ok to give them all the same body, change this otherwise
+			newBlock->setPhysicsBody(body);
+
+			gndBlocks.push_back(newBlock);
+		}
+
+		//column finished, calculate the height for next one
+		offset = rand() % Y_OFFSET * 2 - Y_OFFSET;
+		height += offset;
+		height = height > MAX_ABS ? MAX_ABS : height;
+		height = height < MIN_ABS ? MIN_ABS : height;
+	}
+
+	return gndBlocks;
+}
+
+
