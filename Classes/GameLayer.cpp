@@ -130,6 +130,21 @@ bool GameLayer::init() {
 	this->addChild(_box);
 
 
+	//
+	//
+	//
+	// Handle Phyiscs
+	//
+	//
+	//
+	EventListenerPhysicsContact *contactListener = EventListenerPhysicsContact::create();
+	contactListener->onContactBegin = CC_CALLBACK_1(GameLayer::onContactBegin, this);
+
+	contactListener->onContactPreSolve = CC_CALLBACK_2(GameLayer::onContactPreSolve, this);
+
+	contactListener->onContactPostSolve = CC_CALLBACK_2(GameLayer::onContactPostSolve, this);
+
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener,this);
 
 
 	//
@@ -241,6 +256,21 @@ bool GameLayer::init() {
 	this->scheduleUpdate();
 	return true;
 
+}
+
+bool GameLayer::onContactBegin(PhysicsContact & contact)
+{
+	return false;
+}
+
+// Calling it to eliminate The Jumping Effect... Restitution
+bool GameLayer::onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve) {
+	//solve.setRestitution(0);
+	return true;
+}
+
+void GameLayer::onContactPostSolve(PhysicsContact & contact, const PhysicsContactPostSolve & solve)
+{
 }
 
 void GameLayer::onKeyHold(float interval) {

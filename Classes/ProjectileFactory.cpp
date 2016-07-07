@@ -38,9 +38,9 @@ Projectile * ProjectileFactory::createProjectile(MunitionType mt)
 		Sprite* sr = Sprite::createWithTexture(loadTexture("res/football.png"));
 		sr->setScale(0.3f);
 		float width = sr->getContentSize().width;
-		float height = sr->getContentSize().width;
+		float height = sr->getContentSize().height;
 		PhysicsBody* pr = PhysicsBody::createCircle(
-			8.0f,
+			height/2.0f,
 			PhysicsMaterial(0.5f, 0.1f, 10.0f)
 		);
 		pr->setMass(20.0f);

@@ -66,8 +66,8 @@ void GameController::updateUI(GameLayer* gL)
 		secondsstr = std::to_string(seconds);
 	}
 	//Update labels
-	gL->_gametimelabel->setString(std::to_string(12) + ":" + "12");
-	gL->_roundtimelabel->setString(std::to_string(minutes) + ":" + secondsstr);
+	gL->_gametimelabel->setString(std::to_string(minutes) + ":" + secondsstr);
+	gL->_roundtimelabel->setString(std::to_string((int)roundtime));
 	gL->_playerturn->setString("It`s your turn: Hans");
 	gL->_weaponlabel->setString("Weapon: " + std::to_string(selectedWeapon+1));
 	
