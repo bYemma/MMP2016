@@ -22,5 +22,11 @@ bool MapScene::init()
 
 	_sSize = Director::getInstance()->getWinSize();
 
+	auto spritecache = SpriteFrameCache::getInstance();
+	spritecache->addSpriteFramesWithFile("res/spritesheet_walking/walking-0001-default.plist");
+	auto standing = Sprite::createWithSpriteFrameName("walking-0001-default.png");
+	standing->setPosition(Vec2(_sSize.width * 0.5, _sSize.height * 0.5));
+	addChild(standing);
+
 	return true;
 }
