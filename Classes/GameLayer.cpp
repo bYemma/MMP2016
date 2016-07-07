@@ -54,19 +54,19 @@ void GameLayer::createUI()
 	this->addChild(bgImage);
 
 	//Create Labels to show round and game time
-	_gametimelabel = Label::createWithTTF("0", "res/fonts/Minecraft.ttf", 32);
-	_gametimelabel->setPosition(Vec2(_screenSize.width*0.95, _screenSize.height * 0.07));
-	_gametimelabel->setTextColor(Color4B::WHITE);
-	this->addChild(_gametimelabel);
-	
 	_roundtimelabel = Label::createWithTTF("0", "res/fonts/Minecraft.ttf", 72);
 	_roundtimelabel->setPosition(Vec2(_screenSize.width*0.95, _screenSize.height * 0.12));
 	_roundtimelabel->setTextColor(Color4B::RED);
 	this->addChild(_roundtimelabel);
 
+	_gametimelabel = Label::createWithTTF("0", "res/fonts/Minecraft.ttf", 32);
+	_gametimelabel->setPosition(Vec2(_screenSize.width*0.95, _screenSize.height * 0.07));
+	_gametimelabel->setTextColor(Color4B::WHITE);
+	this->addChild(_gametimelabel);
+
 	//Windlabel
 	_windlabel = Label::createWithTTF("Wind: 0", "res/fonts/Minecraft.ttf", 42);
-	_windlabel->setPosition(Vec2(_screenSize.width*0.85, _screenSize.height * 0.11));
+	_windlabel->setPosition(Vec2(_roundtimelabel->getPosition().x-200.0f, _screenSize.height * 0.11));
 	_windlabel->setTextColor(Color4B::BLUE);
 	this->addChild(_windlabel);
 

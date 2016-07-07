@@ -4,16 +4,13 @@
 #include "Player.h"
 #include "cocos2d.h"
 #include "GameSprite.h"
-#include <map>
+#include <vector>
 
 using namespace cocos2d;
 
 class ProjectileFactory
 
 {
-	GameSprite* _rocket;
-	GameSprite* _nade;
-	GameSprite* _bullet;
 
 public:
 	enum MunitionType { ROCKET, NADE, BULLET };
@@ -21,13 +18,12 @@ public:
 	ProjectileFactory();
 
 	virtual ~ProjectileFactory();
-	void loadProjectileBodies();
-	void loadProjectileTextures();
 	Projectile* createProjectile(MunitionType mt);
 private:
+	Texture2D* loadTexture(const char* path);
 	bool initalized = false;
-	std::map<MunitionType, PhysicsBody*> bodymap;
-	std::map<MunitionType, GameSprite*> textmap;
+	std::vector<PhysicsBody*> bodymap;
+	std::vector<Texture2D*> textmap;
 
 };
 
