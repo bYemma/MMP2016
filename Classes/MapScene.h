@@ -11,8 +11,10 @@ class MapScene : public cocos2d::Layer
 
 	// Params
 	Size _sSize;
-	Sprite* sprite;
-	RepeatForever* running;
+	Sprite* player_blue;
+	Sprite* player_red;
+	RepeatForever* running_blue;
+	RepeatForever* running_red;
 
 public:
 	static cocos2d::Scene* createScene();

@@ -25,41 +25,50 @@ bool MapScene::init()
 	initAnimations();
 	
 	// Spielfigur anzeigen
-	addChild(sprite);
-	sprite->setPosition(100, 620);
+	player_blue->setPosition(100, 620);
+	addChild(player_blue);
+	player_red->setPosition(400, 620);
+	addChild(player_red);
 	
 	// Spielfigur gehen und stoppen lassen
 	startRunning();
-	this->scheduleOnce(schedule_selector(MapScene::stopRunning), 4); // Not necessary, just for testing
+	player_red->runAction(running_red);
+	//this->scheduleOnce(schedule_selector(MapScene::stopRunning), 4); // Not necessary, just for testing
 
 	return true;
 }
 
 void MapScene::startRunning()
 {
-	sprite->runAction(running);
+	player_blue->runAction(running_blue);
 }
 
 void MapScene::stopRunning(float dt)
 {
-	sprite->stopAction(running);
+	player_blue->stopAction(running_blue);
 }
 
 void MapScene::initSprites()
 {
-	SpriteBatchNode* spritebatch = SpriteBatchNode::create("res/cityscene.png");
+	SpriteBatchNode* spritebatch = SpriteBatchNode::create("res/game.png");
 	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
-	cache->addSpriteFramesWithFile("res/cityscene.plist");
+	cache->addSpriteFramesWithFile("res/game.plist");
 	addChild(spritebatch);
 }
 
 void MapScene::initAnimations()
 {
-	// Running-Animation:
-	auto frames = getAnimation("capguy/walk/%04d.png", 8);
-	sprite = Sprite::createWithSpriteFrame(frames.front());
-	auto animation = Animation::createWithSpriteFrames(frames, 1.0f / 8);
-	running = RepeatForever::create(Animate::create(animation));
+	// Running-Animation Player Blue:
+	auto frames_blue = getAnimation("blue/blue_figur_%02d.png", 11);
+	player_blue = Sprite::createWithSpriteFrame(frames_blue.front());
+	auto animation1 = Animation::createWithSpriteFrames(frames_blue, 1.0f / 11);
+	running_blue = RepeatForever::create(Animate::create(animation1));
+
+	// Running-Animation Player Red:
+	auto frames_red = getAnimation("red/red_figur_%02d.png", 12);
+	player_red = Sprite::createWithSpriteFrame(frames_red.front());
+	auto animation2 = Animation::createWithSpriteFrames(frames_red, 1.0f / 12);
+	running_red = RepeatForever::create(Animate::create(animation2));
 }
 
 Vector<SpriteFrame*> MapScene::getAnimation(const char *format, int count)
