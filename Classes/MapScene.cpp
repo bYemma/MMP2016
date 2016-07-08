@@ -25,15 +25,13 @@ bool MapScene::init()
 	
 	// Spielfigur anzeigen
 	Pawn* bluePawn = new Pawn(PawnColor::blue);
-	auto blueSprite = bluePawn->getSprite();
-	blueSprite->setPosition(100, 620);
-	addChild(blueSprite);
+	bluePawn->setPosition(100, 620);
+	addChild(bluePawn->getSprite());
 	bluePawn->startRunning();
 
 	Pawn* redPawn = new Pawn(PawnColor::red);
-	auto redSprite = redPawn->getSprite();
-	redSprite->setPosition(400, 620);
-	addChild(redSprite);
+	redPawn->setPosition(400, 620);
+	addChild(redPawn->getSprite());
 	redPawn->startRunning();
 
 	return true;

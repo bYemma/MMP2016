@@ -19,6 +19,11 @@ void Pawn::setColor(PawnColor color) {
 	this->color = color;
 }
 
+void Pawn::setPosition(float x, float y)
+{
+	sprite->setPosition(x, y);
+}
+
 void Pawn::startRunning()
 {
 	sprite->runAction(running_animation);

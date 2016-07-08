@@ -19,6 +19,7 @@ class Pawn
 public:
 	Pawn(PawnColor color);
 	Sprite* getSprite();
+	void setPosition(float x, float y);
 	void startRunning();
 	void stopRunning(float dt);
 private:
