@@ -103,7 +103,7 @@ bool GameLayer::init() {
 	createUI(); //Initalize and design all UI components used in GameController
 
 
-	//_gc->createTerrain();
+	_gc->createTerrain();
 	//_gc->createEntities();
 
 	//Create Ground

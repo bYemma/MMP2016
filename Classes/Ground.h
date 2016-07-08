@@ -33,8 +33,8 @@ public:
 	static std::vector<Sprite*> createGround();
 
 private:
-	static int doSrand;
+	int doSrand;
 };
 
-int Ground::doSrand = 1;
+//int Ground::doSrand = 1;
 

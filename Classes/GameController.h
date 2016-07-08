@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "ProjectileFactory.h"
+#include "Ground.h"
 #include "Player.h"
 #include "GameLayer.h"
 
@@ -13,6 +14,7 @@ public:
 	virtual ~GameController();
 
 	void initGame(); //create players and their stats
+	void createTerrain(); //create players and their stats
 	void endGame(); //close and kill all data
 
 	bool hasWinner(); //check for winner
@@ -48,6 +50,7 @@ private:
 	//GameData and UI
 
 	ProjectileFactory::MunitionType selectedWeapon = ProjectileFactory::MunitionType::NADE;
+	Ground* ground;
 	ProjectileFactory* pf;
 
 	Entity* selectedEntity;
