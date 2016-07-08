@@ -78,17 +78,17 @@ void Ground::deform(Entity proj) {
 
 std::vector<Sprite*> Ground::createGround() {
 	//this may need to be moved somewhere else
-	if (doSrand) {
+	/*if (doSrand) {
 		doSrand = 0;
 		srand(time(NULL));
-	}
+	}*/
 
 	std::vector<Sprite*> gndBlocks;
 
 	//generate height of first column, in number of blocks
 	int height = rand() % (MAX_ABS - MIN_ABS) + MIN_ABS;
 	int offset;
-	Sprite *newBlock;
+	Sprite *newBlock = nullptr;
 	PhysicsBody *body = PhysicsBody::createBox(Size(BLOCK_X, BLOCK_Y));
 	body->setDynamic(false);
 

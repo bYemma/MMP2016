@@ -14,11 +14,17 @@ GameController::GameController() {
 void GameController::initGame()
 {
 	pf = new ProjectileFactory();
+	ground = new Ground();
 	gametime = GAME_TIME; //20 Minutes for a game
 	roundtime = ROUND_TIME; //45 seconds for a round
 
 	gamerunning = true;
 
+}
+
+void GameController::createTerrain()
+{
+	ground->createGround();
 }
 
 void GameController::endGame()
