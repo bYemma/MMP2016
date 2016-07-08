@@ -16,6 +16,8 @@ public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 	CREATE_FUNC(MapScene);
+private:
+	cocos2d::Vector<cocos2d::SpriteFrame*> getAnimation(const char *format, int count);
 };
 
 #endif // __MAPSCENE_H__
