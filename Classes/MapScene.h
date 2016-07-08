@@ -11,12 +11,18 @@ class MapScene : public cocos2d::Layer
 
 	// Params
 	Size _sSize;
+	Sprite* sprite;
+	RepeatForever* running;
 
 public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 	CREATE_FUNC(MapScene);
 private:
+	void startRunning();
+	void stopRunning(float dt);
+	void initSprites();
+	void initAnimations();
 	cocos2d::Vector<cocos2d::SpriteFrame*> getAnimation(const char *format, int count);
 };
 
