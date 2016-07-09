@@ -19,12 +19,27 @@ void GameController::initGame()
 	roundtime = ROUND_TIME; //45 seconds for a round
 
 	gamerunning = true;
-
+	//Create Players ->name, vector for entities,points etc
 }
 
 void GameController::createTerrain()
 {
 	ground->createGround();
+}
+
+void GameController::createEntities(GameLayer* gLayer)
+{
+	//TODO: random position, player zuweisen und die erste spielende figur = selectedEntity
+	Pawn* bluePawn = createEntity(PawnColor::blue, Vec2(200,60));
+	gLayer->addChild(bluePawn->getSprite());
+	bluePawn->startRunning(); //TODO start in moveEntity()
+}
+
+Pawn* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
+	Pawn* pawn = new Pawn(pc);
+	pawn->setPosition(spawnpos.x, spawnpos.y);
+	pawn->getSprite()->setScale(0.4f);
+	return pawn;
 }
 
 void GameController::endGame()

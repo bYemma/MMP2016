@@ -36,8 +36,28 @@ void Pawn::stopRunning(float dt)
 
 void Pawn::initAnimations()
 {
+	const char* path = "";
+	int count = 0;
+	switch (color) {
+	case blue: {
+		path = "blue/blue_figur_%02d.png";
+		count = 11;
+		break;
+		}
+	case red: {
+		path = "red/red_figur_%02d.png";
+		count = 12;
+		break;
+	}
+	}
+	auto frames = getAnimation(path, count);
+	sprite = Sprite::createWithSpriteFrame(frames.front());
+	auto animation = Animation::createWithSpriteFrames(frames, 1.0f / count);
+	running_animation = RepeatForever::create(Animate::create(animation));
 	// TODO: Schauen wegen Bilder etc.
-	// Running-Animation Player Blue:
+	
+	
+	/*// Running-Animation Player Blue:
 	if (color == blue)
 	{
 		auto frames_blue = getAnimation("blue/blue_figur_%02d.png", 11);
@@ -52,7 +72,7 @@ void Pawn::initAnimations()
 		sprite = Sprite::createWithSpriteFrame(frames_red.front());
 		auto animation2 = Animation::createWithSpriteFrames(frames_red, 1.0f / 12);
 		running_animation = RepeatForever::create(Animate::create(animation2));
-	}
+	}*/
 
 	
 }
@@ -60,7 +80,7 @@ void Pawn::initAnimations()
 Vector<SpriteFrame*> Pawn::getAnimation(const char *format, int count)
 {
 	auto spritecache = SpriteFrameCache::getInstance();
-	Vector<SpriteFrame*> animFrames;
+	Vector<SpriteFrame*> animFrames = Vector<SpriteFrame*>();
 	char str[100];
 	for (int i = 1; i <= count; i++)
 	{

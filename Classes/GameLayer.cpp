@@ -43,11 +43,17 @@ void GameLayer::update(float dt) { //"GameLoop"
 
 void GameLayer::createUI()
 {
+	//was macht das kilian? :D
+	SpriteBatchNode* spritebatch = SpriteBatchNode::create("res/game.png");
+	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
+	cache->addSpriteFramesWithFile("res/game.plist");
+	addChild(spritebatch);
+	
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
 
 	//Create background and scale to screensize
-	auto bgImage = Sprite::create("res/ballz_background.png");
+	auto bgImage = Sprite::create("res/sprites_game/background.png");
 	bgImage->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	bgImage->setScaleX((_screenSize.width / bgImage->getContentSize().width));
 	bgImage->setScaleY((_screenSize.height / bgImage->getContentSize().height));
@@ -103,8 +109,8 @@ bool GameLayer::init() {
 	createUI(); //Initalize and design all UI components used in GameController
 
 
-	_gc->createTerrain();
-	//_gc->createEntities();
+	//_gc->createTerrain();
+	_gc->createEntities(this);
 
 	//Create Ground
 	auto groundBody = PhysicsBody::createBox(
@@ -278,17 +284,17 @@ void GameLayer::onKeyHold(float interval) {
 	if (keys.find(EventKeyboard::KeyCode::KEY_RIGHT_ARROW) != keys.end()) {
 		// right pressed
 		_gc->moveEntity(1);
-	}
+	} else 
 
 	if (keys.find(EventKeyboard::KeyCode::KEY_LEFT_ARROW) != keys.end()) {
 		// left pressed
 		_gc->moveEntity(-1);
-	}
+	} else
 
 	if (keys.find(EventKeyboard::KeyCode::KEY_UP_ARROW) != keys.end()) {
 		// increase angle
 		_gc->adjustEntityAimAngle();
-	}
+	} else
 
 	if (keys.find(EventKeyboard::KeyCode::KEY_DOWN_ARROW) != keys.end()) {
 		// decrease angle
