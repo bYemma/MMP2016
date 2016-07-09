@@ -37,42 +37,21 @@ void Pawn::stopRunning(float dt)
 void Pawn::initAnimations()
 {
 	const char* path = "";
-	int count = 0;
+	int count = 12;
 	switch (color) {
 	case blue: {
-		path = "blue/blue_figur_%02d.png";
-		count = 11;
+		path = "walking_blue/%02d.png";
 		break;
 		}
 	case red: {
-		path = "red/red_figur_%02d.png";
-		count = 12;
+		path = "walking_red/%02d.png";
 		break;
-	}
+		}
 	}
 	auto frames = getAnimation(path, count);
 	sprite = Sprite::createWithSpriteFrame(frames.front());
 	auto animation = Animation::createWithSpriteFrames(frames, 1.0f / count);
 	running_animation = RepeatForever::create(Animate::create(animation));
-	// TODO: Schauen wegen Bilder etc.
-	
-	
-	/*// Running-Animation Player Blue:
-	if (color == blue)
-	{
-		auto frames_blue = getAnimation("blue/blue_figur_%02d.png", 11);
-		sprite = Sprite::createWithSpriteFrame(frames_blue.front());
-		auto animation1 = Animation::createWithSpriteFrames(frames_blue, 1.0f / 11);
-		running_animation = RepeatForever::create(Animate::create(animation1));
-	}
-	// Running-Animation Player Red:
-	else if (color == red)
-	{
-		auto frames_red = getAnimation("red/red_figur_%02d.png", 12);
-		sprite = Sprite::createWithSpriteFrame(frames_red.front());
-		auto animation2 = Animation::createWithSpriteFrames(frames_red, 1.0f / 12);
-		running_animation = RepeatForever::create(Animate::create(animation2));
-	}*/
 
 	
 }

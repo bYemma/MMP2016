@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.2.2</string>
         <key>fileName</key>
-        <string>C:/Programmieren/Cocos/Cocos/CocosProjects/MMP2016/Resources/res/sprites_game/game.tps</string>
+        <string>C:/Programmieren/Cocos/Cocos/CocosProjects/MMP2016/Resources/res/sprites_menu/menu.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -141,7 +141,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../game.plist</filename>
+                <filename>../menu.plist</filename>
             </struct>
             <key>header</key>
             <key>source</key>
@@ -194,78 +194,10 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">aiming_blue/0.png</key>
-            <key type="filename">aiming_blue/10.png</key>
-            <key type="filename">aiming_blue/20.png</key>
-            <key type="filename">aiming_blue/30.png</key>
-            <key type="filename">aiming_blue/40.png</key>
-            <key type="filename">aiming_blue/50.png</key>
-            <key type="filename">aiming_blue/60.png</key>
-            <key type="filename">aiming_blue/70.png</key>
-            <key type="filename">aiming_blue/80.png</key>
-            <key type="filename">aiming_blue/90.png</key>
-            <key type="filename">aiming_red/0.png</key>
-            <key type="filename">aiming_red/10.png</key>
-            <key type="filename">aiming_red/20.png</key>
-            <key type="filename">aiming_red/30.png</key>
-            <key type="filename">aiming_red/40.png</key>
-            <key type="filename">aiming_red/50.png</key>
-            <key type="filename">aiming_red/60.png</key>
-            <key type="filename">aiming_red/70.png</key>
-            <key type="filename">aiming_red/80.png</key>
-            <key type="filename">aiming_red/90.png</key>
-            <key type="filename">background.png</key>
-            <key type="filename">basketball.png</key>
-            <key type="filename">explosion/01.png</key>
-            <key type="filename">explosion/02.png</key>
-            <key type="filename">explosion/03.png</key>
-            <key type="filename">explosion/04.png</key>
-            <key type="filename">explosion/05.png</key>
-            <key type="filename">explosion/06.png</key>
-            <key type="filename">explosion/07.png</key>
-            <key type="filename">explosion/08.png</key>
-            <key type="filename">explosion/09.png</key>
-            <key type="filename">explosion/10.png</key>
-            <key type="filename">explosion/11.png</key>
-            <key type="filename">explosion/12.png</key>
-            <key type="filename">explosion/13.png</key>
-            <key type="filename">explosion/14.png</key>
-            <key type="filename">explosion/15.png</key>
-            <key type="filename">explosion/16.png</key>
-            <key type="filename">explosion/17.png</key>
-            <key type="filename">explosion/18.png</key>
-            <key type="filename">explosion/19.png</key>
-            <key type="filename">explosion/20.png</key>
-            <key type="filename">explosion/21.png</key>
-            <key type="filename">explosion/22.png</key>
-            <key type="filename">football.png</key>
-            <key type="filename">fussball.png</key>
-            <key type="filename">schussanzeige_voll.png</key>
-            <key type="filename">schussanzeige_white.png</key>
-            <key type="filename">walking_blue/01.png</key>
-            <key type="filename">walking_blue/02.png</key>
-            <key type="filename">walking_blue/03.png</key>
-            <key type="filename">walking_blue/04.png</key>
-            <key type="filename">walking_blue/05.png</key>
-            <key type="filename">walking_blue/06.png</key>
-            <key type="filename">walking_blue/07.png</key>
-            <key type="filename">walking_blue/08.png</key>
-            <key type="filename">walking_blue/09.png</key>
-            <key type="filename">walking_blue/10.png</key>
-            <key type="filename">walking_blue/11.png</key>
-            <key type="filename">walking_blue/12.png</key>
-            <key type="filename">walking_red/01.png</key>
-            <key type="filename">walking_red/02.png</key>
-            <key type="filename">walking_red/03.png</key>
-            <key type="filename">walking_red/04.png</key>
-            <key type="filename">walking_red/05.png</key>
-            <key type="filename">walking_red/06.png</key>
-            <key type="filename">walking_red/07.png</key>
-            <key type="filename">walking_red/08.png</key>
-            <key type="filename">walking_red/09.png</key>
-            <key type="filename">walking_red/10.png</key>
-            <key type="filename">walking_red/11.png</key>
-            <key type="filename">walking_red/12.png</key>
+            <key type="filename">ballz_cover.png</key>
+            <key type="filename">game_over.png</key>
+            <key type="filename">quit_button.png</key>
+            <key type="filename">start_bttn.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
