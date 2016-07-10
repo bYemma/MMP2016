@@ -1,6 +1,6 @@
 #include "Ground.h"
-
-Vector<Sprite*> Ground::createGround(Layer& layer) {
+#include "GameLayer.h"
+Vector<Sprite*> Ground::createGround(GameLayer* layer) {
 	//this may need to be moved somewhere else
 	srand(time(NULL));
 
@@ -58,7 +58,7 @@ Vector<Sprite*> Ground::createGround(Layer& layer) {
 
 	for (int i = 0; i < gndBlocks.size(); i++){
 		//log("Adding block: %d", i);
-		layer.addChild(gndBlocks.at(i));
+		layer->addChild(gndBlocks.at(i));
 		//log("Block %d added\n", i);
 	}
 

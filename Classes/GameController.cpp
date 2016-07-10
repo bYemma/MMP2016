@@ -22,9 +22,9 @@ void GameController::initGame()
 	//Create Players ->name, vector for entities,points etc
 }
 
-void GameController::createTerrain()
+void GameController::createTerrain(GameLayer* gLayer)
 {
-	ground->createGround();
+	ground->createGround(gLayer);
 }
 
 void GameController::createEntities(GameLayer* gLayer)

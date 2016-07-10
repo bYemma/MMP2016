@@ -15,7 +15,7 @@ public:
 	virtual ~GameController();
 
 	void initGame(); //create players and their stats
-	void createTerrain(); //create players and their stats
+	void createTerrain(GameLayer* gLayer); //create players and their stats
 	void createEntities(GameLayer* gLayer);
 	Pawn* createEntity(PawnColor pc, Vec2 spawnpos);
 	void endGame(); //close and kill all data

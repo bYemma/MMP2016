@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 
+#include "GameLayer.h"
 #include "AppDelegate.h"
 
 //how vertically far apart a block can be from its neighbours, in number of blocks
@@ -50,7 +51,7 @@ public:
 	*Top blocks have grass texture, the rest have dirt texture.
 	*Modify the first 4 defines of this file to adjust terrain generation parameters.
 	*/
-	static Vector<Sprite*> createGround(Layer& layer);
+	static Vector<Sprite*> createGround(GameLayer* layer);
 };
 
 
