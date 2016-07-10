@@ -43,7 +43,12 @@ void GameLayer::update(float dt) { //"GameLoop"
 
 void GameLayer::createUI()
 {
-	//was macht das kilian? :D
+
+	const std::string font = "res/fonts/Minecraft.ttf";
+
+	// was macht das kilian? -> Das lädt das SpriteSheet, 
+	// damit dann die einzelnen Bilder per createWithSpriteFrameName geladen werden können.
+	// Siehe Background...
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create("res/game.png");
 	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
 	cache->addSpriteFramesWithFile("res/game.plist");
@@ -52,44 +57,44 @@ void GameLayer::createUI()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
 
-	//Create background and scale to screensize
-	auto bgImage = Sprite::create("res/sprites_game/background.png");
+	// Create background and scale to screensize
+	auto bgImage = Sprite::createWithSpriteFrameName("background.png");
 	bgImage->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	bgImage->setScaleX((_screenSize.width / bgImage->getContentSize().width));
 	bgImage->setScaleY((_screenSize.height / bgImage->getContentSize().height));
-	this->addChild(bgImage);
+	addChild(bgImage);
 
-	//Create Labels to show round and game time
-	_roundtimelabel = Label::createWithTTF("0", "res/fonts/Minecraft.ttf", 72);
+	// Create Labels to show round and game time
+	_roundtimelabel = Label::createWithTTF("0", font, 72);
 	_roundtimelabel->setPosition(Vec2(_screenSize.width*0.95, _screenSize.height * 0.12));
 	_roundtimelabel->setTextColor(Color4B::RED);
-	this->addChild(_roundtimelabel);
+	addChild(_roundtimelabel);
 
-	_gametimelabel = Label::createWithTTF("0", "res/fonts/Minecraft.ttf", 32);
+	_gametimelabel = Label::createWithTTF("0", font, 32);
 	_gametimelabel->setPosition(Vec2(_screenSize.width*0.95, _screenSize.height * 0.07));
 	_gametimelabel->setTextColor(Color4B::WHITE);
-	this->addChild(_gametimelabel);
+	addChild(_gametimelabel);
 
-	//Windlabel
-	_windlabel = Label::createWithTTF("Wind: 0", "res/fonts/Minecraft.ttf", 42);
+	// Windlabel
+	_windlabel = Label::createWithTTF("Wind: 0", font, 42);
 	_windlabel->setPosition(Vec2(_roundtimelabel->getPosition().x-200.0f, _screenSize.height * 0.11));
 	_windlabel->setTextColor(Color4B::BLUE);
 	this->addChild(_windlabel);
 
-	//Label to show which players turn it is
-	_playerturn = Label::createWithTTF("", "res/fonts/Minecraft.ttf", 32);
+	// Label to show which players turn it is
+	_playerturn = Label::createWithTTF("", font, 32);
 	_playerturn->setPosition(Vec2(_screenSize.width*0.5, _screenSize.height * 0.95));
 	_playerturn->setTextColor(Color4B::WHITE);
 	this->addChild(_playerturn);
 
-	//Weaponlabel to show which weapon is currently used
-	_weaponlabel = Label::createWithTTF("Weapon: ", "res/fonts/Minecraft.ttf", 32);
+	// Weaponlabel to show which weapon is currently used
+	_weaponlabel = Label::createWithTTF("Weapon: ", font, 32);
 	_weaponlabel->setPosition(Vec2(_screenSize.width*0.11, _screenSize.height * 0.95));
 	_weaponlabel->setTextColor(Color4B::WHITE);
 	this->addChild(_weaponlabel);
 }
 
-//Map for keyevents
+// Map for keyevents
 static std::map<cocos2d::EventKeyboard::KeyCode, std::chrono::high_resolution_clock::time_point> keys;
 
 bool GameLayer::init() {

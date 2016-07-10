@@ -38,6 +38,11 @@ bool MenuScene::init()
 	altButton->addClickEventListener(CC_CALLBACK_0(MenuScene::test, this));
 	addChild(altButton);
 
+	ui::Button* altButton = ui::Button::create("res/menu-button.png");
+	altButton->setPosition(Vec2(_sSize.width * 0.9, _sSize.height * 0.9));
+	altButton->addClickEventListener(CC_CALLBACK_0(MenuScene::test, this));
+	addChild(altButton);
+
 	return true;
 }
 
