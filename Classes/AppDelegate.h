@@ -4,10 +4,6 @@
 
 #include "cocos2d.h"
 
-//Included by Hernan, update reference at Ground.h and move somewhere else if necessary
-#define WINDOW_W 1280
-#define WINDOW_H 960
-
 /**
 @brief    The cocos2d Application.
 
