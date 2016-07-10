@@ -45,13 +45,18 @@ public:
 	
 	static cocos2d::Scene* scene();
 
+
+
+	CREATE_FUNC(GameLayer);
+
+private:
 	void createUI();
 
 	//Key events
 	bool isKeyPressed(cocos2d::EventKeyboard::KeyCode);
 	double keyPressedDuration(cocos2d::EventKeyboard::KeyCode);
 	void onKeyHold(float interval);
-	
+
 	// Physics Contact Listener.....
 	bool onContactBegin(PhysicsContact& contact);
 	bool onContactPreSolve(PhysicsContact& contact,
@@ -59,11 +64,6 @@ public:
 	void onContactPostSolve(PhysicsContact& contact,
 		const PhysicsContactPostSolve& solve);
 	void onContactSeperate(PhysicsContact& contact);
-
-	CREATE_FUNC(GameLayer);
-
-private:
-
 	//key = keycode, value = time
 	void update(float dt);
 };

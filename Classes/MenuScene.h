@@ -18,8 +18,11 @@ public:
 	CREATE_FUNC(MenuScene);
 
 	// Button-Klick Callback
-	void buttonPressed();
-	void button2Pressed();
+	void start();
+	void test();
+	void quit();
+private:
+	void initSprites();
 };
 
 #endif // __MENUSCENE_H__

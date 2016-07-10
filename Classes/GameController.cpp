@@ -14,11 +14,32 @@ GameController::GameController() {
 void GameController::initGame()
 {
 	pf = new ProjectileFactory();
+	ground = new Ground();
 	gametime = GAME_TIME; //20 Minutes for a game
 	roundtime = ROUND_TIME; //45 seconds for a round
 
 	gamerunning = true;
+	//Create Players ->name, vector for entities,points etc
+}
 
+void GameController::createTerrain()
+{
+	ground->createGround();
+}
+
+void GameController::createEntities(GameLayer* gLayer)
+{
+	//TODO: random position, player zuweisen und die erste spielende figur = selectedEntity
+	Pawn* bluePawn = createEntity(PawnColor::blue, Vec2(200,60));
+	gLayer->addChild(bluePawn->getSprite());
+	bluePawn->startRunning(); //TODO start in moveEntity()
+}
+
+Pawn* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
+	Pawn* pawn = new Pawn(pc);
+	pawn->setPosition(spawnpos.x, spawnpos.y);
+	pawn->getSprite()->setScale(0.4f);
+	return pawn;
 }
 
 void GameController::endGame()
@@ -66,8 +87,8 @@ void GameController::updateUI(GameLayer* gL)
 		secondsstr = std::to_string(seconds);
 	}
 	//Update labels
-	gL->_gametimelabel->setString(std::to_string(12) + ":" + "12");
-	gL->_roundtimelabel->setString(std::to_string(minutes) + ":" + secondsstr);
+	gL->_gametimelabel->setString(std::to_string(minutes) + ":" + secondsstr);
+	gL->_roundtimelabel->setString(std::to_string((int)roundtime));
 	gL->_playerturn->setString("It`s your turn: Hans");
 	gL->_weaponlabel->setString("Weapon: " + std::to_string(selectedWeapon+1));
 	

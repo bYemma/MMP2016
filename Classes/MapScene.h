@@ -5,6 +5,7 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "GameSprite.h"
+#include "Pawn.h"
 
 class MapScene : public cocos2d::Layer
 {
@@ -16,6 +17,8 @@ public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 	CREATE_FUNC(MapScene);
+private:
+	void initSprites();
 };
 
 #endif // __MAPSCENE_H__

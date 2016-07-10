@@ -93,6 +93,9 @@
     <ClCompile Include="..\Classes\Ground.cpp">
       <Filter>src\data</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Pawn.cpp">
+      <Filter>src\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Ground.h">
       <Filter>src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Pawn.h">
+      <Filter>src\view</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

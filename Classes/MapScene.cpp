@@ -1,6 +1,4 @@
 #include "MapScene.h"
-#include "GameLayer.h"
-#include "iostream"
 
 USING_NS_CC;
 
@@ -22,12 +20,27 @@ bool MapScene::init()
 
 	_sSize = Director::getInstance()->getWinSize();
 
-	SpriteBatchNode* spritebatch = SpriteBatchNode::create("res/spritesheet_walking/walking-0001-default.png");
-	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
-	cache->addSpriteFramesWithFile("res/spritesheet_walking/walking-0001-default.plist");
-	auto Sprite1 = Sprite::createWithSpriteFrameName("01.png");
-	spritebatch->addChild(Sprite1);
-	addChild(spritebatch);
+	// Sprites initialisieren
+	initSprites();
+	
+	// Spielfigur anzeigen
+	Pawn* bluePawn = new Pawn(PawnColor::blue);
+	bluePawn->setPosition(100, 620);
+	addChild(bluePawn->getSprite());
+	bluePawn->startRunning();
+
+	Pawn* redPawn = new Pawn(PawnColor::red);
+	redPawn->setPosition(400, 620);
+	addChild(redPawn->getSprite());
+	redPawn->startRunning();
 
 	return true;
+}
+
+void MapScene::initSprites()
+{
+	SpriteBatchNode* spritebatch = SpriteBatchNode::create("res/game.png");
+	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
+	cache->addSpriteFramesWithFile("res/game.plist");
+	addChild(spritebatch);
 }
