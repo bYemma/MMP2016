@@ -32,7 +32,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	if (!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
 		//glview = GLViewImpl::createWithFullScreen("BALLZ");
-		glview = GLViewImpl::createWithRect("MyApp", Rect(0, 0, 1280, 960));
+		glview = GLViewImpl::createWithRect("MyApp", Rect(0, 0, WINDOW_W, WINDOW_H));
 #else
 		glview = GLViewImpl::create("Chipmunk Hello World");
 #endif
