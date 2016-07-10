@@ -28,20 +28,20 @@ bool MenuScene::init()
 	bg->setPosition(_sSize.width * 0.5, _sSize.height * 0.5);
 	addChild(bg);
 
-	ui::Button* startButton = ui::Button::create("res/menu-button.png");
+	ui::Button* startButton = ui::Button::create("start_button.png", "", "", ui::TextureResType::PLIST);
 	startButton->setPosition(Vec2(_sSize.width * 0.5 - 143, _sSize.height * 0.5 - 254));
 	startButton->addClickEventListener(CC_CALLBACK_0(MenuScene::start, this));
 	addChild(startButton);
 
-	ui::Button* altButton = ui::Button::create("res/menu-button.png");
+	ui::Button* altButton = ui::Button::create("start_button.png", "", "", ui::TextureResType::PLIST);
 	altButton->setPosition(Vec2(_sSize.width * 0.5 + 143, _sSize.height * 0.5 - 254));
 	altButton->addClickEventListener(CC_CALLBACK_0(MenuScene::test, this));
 	addChild(altButton);
 
-	ui::Button* altButton = ui::Button::create("res/menu-button.png");
-	altButton->setPosition(Vec2(_sSize.width * 0.9, _sSize.height * 0.9));
-	altButton->addClickEventListener(CC_CALLBACK_0(MenuScene::test, this));
-	addChild(altButton);
+	ui::Button* quitButton = ui::Button::create("quit_button.png", "", "", ui::TextureResType::PLIST);
+	quitButton->setPosition(Vec2(_sSize.width * 0.9, _sSize.height * 0.9));
+	quitButton->addClickEventListener(CC_CALLBACK_0(MenuScene::quit, this));
+	addChild(quitButton);
 
 	return true;
 }
@@ -56,6 +56,11 @@ void MenuScene::test() {
 	auto director = Director::getInstance();
 	auto scene = MapScene::createScene();
 	director->replaceScene(scene);
+}
+
+void MenuScene::quit() {
+	auto director = Director::getInstance();
+	director->end();
 }
 
 void MenuScene::initSprites()

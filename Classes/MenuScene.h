@@ -20,6 +20,7 @@ public:
 	// Button-Klick Callback
 	void start();
 	void test();
+	void quit();
 private:
 	void initSprites();
 };

@@ -49,7 +49,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>start_bttn.png</key>
+            <key>start_button.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -78,7 +78,7 @@
             <key>size</key>
             <string>{514,681}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:148543e511ebbb823208358dd3e96545:a9c15cd8140369c7119cea7b364cee31:9622c220910f706aac7e93396e53b943$</string>
+            <string>$TexturePacker:SmartUpdate:3e25abe6b88884973f34744d89e3eb49:a9c15cd8140369c7119cea7b364cee31:9622c220910f706aac7e93396e53b943$</string>
             <key>textureFileName</key>
             <string>menu.png</string>
         </dict>
