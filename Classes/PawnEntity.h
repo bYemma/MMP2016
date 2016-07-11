@@ -1,31 +1,21 @@
 #pragma once
-#ifndef __PAWN_H__
-#define __PAWN_H__
 
+#include "Entity.h"
 #include "cocos2d.h"
 #include "GameSprite.h"
 
 enum PawnColor { red, blue };
 
-class Pawn
+class PawnEntity : public Entity
 {
-
-	// Params
-	Size _sSize;
-	Sprite* sprite;
-	RepeatForever* running_animation;
-	int color;
-
 public:
-	Pawn(PawnColor color);
-	Sprite* getSprite();
-	void setPosition(float x, float y);
+	PawnEntity(PawnColor color);
 	void startRunning();
 	void stopRunning();
 private:
+	RepeatForever* running_animation;
+	int color;
 	void setColor(PawnColor color);
 	void initAnimations();
 	cocos2d::Vector<cocos2d::SpriteFrame*> getAnimation(const char *format, int count);
 };
-
-#endif // __PAWN_H__

@@ -11,10 +11,6 @@
 
 using namespace cocos2d;
 
-GameLayer::GameLayer() {
-	
-}
-
 Scene* GameLayer::scene() {
 
 	auto scene = Scene::createWithPhysics();;
@@ -114,6 +110,7 @@ bool GameLayer::init() {
 	_screenSize = Director::getInstance()->getWinSize();
 	_center = Vec2(_screenSize.width * 0.5, _screenSize.height * 0.5);
 	
+	initSprites();
 	_gc = new GameController(pw); // Controll gameflow and actions
 	_gc->initGame();
 
@@ -309,7 +306,10 @@ double GameLayer::keyPressedDuration(EventKeyboard::KeyCode code) {
 		(std::chrono::high_resolution_clock::now() - keys[code]).count();
 }
 
-GameLayer::~GameLayer()
+void GameLayer::initSprites()
 {
+	SpriteBatchNode* spritebatch = SpriteBatchNode::create("res/game.png");
+	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
+	cache->addSpriteFramesWithFile("res/game.plist");
+	addChild(spritebatch);
 }
-

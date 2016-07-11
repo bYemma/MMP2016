@@ -5,7 +5,6 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "GameSprite.h"
-#include "Pawn.h"
 
 class MapScene : public cocos2d::Layer
 {

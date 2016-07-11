@@ -1,40 +1,28 @@
-#include "Pawn.h"
+#include "PawnEntity.h"
 
 USING_NS_CC;
 
-using namespace cocos2d;
-
-Pawn::Pawn(PawnColor color)
+PawnEntity::PawnEntity(PawnColor color)
 {
 	setColor(color);
 	initAnimations();
 }
 
-Sprite* Pawn::getSprite()
-{
-	return sprite;
-}
-
-void Pawn::setColor(PawnColor color) {
+void PawnEntity::setColor(PawnColor color) {
 	this->color = color;
 }
 
-void Pawn::setPosition(float x, float y)
-{
-	sprite->setPosition(x, y);
-}
-
-void Pawn::startRunning()
+void PawnEntity::startRunning()
 {
 	sprite->runAction(running_animation);
 }
 
-void Pawn::stopRunning()
+void PawnEntity::stopRunning()
 {
 	sprite->stopAction(running_animation);
 }
 
-void Pawn::initAnimations()
+void PawnEntity::initAnimations()
 {
 	const char* path = "";
 	int count = 12;
@@ -42,21 +30,21 @@ void Pawn::initAnimations()
 	case blue: {
 		path = "walking_blue/%02d.png";
 		break;
-		}
+	}
 	case red: {
 		path = "walking_red/%02d.png";
 		break;
-		}
+	}
 	}
 	auto frames = getAnimation(path, count);
 	sprite = Sprite::createWithSpriteFrame(frames.front());
 	auto animation = Animation::createWithSpriteFrames(frames, 1.0f / count);
 	running_animation = RepeatForever::create(Animate::create(animation));
 
-	
+
 }
 
-Vector<SpriteFrame*> Pawn::getAnimation(const char *format, int count)
+Vector<SpriteFrame*> PawnEntity::getAnimation(const char *format, int count)
 {
 	auto spritecache = SpriteFrameCache::getInstance();
 	Vector<SpriteFrame*> animFrames = Vector<SpriteFrame*>();

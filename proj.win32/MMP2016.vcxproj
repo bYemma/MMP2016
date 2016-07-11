@@ -157,6 +157,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\MenuScene.cpp" />
     <ClCompile Include="..\Classes\GameState_Running.cpp" />
     <ClCompile Include="..\Classes\Pawn.cpp" />
+    <ClCompile Include="..\Classes\PawnEntity.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\ProjectileFactory.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
@@ -178,6 +179,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\MapScene.h" />
     <ClInclude Include="..\Classes\MenuScene.h" />
     <ClInclude Include="..\Classes\Pawn.h" />
+    <ClInclude Include="..\Classes\PawnEntity.h" />
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\ProjectileFactory.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />

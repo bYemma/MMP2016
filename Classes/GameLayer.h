@@ -35,9 +35,6 @@ public:
 	Label* _weaponlabel;
 	
 	EventListenerKeyboard* _eventListener;
-
-	GameLayer();
-	virtual ~GameLayer();
 	virtual bool init();
 	
 	static cocos2d::Scene* scene();
@@ -47,6 +44,8 @@ public:
 private:
 	PhysicsWorld* pw;
 	void createUI();
+	void initSprites();
+
 	void setPhysicsWorld(PhysicsWorld* pw);
 	//Key events
 	bool isKeyPressed(cocos2d::EventKeyboard::KeyCode);

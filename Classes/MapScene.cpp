@@ -1,4 +1,5 @@
 #include "MapScene.h"
+#include "PawnEntity.h"
 
 USING_NS_CC;
 
@@ -24,13 +25,13 @@ bool MapScene::init()
 	initSprites();
 	
 	// Spielfigur anzeigen
-	Pawn* bluePawn = new Pawn(PawnColor::blue);
-	bluePawn->setPosition(100, 620);
+	PawnEntity* bluePawn = new PawnEntity(PawnColor::blue);
+	bluePawn->setPosition(Vec2(100, 620));
 	addChild(bluePawn->getSprite());
 	bluePawn->startRunning();
 
-	Pawn* redPawn = new Pawn(PawnColor::red);
-	redPawn->setPosition(400, 620);
+	PawnEntity* redPawn = new PawnEntity(PawnColor::red);
+	redPawn->setPosition(Vec2(400, 620));
 	addChild(redPawn->getSprite());
 	redPawn->startRunning();
 

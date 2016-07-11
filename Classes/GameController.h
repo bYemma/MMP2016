@@ -4,7 +4,7 @@
 #include "Ground.h"
 #include "Player.h"
 #include "GameLayer.h"
-#include "Pawn.h"
+#include "PawnEntity.h"
 
 class GameController
 
@@ -17,7 +17,7 @@ public:
 	void initGame(); //create players and their stats
 	void createTerrain(GameLayer* gLayer); //create players and their stats
 	void createEntities(GameLayer* gLayer);
-	Pawn* createEntity(PawnColor pc, Vec2 spawnpos);
+	PawnEntity* createEntity(PawnColor pc, Vec2 spawnpos);
 	void endGame(); //close and kill all data
 
 	bool hasWinner(); //check for winner
