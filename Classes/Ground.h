@@ -45,7 +45,7 @@ public:
 	*Call this function only once (!)
 	*If function srand() is called somewhere else, remove it from either this function or the other call place.
 	*Call it from a layer like this: Ground::createGround(*this);
-	*Store the returned cocos2d::Vector<Sprite*> as usual.
+	*Store the returned Vector<Sprite*> as usual.
 	*Blocks are stored bottom-up and left-to-right.
 	*All blocks are Sprites* with attached PhysicsBody (already containing position and size).
 	*Top blocks have grass texture, the rest have dirt texture.

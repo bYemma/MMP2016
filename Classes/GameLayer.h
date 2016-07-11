@@ -11,7 +11,7 @@ using namespace cocos2d;
 
 class GameController; // no need to include GameController
 
-class GameLayer : public cocos2d::Layer
+class GameLayer : public Layer
 {
 	Node* target = nullptr; // currently controlled entity via eventlistener
 
@@ -36,7 +36,7 @@ public:
 	EventListenerKeyboard* _eventListener;
 	virtual bool init();
 	
-	static cocos2d::Scene* scene();
+	static Scene* scene();
 
 	CREATE_FUNC(GameLayer);
 
@@ -47,8 +47,8 @@ private:
 
 	void setPhysicsWorld(PhysicsWorld* pw);
 	//Key events
-	bool isKeyPressed(cocos2d::EventKeyboard::KeyCode);
-	double keyPressedDuration(cocos2d::EventKeyboard::KeyCode);
+	bool isKeyPressed(EventKeyboard::KeyCode);
+	double keyPressedDuration(EventKeyboard::KeyCode);
 	void onKeyHold(float interval);
 
 	// Physics Contact Listener.....
