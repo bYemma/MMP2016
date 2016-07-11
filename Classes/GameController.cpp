@@ -40,7 +40,7 @@ void GameController::createEntities(GameLayer* gLayer)
 		pawn = createEntity(i % 2 == 0 ? PawnColor::red : PawnColor::blue, Vec2(xCoord,600));
 		gLayer->addChild(pawn->getSprite());
 
-		if(i==3) selectedEntity = pawn;
+		if(i==3) selectedPawn = pawn;
 	}
 }
 
