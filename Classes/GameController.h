@@ -57,7 +57,7 @@ private:
 	Ground* ground;
 	ProjectileFactory* pf;
 
-	Entity* selectedEntity;
+	Entity* selectedPawn;
 
 	float gametime, roundtime;
 	bool gamerunning;

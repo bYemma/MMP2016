@@ -52,6 +52,7 @@ Vector<Sprite*> Ground::createGround(GameLayer* layer) {
 	gndBlocks.shrinkToFit();
 
 	for (int i = 0; i < gndBlocks.size(); i++){
+		//gndBlocks.at(i)->setZOrder(1);
 		layer->addChild(gndBlocks.at(i));
 	}
 

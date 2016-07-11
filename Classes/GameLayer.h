@@ -11,16 +11,11 @@ using namespace cocos2d;
 
 class GameController; // no need to include GameController
 
+
 class GameLayer : public cocos2d::Layer
 {
-	Node* target = nullptr; // currently controlled entity via eventlistener
 
 	GameController* _gc;
-
-	Sprite* _box;
-	Sprite* _ground;
-
-	std::vector<Sprite*> gameobjects;
 
 	Size _screenSize;
 	Vec2 _center;

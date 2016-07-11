@@ -89,7 +89,7 @@ void GameController::updateUI(GameLayer* gL)
 	//Update labels
 	gL->_gametimelabel->setString(std::to_string(minutes) + ":" + secondsstr);
 	gL->_roundtimelabel->setString(std::to_string((int)roundtime));
-	gL->_playerturn->setString("It`s your turn: Hans");
+	//gL->_playerturn->setString("It`s your turn: " + selectedPawn->getOwner()->getName());
 	gL->_weaponlabel->setString("Weapon: " + std::to_string(selectedWeapon+1));
 	
 	//Update Health labels
@@ -130,41 +130,41 @@ void GameController::generateWindVec(GameLayer* gLayer)
 
 void GameController::moveEntity(int dir)
 {
-	Vec2 aimvec = selectedEntity->getAimVec();
-	Vec2 pos = selectedEntity->getPosition();
+	Vec2 aimvec = selectedPawn->getAimVec();
+	Vec2 pos = selectedPawn->getPosition();
 
 	if (dir == -1) {
-		selectedEntity->setPosition(Vec2(--pos.x, pos.y));
+		selectedPawn->setPosition(Vec2(--pos.x, pos.y));
 	}
 	else if (dir == 1) {
-		selectedEntity->setPosition(Vec2(++pos.x, pos.y));
+		selectedPawn->setPosition(Vec2(++pos.x, pos.y));
 	}
 	
 }
 
 void GameController::jumpEntity()
 {
-	if (!selectedEntity->isJumping()) {
-		selectedEntity->getPhysicsBody()->applyImpulse(Vec2(3000.0f, 12000.0f));
+	if (!selectedPawn->isJumping()) {
+		selectedPawn->getPhysicsBody()->applyImpulse(Vec2(3000.0f, 12000.0f));
 	}
 
 }
 void GameController::adjustEntityAimDir(int dir)
 { 
-	Vec2 aimvec = selectedEntity->getAimVec();
+	Vec2 aimvec = selectedPawn->getAimVec();
 	if (aimvec.x < 0) { //aiming left
 		if (dir == -1) {
-			selectedEntity->setAimVec(Vec2(aimvec.x*-dir, aimvec.y)); //stay
+			selectedPawn->setAimVec(Vec2(aimvec.x*-dir, aimvec.y)); //stay
 		} else if(dir == 1){
-			selectedEntity->setAimVec(Vec2(aimvec.x*-dir, aimvec.y)); //swap aim
+			selectedPawn->setAimVec(Vec2(aimvec.x*-dir, aimvec.y)); //swap aim
 		}
 	}
 	else if (aimvec.x > 0) { //aiming right
 		if (dir == -1) {
-			selectedEntity->setAimVec(Vec2(aimvec.x*dir, aimvec.y)); //swap
+			selectedPawn->setAimVec(Vec2(aimvec.x*dir, aimvec.y)); //swap
 		}
 		else if (dir == 1) {
-			selectedEntity->setAimVec(Vec2(aimvec.x*dir, aimvec.y)); //stay
+			selectedPawn->setAimVec(Vec2(aimvec.x*dir, aimvec.y)); //stay
 		}
 	}
 	else { //aimed straight up
@@ -234,12 +234,12 @@ void GameController::setSelectedWeapon(ProjectileFactory::MunitionType newselect
 
 void GameController::setSelectedEntity(Entity* e)
 {
-	selectedEntity = e;
+	selectedPawn = e;
 }
 
 Entity * GameController::getSelectedEntity()
 {
-	return selectedEntity;
+	return selectedPawn;
 }
 
 GameController::~GameController()

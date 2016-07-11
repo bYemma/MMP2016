@@ -61,18 +61,19 @@ void GameLayer::createUI()
 
 	// Create Labels to show round and game time
 	_roundtimelabel = Label::createWithTTF("0", font, 72);
-	_roundtimelabel->setPosition(Vec2(_screenSize.width*0.95, _screenSize.height * 0.12));
+	_roundtimelabel->setPosition(Vec2(_screenSize.width*0.95, _screenSize.height * 0.88));
 	_roundtimelabel->setTextColor(Color4B::RED);
+	//_roundtimelabel->setZOrder(5);
 	addChild(_roundtimelabel);
 
 	_gametimelabel = Label::createWithTTF("0", font, 32);
-	_gametimelabel->setPosition(Vec2(_screenSize.width*0.95, _screenSize.height * 0.07));
+	_gametimelabel->setPosition(Vec2(_screenSize.width*0.95, _screenSize.height * 0.95));
 	_gametimelabel->setTextColor(Color4B::WHITE);
 	addChild(_gametimelabel);
 
 	// Windlabel
 	_windlabel = Label::createWithTTF("Wind: 0", font, 42);
-	_windlabel->setPosition(Vec2(_roundtimelabel->getPosition().x-200.0f, _screenSize.height * 0.11));
+	_windlabel->setPosition(Vec2(_roundtimelabel->getPosition().x-150.0f, _screenSize.height * 0.89));
 	_windlabel->setTextColor(Color4B::BLUE);
 	this->addChild(_windlabel);
 
@@ -145,7 +146,7 @@ bool GameLayer::init() {
 	auto eventListener = EventListenerKeyboard::create();
 	eventListener->onKeyPressed = [&](EventKeyboard::KeyCode keyCode, Event* event) {
 
-		target = event->getCurrentTarget();
+		//target = event->getCurrentTarget();
 		//Register key for time and hold down measurement
 		if (keys.find(keyCode) == keys.end()) {
 			keys[keyCode] = std::chrono::high_resolution_clock::now();
