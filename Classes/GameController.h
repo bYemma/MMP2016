@@ -11,7 +11,7 @@ class GameController
 {
 
 public:
-	GameController();
+	GameController(PhysicsWorld* pw);
 	virtual ~GameController();
 
 	void initGame(); //create players and their stats
@@ -29,7 +29,7 @@ public:
 	void updateUI(GameLayer* gL); // Update labels, buttons etc
 	void updateTimers(float dt); //Updates time for round and game
 
-	void generateWindVec(); //Change the wind vector
+	void generateWindVec(GameLayer* gLayer); //Change the wind vector
 	void selectEntity(); //Select the next entity the playing player takes controll over
 
 	void moveEntity(int dir); //moves currently played figure through the terrain according to userinput
@@ -49,9 +49,10 @@ public:
 	void handleCollision();
 	void destroyTerrain();
 
+	PhysicsWorld* pw;
+
 private:
 	//GameData and UI
-
 	ProjectileFactory::MunitionType selectedWeapon = ProjectileFactory::MunitionType::NADE;
 	Ground* ground;
 	ProjectileFactory* pf;

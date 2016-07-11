@@ -12,6 +12,7 @@ Texture2D* ProjectileFactory::loadTexture(const char* path) {
 	im->initWithImageFile(path);
 	Texture2D* tex = new Texture2D();
 	tex->initWithImage(im);
+	im->release();
 	return tex;
 }
 
@@ -20,8 +21,8 @@ Projectile * ProjectileFactory::createProjectile(MunitionType mt)
 	int dmg = 0;
 	switch (mt) {
 	case NADE:{
-
-		Sprite* sn = Sprite::createWithTexture(loadTexture("res/fussball.png"));
+		Texture2D* tex = loadTexture("res/sprites_game/fussball.png");
+		Sprite* sn = Sprite::createWithTexture(tex);
 		sn->setScale(0.4f);
 		PhysicsBody* pn =PhysicsBody::createCircle(
 			sn->getContentSize().width/2.0f,
@@ -35,7 +36,7 @@ Projectile * ProjectileFactory::createProjectile(MunitionType mt)
 		break;
 	case ROCKET:{		
 
-		Sprite* sr = Sprite::createWithTexture(loadTexture("res/football.png"));
+		Sprite* sr = Sprite::createWithTexture(loadTexture("res/sprites_game/football.png"));
 		sr->setScale(0.3f);
 		float width = sr->getContentSize().width;
 		float height = sr->getContentSize().height;
@@ -50,7 +51,7 @@ Projectile * ProjectileFactory::createProjectile(MunitionType mt)
 	}
 		break;
 	case BULLET:{
-		Sprite* sb = Sprite::createWithTexture(loadTexture("res/fussball.png"));
+		Sprite* sb = Sprite::createWithTexture(loadTexture("res/sprites_game/fussball.png"));
 		sb->setScale(0.05f);
 		PhysicsBody* pr = PhysicsBody::createCircle(
 			sb->getContentSize().width/2.0f,

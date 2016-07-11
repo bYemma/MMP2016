@@ -18,10 +18,11 @@ GameLayer::GameLayer() {
 Scene* GameLayer::scene() {
 
 	auto scene = Scene::createWithPhysics();;
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	scene->getPhysicsWorld()->setGravity(Vec2(0.0f, -350.0f));
-
+	
 	auto layer = GameLayer::create();
+	layer->setPhysicsWorld(scene->getPhysicsWorld());
 	scene->addChild(layer);
 	
 	return scene;
@@ -94,6 +95,11 @@ void GameLayer::createUI()
 	this->addChild(_weaponlabel);
 }
 
+void GameLayer::setPhysicsWorld(PhysicsWorld* pw)
+{
+	this->pw = pw;
+}
+
 // Map for keyevents
 static std::map<cocos2d::EventKeyboard::KeyCode, std::chrono::high_resolution_clock::time_point> keys;
 
@@ -108,38 +114,14 @@ bool GameLayer::init() {
 	_screenSize = Director::getInstance()->getWinSize();
 	_center = Vec2(_screenSize.width * 0.5, _screenSize.height * 0.5);
 	
-	_gc = new GameController(); // Controll gameflow and actions
+	_gc = new GameController(pw); // Controll gameflow and actions
 	_gc->initGame();
 
 	createUI(); //Initalize and design all UI components used in GameController
 
-
+	_gc->generateWindVec(this);
 	_gc->createTerrain(this);
 	_gc->createEntities(this);
-
-	//Create Ground
-	auto groundBody = PhysicsBody::createBox(
-		Size(1920.0f, 32.0f),
-		PhysicsMaterial(0.1f, 0.0f, 0.5f)
-	);
-
-	groundBody->setDynamic(false);
-	_ground = GameSprite::gameSpriteWithFile("res/ground.png");
-	_ground->setPosition(Vec2(_center.x, 16.0f));
-	_ground->setPhysicsBody(groundBody);
-	this->addChild(_ground);
-
-
-	auto boxBody = PhysicsBody::createBox(
-		Size(32.0f, 32.0f),
-		PhysicsMaterial(0.1f, 20.0f, 0.5f)
-	);
-
-	_box = GameSprite::gameSpriteWithFile("res/box.png");
-	_box->setPosition(Vec2(600.0f, 32.0f));
-	_box->setPhysicsBody(boxBody);
-	this->addChild(_box);
-
 
 	//
 	//

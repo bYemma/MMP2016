@@ -2,19 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>metadata</key>
-    <dict>
-        <key>version</key>
-		<string>2.0.2</string>
-        <key>format</key>
-        <integer>3</integer>
-        <key>size</key>
-        <string>{2046.0,413.0}</string>
-        <key>name</key>
-        <string>walking</string>
-        <key>textureFileName</key>
-        <string>walking-0001-default.png</string>
-    </dict>
     <key>frames</key>
     <dict>
         <key>01.png</key>

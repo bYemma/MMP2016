@@ -8,7 +8,8 @@
 #define Y_FORCE 1200.0f
 
 //Blend off GameData and GameController mixing Components of the game as Physic Rendering and execution of eventhandling
-GameController::GameController() {
+GameController::GameController(PhysicsWorld* newpw) {
+	this->pw = newpw;
 }
 
 void GameController::initGame()
@@ -119,6 +120,13 @@ void GameController::updateTimers(float dt)
 		gamerunning = false;
 		//Game End Screen;
 	}
+}
+
+void GameController::generateWindVec(GameLayer* gLayer)
+{
+	float xforce = ((int)rand() % 4)*100;
+	gLayer->_windlabel->setString("Wind: " + (int)xforce);
+	//pw->setGravity(Vec2(xforce,-350.0f));
 }
 
 void GameController::moveEntity(int dir)

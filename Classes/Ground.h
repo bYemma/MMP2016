@@ -10,18 +10,18 @@
 
 //how vertically far apart a block can be from its neighbours, in number of blocks
 //directly proportional to maximum hill slope
-#define Y_OFFSET 3                 
+#define Y_OFFSET 5                 
 
 //the lowest level a block can be generated at
-#define MIN_ABS 1                           
+#define MIN_ABS 2                          
 
 //the highest level a block can be generated at. must be MIN_ABS + n
-#define MAX_ABS MIN_ABS+5                  
+#define MAX_ABS MIN_ABS+8                  
 
 //% of screen width blocks take up. must be an integer divisor of 100
 //inversely proportional to number of columns and to performance
 //directly proportional to terrain resolution and terrain destruction precision
-#define BLOCK_PERCENT 10                           
+#define BLOCK_PERCENT 2                       
 
 //horizontal size of blocks
 #define BLOCK_X double(WINDOW_W)*BLOCK_PERCENT/100  
