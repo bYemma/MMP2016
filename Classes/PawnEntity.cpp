@@ -2,8 +2,6 @@
 
 USING_NS_CC;
 
-using namespace cocos2d;
-
 PawnEntity::PawnEntity(PawnColor color)
 {
 	setColor(color);

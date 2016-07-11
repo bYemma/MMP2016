@@ -14,27 +14,28 @@ void Entity::updateHealthLabel()
 
 }
 
-void Entity::updateEntityPos(cocos2d::Vec2 newPos)
+void Entity::updateEntityPos(Vec2 newPos)
 {
 	position = newPos;
 }
 
-cocos2d::Vec2 Entity::getPosition()
+Vec2 Entity::getPosition()
 {
 	return position;
 }
 
-void Entity::setPosition(cocos2d::Vec2 newpos)
+void Entity::setPosition(Vec2 newpos)
 {
 	position = newpos;
+	sprite->setPosition(position);
 }
 
-cocos2d::Label * Entity::getEntityLabel()
+Label * Entity::getEntityLabel()
 {
 	return entityLabel;
 }
 
-cocos2d::PhysicsBody * Entity::getPhysicsBody()
+PhysicsBody * Entity::getPhysicsBody()
 {
 	return physicsBody;
 }
@@ -74,7 +75,7 @@ int Entity::getHealth()
 	return health;
 }
 
-GameSprite * Entity::getSprite()
+Sprite * Entity::getSprite()
 {
 	return sprite;
 }

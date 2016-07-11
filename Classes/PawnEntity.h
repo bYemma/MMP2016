@@ -6,18 +6,15 @@
 
 enum PawnColor { red, blue };
 
-class PawnEntity: public Entity
+class PawnEntity : public Entity
 {
-
-	// Params
-	RepeatForever* running_animation;
-	int color;
-
 public:
 	PawnEntity(PawnColor color);
 	void startRunning();
 	void stopRunning();
 private:
+	RepeatForever* running_animation;
+	int color;
 	void setColor(PawnColor color);
 	void initAnimations();
 	cocos2d::Vector<cocos2d::SpriteFrame*> getAnimation(const char *format, int count);
