@@ -54,7 +54,6 @@ public:
 private:
 	//GameData and UI
 	ProjectileFactory::MunitionType selectedWeapon = ProjectileFactory::MunitionType::NADE;
-	Ground* ground;
 	ProjectileFactory* pf;
 
 	Entity* selectedPawn;

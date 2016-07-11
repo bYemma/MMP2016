@@ -15,7 +15,6 @@ GameController::GameController(PhysicsWorld* newpw) {
 void GameController::initGame()
 {
 	pf = new ProjectileFactory();
-	ground = new Ground();
 	gametime = GAME_TIME; //20 Minutes for a game
 	roundtime = ROUND_TIME; //45 seconds for a round
 
@@ -25,14 +24,24 @@ void GameController::initGame()
 
 void GameController::createTerrain(GameLayer* gLayer)
 {
-	ground->createGround(gLayer);
+	Ground::createGround(gLayer);
 }
 
 void GameController::createEntities(GameLayer* gLayer)
 {
-	//TODO: random position, player zuweisen und die erste spielende figur = selectedEntity
-	PawnEntity* bluePawn = createEntity(PawnColor::blue, Vec2(400,400));
-	gLayer->addChild(bluePawn->getSprite());
+	int xCoord;
+	PawnEntity* pawn;
+
+	//adjust loop upperbound to adjust number of pawns
+	for (int i = 0; i < 4; i++){
+		//adjust this to avoid generating pawns intersected with screen border
+		xCoord = rand() % WINDOW_W;
+
+		pawn = createEntity(i % 2 == 0 ? PawnColor::red : PawnColor::blue, Vec2(xCoord,600));
+		gLayer->addChild(pawn->getSprite());
+
+		if(i==3) selectedEntity = pawn;
+	}
 }
 
 PawnEntity* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
