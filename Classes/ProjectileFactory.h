@@ -3,7 +3,6 @@
 #include "Projectile.h"
 #include "Player.h"
 #include "cocos2d.h"
-#include "GameSprite.h"
 #include <vector>
 
 using namespace cocos2d;

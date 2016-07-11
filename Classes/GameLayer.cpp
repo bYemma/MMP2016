@@ -4,9 +4,7 @@
 #include "GameLayer.h"
 #include "ProjectileFactory.h"
 #include "NadeProjectile.h"
-#include "WormEntity.h"
 #include <iostream>
-#include "ImageLoader.h"
 #include "GameController.h"
 
 using namespace cocos2d;

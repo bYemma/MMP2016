@@ -4,24 +4,23 @@
 
 #define GOAL_WIDTH 400
 
-
-#include "GameSprite.h"
 #include "cocos2d.h"
 #include <vector>
+
+using namespace cocos2d;
 
 class GameController; // no need to include GameController
 
 class GameLayer : public cocos2d::Layer
-
 {
 	Node* target = nullptr; // currently controlled entity via eventlistener
 
 	GameController* _gc;
 
-	GameSprite* _box;
-	GameSprite* _ground;
+	Sprite* _box;
+	Sprite* _ground;
 
-	std::vector<GameSprite*> gameobjects;
+	std::vector<Sprite*> gameobjects;
 
 	Size _screenSize;
 	Vec2 _center;

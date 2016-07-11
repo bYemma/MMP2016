@@ -2,7 +2,9 @@
 
 #include "Entity.h"
 #include "cocos2d.h"
-#include "GameSprite.h"
+
+
+using namespace cocos2d;
 
 enum PawnColor { red, blue };
 
@@ -17,5 +19,5 @@ private:
 	int color;
 	void setColor(PawnColor color);
 	void initAnimations();
-	cocos2d::Vector<cocos2d::SpriteFrame*> getAnimation(const char *format, int count);
+	cocos2d::Vector<SpriteFrame*> getAnimation(const char *format, int count);
 };

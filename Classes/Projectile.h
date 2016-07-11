@@ -1,10 +1,10 @@
 #pragma once
 #include "Entity.h"
-#include "GameSprite.h"
 
-class Projectile : public Entity {
+using namespace cocos2d;
 
-
+class Projectile : public Entity
+{
 public:
 	Projectile(int damage, Sprite* s);
 	~Projectile();

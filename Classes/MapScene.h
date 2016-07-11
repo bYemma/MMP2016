@@ -4,9 +4,10 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include "GameSprite.h"
 
-class MapScene : public cocos2d::Layer
+using namespace cocos2d;
+
+class MapScene : public Layer
 {
 
 	// Params
