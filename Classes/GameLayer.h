@@ -14,9 +14,6 @@ class GameController; // no need to include GameController
 class GameLayer : public cocos2d::Layer
 
 {
-
-	//all in one data /controller class?!?@TODO
-
 	Node* target = nullptr; // currently controlled entity via eventlistener
 
 	GameController* _gc;
@@ -42,14 +39,14 @@ public:
 	
 	static cocos2d::Scene* scene();
 
-
-
 	CREATE_FUNC(GameLayer);
 
 private:
+	PhysicsWorld* pw;
 	void createUI();
 	void initSprites();
 
+	void setPhysicsWorld(PhysicsWorld* pw);
 	//Key events
 	bool isKeyPressed(cocos2d::EventKeyboard::KeyCode);
 	double keyPressedDuration(cocos2d::EventKeyboard::KeyCode);
