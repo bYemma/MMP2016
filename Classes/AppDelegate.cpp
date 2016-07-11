@@ -1,8 +1,6 @@
 #include "AppDelegate.h"
 #include "MenuScene.h"
 
-using namespace cocos2d;
-
 AppDelegate::AppDelegate() {
 
 }

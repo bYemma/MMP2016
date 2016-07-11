@@ -41,9 +41,6 @@ void GameLayer::createUI()
 
 	const std::string font = "res/fonts/Minecraft.ttf";
 
-	// was macht das kilian? -> Das lädt das SpriteSheet, 
-	// damit dann die einzelnen Bilder per createWithSpriteFrameName geladen werden können.
-	// Siehe Background...
 	SpriteBatchNode* spritebatch = SpriteBatchNode::create("res/game.png");
 	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
 	cache->addSpriteFramesWithFile("res/game.plist");
@@ -96,7 +93,7 @@ void GameLayer::setPhysicsWorld(PhysicsWorld* pw)
 }
 
 // Map for keyevents
-static std::map<cocos2d::EventKeyboard::KeyCode, std::chrono::high_resolution_clock::time_point> keys;
+static std::map<EventKeyboard::KeyCode, std::chrono::high_resolution_clock::time_point> keys;
 
 bool GameLayer::init() {
 

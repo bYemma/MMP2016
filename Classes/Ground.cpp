@@ -1,6 +1,8 @@
 #include "Ground.h"
 #include "GameLayer.h"
-Vector<Sprite*> Ground::createGround(GameLayer* layer) {
+
+Vector<Sprite*> Ground::createGround(GameLayer* layer)
+{
 	//this may need to be moved somewhere else
 	srand(time(NULL));
 

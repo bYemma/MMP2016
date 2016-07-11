@@ -14,7 +14,7 @@ class MapScene : public Layer
 	Size _sSize;
 
 public:
-	static cocos2d::Scene* createScene();
+	static Scene* createScene();
 	virtual bool init();
 	CREATE_FUNC(MapScene);
 private:

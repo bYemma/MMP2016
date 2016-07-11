@@ -14,7 +14,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(MenuScene);
 
-	// Button-Klick Callback
+	// Button-Klick Callbacks
 	void start();
 	void test();
 	void quit();

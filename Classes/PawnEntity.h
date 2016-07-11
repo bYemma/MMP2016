@@ -19,5 +19,5 @@ private:
 	int color;
 	void setColor(PawnColor color);
 	void initAnimations();
-	cocos2d::Vector<SpriteFrame*> getAnimation(const char *format, int count);
+	Vector<SpriteFrame*> getAnimation(const char *format, int count);
 };
