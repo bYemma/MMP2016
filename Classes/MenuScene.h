@@ -4,13 +4,12 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include "GameSprite.h"
 
 class MenuScene : public cocos2d::Layer
 {
 
 	// Params
-	Size _sSize;
+	cocos2d::Size _sSize;
 
 public:
 	static cocos2d::Scene* createScene();

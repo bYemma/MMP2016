@@ -13,14 +13,6 @@ class Entity {
 
 		void updateEntityPos(Vec2 newPos);
 
-
-		Label* getEntityLabel();
-
-		PhysicsBody* getPhysicsBody();
-
-		int getEntityID();
-		Player* getOwner();
-
 		bool isKeyPressed(EventKeyboard::KeyCode);
 		double keyPressedDuration(EventKeyboard::KeyCode);
 		void onKeyHold(float interval);
@@ -28,10 +20,18 @@ class Entity {
 		Vec2 getPosition();
 		void setPosition(Vec2 newpos);
 
+		Label* getEntityLabel();
+		PhysicsBody* getPhysicsBody();
+		
+		int getEntityID();
+		Player* getOwner();
+
 		void setJumping(bool b);
 		bool isJumping();
+
 		Vec2 getAimVec();
 		void setAimVec(Vec2 newaim);
+
 		int getHealth();
 		Sprite* getSprite();
 protected:
@@ -44,8 +44,8 @@ protected:
 		bool isjumping = false;
 
 		Vec2 position; //position of entity
-		Vec2 weaponJoint; //joint where the weapon is fixed on the entity
-		Vec2 groundJoint; //joint where the entity is fixed on the ground
+		Vec2 weaponJoint; //joint where the weapon is fixed on the entity(useless)
+		Vec2 groundJoint; //joint where the entity is fixed on the ground(useless)
 		Vec2 aimvector; //position of entity
 
 		Label* entityLabel; //label showing hitpoints and name

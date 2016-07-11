@@ -24,7 +24,7 @@
 #define BLOCK_PERCENT 2                       
 
 //horizontal size of blocks
-#define BLOCK_X double(WINDOW_W)*BLOCK_PERCENT/100  
+#define BLOCK_X double(WINDOW_W)*BLOCK_PERCENT/100.0  
 
 //vertical size of blocks
 #define BLOCK_Y BLOCK_X                     
