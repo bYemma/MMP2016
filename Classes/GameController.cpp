@@ -30,14 +30,14 @@ void GameController::createTerrain(GameLayer* gLayer)
 void GameController::createEntities(GameLayer* gLayer)
 {
 	//TODO: random position, player zuweisen und die erste spielende figur = selectedEntity
-	Pawn* bluePawn = createEntity(PawnColor::blue, Vec2(200,60));
+	PawnEntity* bluePawn = createEntity(PawnColor::blue, Vec2(200,60));
 	gLayer->addChild(bluePawn->getSprite());
 	bluePawn->startRunning(); //TODO start in moveEntity()
 }
 
-Pawn* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
-	Pawn* pawn = new Pawn(pc);
-	pawn->setPosition(spawnpos.x, spawnpos.y);
+PawnEntity* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
+	PawnEntity* pawn = new PawnEntity(pc);
+	pawn->setPosition(spawnpos);
 	pawn->getSprite()->setScale(0.4f);
 	return pawn;
 }
