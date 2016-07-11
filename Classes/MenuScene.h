@@ -4,16 +4,13 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include "GameSprite.h"
 
-class MenuScene : public cocos2d::Layer
+using namespace cocos2d;
+
+class MenuScene : public Layer
 {
-
-	// Params
-	Size _sSize;
-
 public:
-	static cocos2d::Scene* createScene();
+	static Scene* createScene();
 	virtual bool init();
 	CREATE_FUNC(MenuScene);
 
@@ -22,6 +19,7 @@ public:
 	void test();
 	void quit();
 private:
+	Size _sSize;
 	void initSprites();
 };
 
