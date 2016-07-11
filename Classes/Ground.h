@@ -27,13 +27,10 @@
 #define BLOCK_X double(WINDOW_W)*BLOCK_PERCENT/100.0  
 
 //vertical size of blocks
-#define BLOCK_Y BLOCK_X                     
-
-#define DIRT_FILE   "res/textures/boden.png"
-#define GRASS_FILE  "res/textures/oberflaeche_gras.png"
+#define BLOCK_Y BLOCK_X
 
 //square sizes of the .png files
-#define DIRT_SIZE   417.0                       
+#define DIRT_SIZE	100.0                       
 #define GRASS_SIZE  100.0
 
 using namespace cocos2d;

@@ -27,21 +27,19 @@ void PawnEntity::initAnimations()
 	const char* path = "";
 	int count = 12;
 	switch (color) {
-	case blue: {
-		path = "walking_blue/%02d.png";
-		break;
-	}
-	case red: {
-		path = "walking_red/%02d.png";
-		break;
-	}
+		case blue: {
+			path = "walking_blue/%02d.png";
+			break;
+		}
+		case red: {
+			path = "walking_red/%02d.png";
+			break;
+		}
 	}
 	auto frames = getAnimation(path, count);
 	sprite = Sprite::createWithSpriteFrame(frames.front());
 	auto animation = Animation::createWithSpriteFrames(frames, 1.0f / count);
 	running_animation = RepeatForever::create(Animate::create(animation));
-
-
 }
 
 Vector<SpriteFrame*> PawnEntity::getAnimation(const char *format, int count)

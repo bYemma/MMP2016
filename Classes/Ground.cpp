@@ -26,11 +26,11 @@ Vector<Sprite*> Ground::createGround(GameLayer* layer)
 		for (int j = 0; j < height; j++){
 
 			if (j == height - 1){ //top block of the column
-				newBlock = Sprite::create(GRASS_FILE);
+				newBlock = Sprite::createWithSpriteFrameName("textures/boden_mit_gras.png");
 				newBlock->setScale(float(BLOCK_X / GRASS_SIZE));
 			}
 			else{
-				newBlock = Sprite::create(DIRT_FILE);
+				newBlock = Sprite::createWithSpriteFrameName("textures/boden.png");
 				newBlock->setScale(float(BLOCK_X / DIRT_SIZE));
 			}
 			newBlock->setPosition(BLOCK_X / 2 + BLOCK_X*i, BLOCK_Y / 2 + BLOCK_Y*j);

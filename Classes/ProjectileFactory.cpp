@@ -2,9 +2,7 @@
 
 using namespace cocos2d;
 
-ProjectileFactory::ProjectileFactory() {
-
-}
+ProjectileFactory::ProjectileFactory() {}
 
 
 Texture2D* ProjectileFactory::loadTexture(const char* path) {
@@ -21,10 +19,9 @@ Projectile * ProjectileFactory::createProjectile(MunitionType mt)
 	int dmg = 0;
 	switch (mt) {
 	case NADE:{
-		Texture2D* tex = loadTexture("res/sprites_game/fussball.png");
-		Sprite* sn = Sprite::createWithTexture(tex);
-		sn->setScale(0.4f);
-		PhysicsBody* pn =PhysicsBody::createCircle(
+		Sprite* sn = Sprite::createWithSpriteFrameName("fussball.png");
+		sn->setScale(0.3f);
+		PhysicsBody* pn = PhysicsBody::createCircle(
 			sn->getContentSize().width/2.0f,
 			PhysicsMaterial(0.5f, 0.1f, 10.0f)
 		);
@@ -36,7 +33,7 @@ Projectile * ProjectileFactory::createProjectile(MunitionType mt)
 		break;
 	case ROCKET:{		
 
-		Sprite* sr = Sprite::createWithTexture(loadTexture("res/sprites_game/football.png"));
+		Sprite* sr = Sprite::createWithSpriteFrameName("football.png");
 		sr->setScale(0.3f);
 		float width = sr->getContentSize().width;
 		float height = sr->getContentSize().height;
@@ -51,7 +48,7 @@ Projectile * ProjectileFactory::createProjectile(MunitionType mt)
 	}
 		break;
 	case BULLET:{
-		Sprite* sb = Sprite::createWithTexture(loadTexture("res/sprites_game/fussball.png"));
+		Sprite* sb = Sprite::createWithSpriteFrameName("fussball.png");
 		sb->setScale(0.05f);
 		PhysicsBody* pr = PhysicsBody::createCircle(
 			sb->getContentSize().width/2.0f,
@@ -66,9 +63,3 @@ Projectile * ProjectileFactory::createProjectile(MunitionType mt)
 	}
 	return nullptr;
 }
-
-
-ProjectileFactory::~ProjectileFactory()
-{
-}
-

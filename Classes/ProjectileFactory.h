@@ -13,16 +13,12 @@ class ProjectileFactory
 
 public:
 	enum MunitionType { ROCKET, NADE, BULLET };
-
 	ProjectileFactory();
-
-	virtual ~ProjectileFactory();
 	Projectile* createProjectile(MunitionType mt);
 private:
 	Texture2D* loadTexture(const char* path);
 	bool initalized = false;
 	std::vector<PhysicsBody*> bodymap;
 	std::vector<Texture2D*> textmap;
-
 };
 
