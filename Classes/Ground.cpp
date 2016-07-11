@@ -13,10 +13,7 @@ Vector<Sprite*> Ground::createGround(GameLayer* layer) {
 	int height = rand() % (MAX_ABS - MIN_ABS) + MIN_ABS;
 	int offset, count(0);
 
-	//edit this body once and it will apply to all terrain blocks :D
-	PhysicsBody *body = PhysicsBody::createBox(Size(BLOCK_X, BLOCK_Y), PhysicsMaterial(0.1f, 0.1f, 0.5f));
-	body->setDynamic(false);
-	body->setCollisionBitmask(0xFFFFFFFF);
+	PhysicsBody *body;
 
 	Sprite *newBlock;
 
@@ -36,11 +33,12 @@ Vector<Sprite*> Ground::createGround(GameLayer* layer) {
 			}
 			newBlock->setPosition(BLOCK_X / 2 + BLOCK_X*i, BLOCK_Y / 2 + BLOCK_Y*j);
 
-			//should be ok to give them all the same body, change this otherwise
+			body = PhysicsBody::createBox(Size(BLOCK_X, BLOCK_Y), PhysicsMaterial(0.1f, 0.1f, 0.5f));
+			body->setDynamic(false);
+
 			newBlock->setPhysicsBody(body);
 
 			gndBlocks.pushBack(newBlock);
-			//log("Added block %d to the vector", count);
 			count++;
 		}
 
@@ -52,18 +50,10 @@ Vector<Sprite*> Ground::createGround(GameLayer* layer) {
 	}
 
 	gndBlocks.shrinkToFit();
-	//log("Vector capacity adjusted to: %d", gndBlocks.capacity());
-
-	//log("Blocks to add: %d", gndBlocks.size());
 
 	for (int i = 0; i < gndBlocks.size(); i++){
-		//log("Adding block: %d", i);
 		layer->addChild(gndBlocks.at(i));
-		//log("Block %d added\n", i);
 	}
-
-
-	//log("End of createGround reached.");
 
 	return gndBlocks;
 }
