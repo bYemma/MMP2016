@@ -34,9 +34,6 @@
     <Filter Include="src\data\entities">
       <UniqueIdentifier>{57ca42e9-3abc-4cbd-9874-0ab98d40d988}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\data\utils">
-      <UniqueIdentifier>{24332592-74bb-43b6-aa12-9744ad943c33}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -49,9 +46,6 @@
       <Filter>src\main</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameLayer.cpp">
-      <Filter>src\view</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameSprite.cpp">
       <Filter>src\view</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Player.cpp">
@@ -69,9 +63,6 @@
     <ClCompile Include="..\Classes\MenuScene.cpp">
       <Filter>src\view</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameMap.cpp">
-      <Filter>src\data</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\MapScene.cpp">
       <Filter>src\view</Filter>
     </ClCompile>
@@ -84,17 +75,8 @@
     <ClCompile Include="..\Classes\Entity.cpp">
       <Filter>src\data\entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\WormEntity.cpp">
-      <Filter>src\data\entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\ImageLoader.cpp">
-      <Filter>src\data\utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Ground.cpp">
       <Filter>src\data</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Pawn.cpp">
-      <Filter>src\view</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\PawnEntity.cpp">
       <Filter>src\data\entities</Filter>
@@ -113,9 +95,6 @@
     <ClInclude Include="..\Classes\GameLayer.h">
       <Filter>src\view</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameSprite.h">
-      <Filter>src\view</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Player.h">
       <Filter>src\data</Filter>
     </ClInclude>
@@ -131,9 +110,6 @@
     <ClInclude Include="..\Classes\MenuScene.h">
       <Filter>src\view</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameMap.h">
-      <Filter>src\data</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\MapScene.h">
       <Filter>src\view</Filter>
     </ClInclude>
@@ -146,17 +122,8 @@
     <ClInclude Include="..\Classes\Entity.h">
       <Filter>src\data\entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\WormEntity.h">
-      <Filter>src\data\entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ImageLoader.h">
-      <Filter>src\data\utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Ground.h">
       <Filter>src\data</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Pawn.h">
-      <Filter>src\view</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\PawnEntity.h">
       <Filter>src\data\entities</Filter>
