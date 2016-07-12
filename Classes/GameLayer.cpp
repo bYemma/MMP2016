@@ -273,6 +273,7 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 				log("D1");
 				//make nodeB explode: animations, sprite destruction, damage etc
 				explode(nodeB);
+				removeChild(nodeB);
 				//maybe remove nodeA from the layer for terrain destruction
 			}
 		}
@@ -283,6 +284,7 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 				log("D2");
 				//make nodeA explode: animations, sprite destruction, damage etc
 				explode(nodeA);
+				removeChild(nodeA);
 				//maybe remove nodeA from the layer for terrain destruction
 			}
 		}
@@ -295,6 +297,7 @@ void GameLayer::explode(Node* node)
 {
 	Vec2 pos = node->getPosition();
 	explosion->setPosition(pos);
+	explosion->getSprite()->setOpacity(255);
 	explosion->startAnimation();
 }
 

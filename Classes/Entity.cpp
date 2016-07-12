@@ -100,6 +100,11 @@ Sprite * Entity::getSprite()
 	return sprite;
 }
 
+Vec2 Entity::getSize()
+{
+	return sprite->getContentSize();
+}
+
 Vector<SpriteFrame*> Entity::getAnimation(const char *format, int count)
 {
 	auto spritecache = SpriteFrameCache::getInstance();

@@ -38,6 +38,7 @@ class Entity {
 
 		int getHealth();
 		Sprite* getSprite();
+		Vec2 getSize();
 protected:
 		Player* owner; //Player owning this entity
 		int health; //hitpoints this entity has left
