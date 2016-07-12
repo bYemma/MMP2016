@@ -19,6 +19,20 @@ void Entity::updateEntityPos(Vec2 newPos)
 	position = newPos;
 }
 
+Vec2 Entity::getProjectileDropOffPoint()
+{
+	Vec2 pos = sprite->getPosition();
+	pos.add(projectileDropOffPoint);
+	return pos;
+}
+
+void Entity::setProjectileDropOffPoint(Vec2 newpos)
+{
+	Vec2 pos = sprite->getPosition();
+	pos.add(newpos);
+	this->projectileDropOffPoint = pos;
+}
+
 Vec2 Entity::getPosition()
 {
 	return sprite->getPosition();

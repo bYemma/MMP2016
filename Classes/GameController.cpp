@@ -50,6 +50,8 @@ PawnEntity* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
 	pawn->getSprite()->setScale(0.4f);
 	Size psize = pawn->getSprite()->getContentSize();
 	auto pb = PhysicsBody::createBox(Size(psize.width/2.0f, psize.height-10), PhysicsMaterial(0.5f, 0.1f, 10.0f));
+	pb->setPositionOffset(Vec2(-20, 0));
+	//pawn->setProjectileDropOffPoint(Vec2(2.0f,2.0f)); Doesnt work
 	pawn->setPhysicsBody(pb);
 	return pawn;
 }
@@ -135,8 +137,9 @@ void GameController::updateTimers(float dt)
 
 void GameController::generateWindVec(GameLayer* gLayer)
 {
-	float xforce = ((int)rand() % 4)*100;
-	gLayer->_windlabel->setString("Wind: " + (int)xforce);
+	int factor = ((int)rand() % 4);
+	float xforce = factor*100;
+	gLayer->_windlabel->setString("Wind: " + std::to_string(factor));
 	//pw->setGravity(Vec2(xforce,-350.0f));
 }
 
@@ -147,10 +150,12 @@ void GameController::moveEntity(int dir)
 
 	if (dir == -1) {
 		selectedPawn->setPosition(Vec2(--pos.x, pos.y));
+		selectedPawn->getSprite()->setRotationSkewY(180.0f);
 		//selectedPawn->startRunning();
 	}
 	else if (dir == 1) {
 		selectedPawn->setPosition(Vec2(++pos.x, pos.y));
+		selectedPawn->getSprite()->setRotationSkewY(-180.0f);
 	}
 	
 }
@@ -215,7 +220,8 @@ void GameController::fireProjectile(GameLayer* gL, Vec2 force)
 	Projectile* proj = pf->createProjectile(selectedWeapon);
 	Sprite* projsprite = proj->getSprite();
 	CCLOG("Sprite erstellt");
-	projsprite->setPosition(Vec2(500, 500));
+	//projsprite->setPosition(selectedPawn->getProjectileDropOffPoint()); Doesnt work
+	projsprite->setPosition(selectedPawn->getPosition());
 	projsprite->getPhysicsBody()->applyImpulse(force);
 	gL->addChild(projsprite);
 }

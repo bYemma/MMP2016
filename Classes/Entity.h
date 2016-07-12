@@ -17,12 +17,16 @@ class Entity {
 		double keyPressedDuration(EventKeyboard::KeyCode);
 		void onKeyHold(float interval);
 
+		Vec2 getProjectileDropOffPoint();
+		void setProjectileDropOffPoint(Vec2 newpos);
+
 		Vec2 getPosition();
 		void setPosition(Vec2 newpos);
 
 		Label* getEntityLabel();
 		PhysicsBody* getPhysicsBody();
 		void setPhysicsBody(PhysicsBody * pb);
+
 		int getEntityID();
 		Player* getOwner();
 
@@ -45,6 +49,7 @@ protected:
 
 		Vec2 position; //position of entity
 		Vec2 weaponJoint; //joint where the weapon is fixed on the entity(useless)
+		Vec2 projectileDropOffPoint; //joint where the weapon is fixed on the entity(useless)
 		Vec2 groundJoint; //joint where the entity is fixed on the ground(useless)
 		Vec2 aimvector; //position of entity
 
