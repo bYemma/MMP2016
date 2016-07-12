@@ -181,10 +181,10 @@ bool GameLayer::init() {
 				_gc->jumpEntity();
 				break;
 			case EventKeyboard::KeyCode::KEY_LEFT_ARROW: //switch aiming direction to left side
-				_gc->adjustEntityAimDir(-1);
+				_gc->moveEntity(-1,false);
 				break;
 			case EventKeyboard::KeyCode::KEY_RIGHT_ARROW: //switch aiming direction to right side
-				_gc->adjustEntityAimDir(1);
+				_gc->moveEntity(1,false);
 				break;
 		}
 	};
@@ -289,6 +289,12 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 				//maybe remove nodeA from the layer for terrain destruction
 			}
 		}
+		//Entity ground collision
+		/*else if ((nodeB->getTag() == GND_TAG && nodeA->getTag() == PAWN_TAG) || (nodeA->getTag() == GND_TAG && nodeB->getTag() == PAWN_TAG)) {
+			if (_gc->getSelectedEntity()->isJumping()) {
+				_gc->getSelectedEntity()->setJumping(false);
+			}
+		}*/ //selectedEntity falls through ground :(
 	}
 
 	return true;
@@ -316,12 +322,12 @@ void GameLayer::onKeyHold(float dt) {
 
 	if (keys.find(EventKeyboard::KeyCode::KEY_RIGHT_ARROW) != keys.end()) {
 		// right pressed
-		_gc->moveEntity(1);
+		_gc->moveEntity(1,true);
 	} else 
 
 	if (keys.find(EventKeyboard::KeyCode::KEY_LEFT_ARROW) != keys.end()) {
 		// left pressed
-		_gc->moveEntity(-1);
+		_gc->moveEntity(-1,true);
 	} else
 
 	if (keys.find(EventKeyboard::KeyCode::KEY_UP_ARROW) != keys.end()) {

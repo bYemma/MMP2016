@@ -33,9 +33,8 @@ public:
 	void generateWindVec(GameLayer* gLayer); //Change the wind vector
 	void selectEntity(); //Select the next entity the playing player takes controll over
 
-	void moveEntity(int dir); //moves currently played figure through the terrain according to userinput
+	void moveEntity(int dir, bool move); //moves currently played figure through the terrain according to userinput
 	void jumpEntity(); //let entity jump
-	void adjustEntityAimDir(int dir); //change direction of aim
 	void adjustEntityAimAngle(); //change angle of aim
 	void changeEntityWeapon(ProjectileFactory::MunitionType selectedWeapon); //change weapon the entity is holding 
 
