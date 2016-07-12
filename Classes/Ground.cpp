@@ -61,5 +61,33 @@ Vector<Sprite*> Ground::createGround(GameLayer* layer)
 		layer->addChild(gndBlocks.at(i));
 	}
 
+	//create world borders
+	//these won't be in the returned vector
+	Sprite *borders[4] = { Sprite::create(), Sprite::create(), Sprite::create(), Sprite::create() };
+	PhysicsBody* bodyB;
+
+	for (int i = 0; i < 4; i++){
+		bodyB = PhysicsBody::createBox(i % 2 == 0 ? Size(WINDOW_W, 4) : Size(4, WINDOW_H), PhysicsMaterial(0.0f, 0.0f, 0.0f));
+		bodyB->setDynamic(false);
+		bodyB->setContactTestBitmask(0xFFFFFFFF);
+		borders[i]->setPhysicsBody(bodyB);
+		switch (i){
+		case 0://bottom
+			borders[i]->setPosition(WINDOW_W / 2, -2.0);
+			break;
+		case 1://right
+			borders[i]->setPosition(WINDOW_W + 2, WINDOW_H / 2);
+			break;
+		case 2://top
+			borders[i]->setPosition(WINDOW_W / 2, WINDOW_H + 2);
+			break;
+		case 3://left
+			borders[i]->setPosition(-2.0, WINDOW_H / 2);
+			break;
+		}
+		borders[i]->setTag(BORDER_TAG);
+		layer->addChild(borders[i]);
+	}
+
 	return gndBlocks;
 }

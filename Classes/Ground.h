@@ -36,6 +36,9 @@
 //value is of little importance, but this tag can only be given to terrain blocks
 #define GND_TAG 20
 
+//value is of little importance, but this tag can only be given to border blocks
+#define BORDER_TAG 100
+
 using namespace cocos2d;
 
 class Ground {
@@ -50,6 +53,7 @@ public:
 	*All blocks are Sprites* with attached PhysicsBody (already containing position and size).
 	*Top blocks have grass texture, the rest have dirt texture.
 	*Modify the first 4 defines of this file to adjust terrain generation parameters.
+	*Also, world borders are added to the layer, but not included in the return vector.
 	*/
 	static Vector<Sprite*> createGround(GameLayer* layer);
 };
