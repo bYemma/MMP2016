@@ -14,7 +14,6 @@ GameController::GameController(PhysicsWorld* newpw) {
 
 void GameController::initGame()
 {
-	pf = new ProjectileFactory();
 	gametime = GAME_TIME; //20 Minutes for a game
 	roundtime = ROUND_TIME; //45 seconds for a round
 
@@ -25,6 +24,10 @@ void GameController::initGame()
 void GameController::createTerrain(GameLayer* gLayer)
 {
 	Ground::createGround(gLayer);
+}
+
+void GameController::createPlayers()
+{
 }
 
 void GameController::createEntities(GameLayer* gLayer)
@@ -137,7 +140,7 @@ void GameController::updateTimers(float dt)
 
 void GameController::generateWindVec(GameLayer* gLayer)
 {
-	int factor = ((int)rand() % 4);
+	int factor = min + (rand() % (int)(max - min + 1));
 	float xforce = factor*100;
 	gLayer->_windlabel->setString("Wind: " + std::to_string(factor));
 	//pw->setGravity(Vec2(xforce,-350.0f));
@@ -217,9 +220,8 @@ void GameController::killEntity(Entity* e)
 
 void GameController::fireProjectile(GameLayer* gL, Vec2 force)
 {
-	Projectile* proj = pf->createProjectile(selectedWeapon);
+	Projectile* proj = ProjectileFactory::createProjectile(selectedWeapon);
 	Sprite* projsprite = proj->getSprite();
-	CCLOG("Sprite erstellt");
 	//projsprite->setPosition(selectedPawn->getProjectileDropOffPoint()); Doesnt work
 	projsprite->setPosition(selectedPawn->getPosition());
 	projsprite->getPhysicsBody()->applyImpulse(force);

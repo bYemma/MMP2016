@@ -16,6 +16,7 @@ public:
 
 	void initGame(); //create players and their stats
 	void createTerrain(GameLayer* gLayer); //create players and their stats
+	void createPlayers(); //create players and their stats
 	void createEntities(GameLayer* gLayer);
 	PawnEntity* createEntity(PawnColor pc, Vec2 spawnpos);
 	void endGame(); //close and kill all data
@@ -61,6 +62,8 @@ private:
 	float gametime, roundtime;
 	bool gamerunning;
 
+	const static int max = 4;
+	const static int min = 1;
 	//Game Physic
 	Vec2 windforce;
 
