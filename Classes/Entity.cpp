@@ -21,7 +21,8 @@ void Entity::updateEntityPos(Vec2 newPos)
 
 Vec2 Entity::getPosition()
 {
-	return position;
+	return sprite->getPosition();
+
 }
 
 void Entity::setPosition(Vec2 newpos)
@@ -37,7 +38,12 @@ Label * Entity::getEntityLabel()
 
 PhysicsBody * Entity::getPhysicsBody()
 {
-	return physicsBody;
+	return sprite->getPhysicsBody();
+}
+
+void Entity::setPhysicsBody(PhysicsBody * pb)
+{
+	sprite->setPhysicsBody(pb);
 }
 
 int Entity::getEntityID()

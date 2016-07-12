@@ -22,7 +22,7 @@ class Entity {
 
 		Label* getEntityLabel();
 		PhysicsBody* getPhysicsBody();
-		
+		void setPhysicsBody(PhysicsBody * pb);
 		int getEntityID();
 		Player* getOwner();
 

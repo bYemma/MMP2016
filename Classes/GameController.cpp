@@ -48,6 +48,9 @@ PawnEntity* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
 	PawnEntity* pawn = new PawnEntity(pc);
 	pawn->setPosition(spawnpos);
 	pawn->getSprite()->setScale(0.4f);
+	Size psize = pawn->getSprite()->getContentSize();
+	auto pb = PhysicsBody::createBox(Size(psize.width/2.0f, psize.height-10), PhysicsMaterial(0.5f, 0.1f, 10.0f));
+	pawn->setPhysicsBody(pb);
 	return pawn;
 }
 
@@ -144,6 +147,7 @@ void GameController::moveEntity(int dir)
 
 	if (dir == -1) {
 		selectedPawn->setPosition(Vec2(--pos.x, pos.y));
+		//selectedPawn->startRunning();
 	}
 	else if (dir == 1) {
 		selectedPawn->setPosition(Vec2(++pos.x, pos.y));
@@ -153,9 +157,9 @@ void GameController::moveEntity(int dir)
 
 void GameController::jumpEntity()
 {
-	if (!selectedPawn->isJumping()) {
+	//if (!selectedPawn->isJumping()) {
 		selectedPawn->getPhysicsBody()->applyImpulse(Vec2(3000.0f, 12000.0f));
-	}
+	//}
 
 }
 void GameController::adjustEntityAimDir(int dir)
@@ -241,7 +245,7 @@ void GameController::setSelectedWeapon(ProjectileFactory::MunitionType newselect
 	selectedWeapon = newselectedWeapon;
 }
 
-void GameController::setSelectedEntity(Entity* e)
+void GameController::setSelectedEntity(PawnEntity* e)
 {
 	selectedPawn = e;
 }
