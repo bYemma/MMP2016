@@ -152,12 +152,24 @@ void GameController::moveEntity(int dir)
 {
 	Vec2 aimvec = selectedPawn->getAimVec();
 	Vec2 pos = selectedPawn->getPosition();
-
+	float rotation = selectedPawn->getSprite()->getRotationSkewY();
+	std::string fs = std::to_string(rotation);
+	CCLOG(fs.c_str());
 	if (dir == -1) {
+		if (aimvec.x < 0) { //aiming left
+			if (rotation == 0.0f) {
+				selectedPawn->getSprite()->setRotationSkewY(180.0f);
+			}
+		}
+		else if (aimvec.x > 0) { //aim right
+			if (rotation == -180.0f) {
+				selectedPawn->getSprite()->setRotationSkewY(0.0f);
+			}
+		}
 		selectedPawn->setPosition(Vec2(--pos.x, pos.y));
-		selectedPawn->getSprite()->setRotationSkewY(180.0f);
 		//selectedPawn->startRunning();
 	}
+	//move right
 	else if (dir == 1) {
 		selectedPawn->setPosition(Vec2(++pos.x, pos.y));
 		selectedPawn->getSprite()->setRotationSkewY(-180.0f);
