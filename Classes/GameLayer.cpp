@@ -87,7 +87,7 @@ void GameLayer::createUI()
 	this->addChild(_weaponlabel);
 
 	explosion = new ExplosionEntity();
-	addChild(explosion->getSprite());
+	this->addChild(explosion->getSprite());
 }
 
 void GameLayer::setPhysicsWorld(PhysicsWorld* pw)
@@ -252,12 +252,6 @@ bool GameLayer::init() {
 
 }
 
-/*
-void GameLayer::onCollision(float dt) {
-	_gc->getSelectedEntity()->getPhysicsBody()->getCPBody();
-}
-*/
-
 //@KILLIAN: Take into account BORDER_TAG as well as GND_TAG for projectile collisions, but destroy 
 //only nodes with GND_TAG. Example of ground destruction:
 /*
@@ -275,15 +269,11 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 {
 	auto nodeA = contact.getShapeA()->getBody()->getNode();
 	auto nodeB = contact.getShapeB()->getBody()->getNode();
-	log("A");
 	if (nodeA && nodeB)
 	{
-		log("B");
 		if (nodeA->getTag() == GND_TAG)
 		{
-			log("C1");
 			if (nodeB->getTag() == PROJ_TAG){
-				log("D1");
 				//make nodeB explode: animations, sprite destruction, damage etc
 				explode(nodeB);
 				removeChild(nodeB);
@@ -292,9 +282,7 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 		}
 		else if (nodeB->getTag() == GND_TAG)
 		{
-			log("C2");
 			if (nodeA->getTag() == PROJ_TAG){
-				log("D2");
 				//make nodeA explode: animations, sprite destruction, damage etc
 				explode(nodeA);
 				removeChild(nodeA);
