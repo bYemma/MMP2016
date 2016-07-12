@@ -258,6 +258,19 @@ void GameLayer::onCollision(float dt) {
 }
 */
 
+//@KILLIAN: Take into account BORDER_TAG as well as GND_TAG for projectile collisions, but destroy 
+//only nodes with GND_TAG. Example of ground destruction:
+/*
+if (nodeA->getTag() == GND_TAG || nodeA->getTag() == BORDER_TAG)
+{
+	if (nodeB->getTag() == PROJ_TAG){
+		explode(nodeB);
+		if(nodeA->getTag() == GND_TAG){
+			removeChild(nodeA);
+		}
+	}
+}
+*/
 bool GameLayer::onContactBegin(PhysicsContact & contact)
 {
 	auto nodeA = contact.getShapeA()->getBody()->getNode();
