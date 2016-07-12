@@ -1,5 +1,6 @@
 #include "MapScene.h"
 #include "PawnEntity.h"
+#include "ExplosionEntity.h"
 
 USING_NS_CC;
 
@@ -34,6 +35,8 @@ bool MapScene::init()
 	redPawn->setPosition(Vec2(400, 620));
 	addChild(redPawn->getSprite());
 	redPawn->startRunning();
+
+	ExplosionEntity* ex = new ExplosionEntity();
 
 	return true;
 }

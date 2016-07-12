@@ -81,6 +81,9 @@
     <ClCompile Include="..\Classes\PawnEntity.cpp">
       <Filter>src\data\entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ExplosionEntity.cpp">
+      <Filter>src\data\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -126,6 +129,9 @@
       <Filter>src\data</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\PawnEntity.h">
+      <Filter>src\data\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ExplosionEntity.h">
       <Filter>src\data\entities</Filter>
     </ClInclude>
   </ItemGroup>
