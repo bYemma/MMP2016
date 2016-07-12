@@ -13,9 +13,9 @@ Projectile * ProjectileFactory::createProjectile(MunitionType mt)
 		sn->setScale(0.3f);
 		PhysicsBody* pn = PhysicsBody::createCircle(
 			sn->getContentSize().width/2.0f,
-			PhysicsMaterial(0.5f, 0.1f, 10.0f)
+			PhysicsMaterial(0.5f, 0.1f, 2130.0f)
 		);
-		pn->setMass(12.0f);
+		pn->setMass(18.0f);
 		sn->setPhysicsBody(pn);
 		dmg = 45;
 		return new Projectile(dmg, sn);
@@ -31,7 +31,7 @@ Projectile * ProjectileFactory::createProjectile(MunitionType mt)
 			height/2.0f,
 			PhysicsMaterial(0.5f, 0.1f, 10.0f)
 		);
-		pr->setMass(20.0f);
+		pr->setMass(12.0f);
 		sr->setPhysicsBody(pr);
 		dmg = 65;
 		return new Projectile(dmg, sr); 

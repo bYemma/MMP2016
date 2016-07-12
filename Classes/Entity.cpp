@@ -19,9 +19,24 @@ void Entity::updateEntityPos(Vec2 newPos)
 	position = newPos;
 }
 
+Vec2 Entity::getProjectileDropOffPoint()
+{
+	Vec2 pos = sprite->getPosition();
+	pos.add(projectileDropOffPoint);
+	return pos;
+}
+
+void Entity::setProjectileDropOffPoint(Vec2 newpos)
+{
+	Vec2 pos = sprite->getPosition();
+	pos.add(newpos);
+	this->projectileDropOffPoint = pos;
+}
+
 Vec2 Entity::getPosition()
 {
-	return position;
+	return sprite->getPosition();
+
 }
 
 void Entity::setPosition(Vec2 newpos)
@@ -37,7 +52,12 @@ Label * Entity::getEntityLabel()
 
 PhysicsBody * Entity::getPhysicsBody()
 {
-	return physicsBody;
+	return sprite->getPhysicsBody();
+}
+
+void Entity::setPhysicsBody(PhysicsBody * pb)
+{
+	sprite->setPhysicsBody(pb);
 }
 
 int Entity::getEntityID()

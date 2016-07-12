@@ -39,7 +39,7 @@ public:
 	void changeEntityWeapon(ProjectileFactory::MunitionType selectedWeapon); //change weapon the entity is holding 
 
 	void setSelectedWeapon(ProjectileFactory::MunitionType selectedWeapon);  
-	void setSelectedEntity(Entity* e); //
+	void setSelectedEntity(PawnEntity* e); //
 	Entity* getSelectedEntity(); //
 
 	void applyDamage(Entity* e, int dmg);
@@ -56,7 +56,7 @@ private:
 	ProjectileFactory::MunitionType selectedWeapon = ProjectileFactory::MunitionType::NADE;
 	ProjectileFactory* pf;
 
-	Entity* selectedPawn;
+	PawnEntity* selectedPawn;
 
 	float gametime, roundtime;
 	bool gamerunning;

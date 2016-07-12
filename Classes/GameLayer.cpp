@@ -190,7 +190,7 @@ bool GameLayer::init() {
 	eventListener->onKeyReleased = [&](EventKeyboard::KeyCode keyCode, Event* event) {
 
 		float aimangle = 0.0f;
-		Vec2 aimingdirection = Vec2(0, 0);// _gc->getSelectedEntity()->getAimVec();
+		Vec2 aimingdirection = _gc->getSelectedEntity()->getAimVec();
 
 		//measure time key was hold down
 		//Load a shot
@@ -236,12 +236,17 @@ bool GameLayer::init() {
 	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, this);
 
 	//Schedule all events
-	this->schedule(schedule_selector(GameLayer::onKeyHold)); //schedule key down
+	this->schedule(schedule_selector(GameLayer::onKeyHold)); //schedule key hold down
+	this->schedule(schedule_selector(GameLayer::onCollision)); //schedule collision
 
 	//create main loop
 	this->scheduleUpdate();
 	return true;
 
+}
+
+void GameLayer::onCollision(float dt) {
+	_gc->getSelectedEntity()->getPhysicsBody()->getCPBody();
 }
 
 bool GameLayer::onContactBegin(PhysicsContact & contact)
@@ -259,7 +264,7 @@ void GameLayer::onContactPostSolve(PhysicsContact & contact, const PhysicsContac
 {
 }
 
-void GameLayer::onKeyHold(float interval) {
+void GameLayer::onKeyHold(float dt) {
 
 	if (keys.find(EventKeyboard::KeyCode::KEY_RIGHT_ARROW) != keys.end()) {
 		// right pressed

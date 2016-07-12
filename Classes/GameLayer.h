@@ -43,9 +43,10 @@ private:
 	//Key events
 	bool isKeyPressed(EventKeyboard::KeyCode);
 	double keyPressedDuration(EventKeyboard::KeyCode);
-	void onKeyHold(float interval);
+	void onKeyHold(float dt);
 
 	// Physics Contact Listener.....
+	void onCollision(float dt);
 	bool onContactBegin(PhysicsContact& contact);
 	bool onContactPreSolve(PhysicsContact& contact,
 		PhysicsContactPreSolve& solve);
