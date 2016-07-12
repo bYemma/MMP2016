@@ -126,14 +126,18 @@ bool GameLayer::init() {
 	//
 	//
 	//
-	EventListenerPhysicsContact *contactListener = EventListenerPhysicsContact::create();
+	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(GameLayer::onContactBegin, this);
 
+	/*
 	contactListener->onContactPreSolve = CC_CALLBACK_2(GameLayer::onContactPreSolve, this);
 
 	contactListener->onContactPostSolve = CC_CALLBACK_2(GameLayer::onContactPostSolve, this);
+	*/
 
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener,this);
+	contactListener->setEnabled(true);
+
+	getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener,this);
 
 
 	//
@@ -240,7 +244,7 @@ bool GameLayer::init() {
 
 	//Schedule all events
 	this->schedule(schedule_selector(GameLayer::onKeyHold)); //schedule key hold down
-	this->schedule(schedule_selector(GameLayer::onCollision)); //schedule collision
+	//this->schedule(schedule_selector(GameLayer::onCollision)); //schedule collision
 
 	//create main loop
 	this->scheduleUpdate();
@@ -248,9 +252,11 @@ bool GameLayer::init() {
 
 }
 
+/*
 void GameLayer::onCollision(float dt) {
 	_gc->getSelectedEntity()->getPhysicsBody()->getCPBody();
 }
+*/
 
 bool GameLayer::onContactBegin(PhysicsContact & contact)
 {

@@ -7,6 +7,7 @@ Projectile::Projectile(int damage, Sprite* s) {
 	this->sprite = s;
 	sprite->setTag(PROJ_TAG);
 	this->pbody = s->getPhysicsBody();
+	pbody->setContactTestBitmask(0xFFFFFFFF);
 }
 
 Sprite * Projectile::getSprite()

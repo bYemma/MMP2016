@@ -37,6 +37,7 @@ Vector<Sprite*> Ground::createGround(GameLayer* layer)
 
 			body = PhysicsBody::createBox(Size(newBlock->getContentSize().width, newBlock->getContentSize().height), PhysicsMaterial(0.1f, 0.1f, 0.5f));
 			body->setDynamic(false);
+			body->setContactTestBitmask(0xFFFFFFFF);
 
 			newBlock->setPhysicsBody(body);
 

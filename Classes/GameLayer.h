@@ -35,6 +35,10 @@ public:
 
 	CREATE_FUNC(GameLayer);
 
+	bool onContactBegin(PhysicsContact& contact);
+	bool onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve);
+	void onContactPostSolve(PhysicsContact& contact, const PhysicsContactPostSolve& solve);
+
 private:
 	PhysicsWorld* pw;
 	void createUI();
@@ -47,13 +51,8 @@ private:
 	void onKeyHold(float dt);
 
 	// Physics Contact Listener.....
-	void onCollision(float dt);
-	bool onContactBegin(PhysicsContact& contact);
-	bool onContactPreSolve(PhysicsContact& contact,
-		PhysicsContactPreSolve& solve);
-	void onContactPostSolve(PhysicsContact& contact,
-		const PhysicsContactPostSolve& solve);
-	void onContactSeperate(PhysicsContact& contact);
+	//void onCollision(float dt);
+
 	//key = keycode, value = time
 	void explode(Node* node);
 	void update(float dt);
