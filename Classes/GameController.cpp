@@ -37,7 +37,7 @@ void GameController::createEntities(GameLayer* gLayer)
 		//adjust this to avoid generating pawns intersected with screen border
 		xCoord = rand() % WINDOW_W;
 
-		pawn = createEntity(i % 2 == 0 ? PawnColor::red : PawnColor::blue, Vec2(xCoord,600));
+		pawn = createEntity(i % 2 == 0 ? PawnColor::red : PawnColor::blue, Vec2(xCoord,400));
 		gLayer->addChild(pawn->getSprite());
 
 		if(i==3) selectedPawn = pawn;
@@ -47,7 +47,7 @@ void GameController::createEntities(GameLayer* gLayer)
 PawnEntity* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
 	PawnEntity* pawn = new PawnEntity(pc);
 	pawn->setPosition(spawnpos);
-	pawn->getSprite()->setScale(0.4f);
+	pawn->getSprite()->setScale(0.3f);
 	return pawn;
 }
 
@@ -154,7 +154,7 @@ void GameController::moveEntity(int dir)
 void GameController::jumpEntity()
 {
 	if (!selectedPawn->isJumping()) {
-		selectedPawn->getPhysicsBody()->applyImpulse(Vec2(3000.0f, 12000.0f));
+		selectedPawn->getPhysicsBody()->applyImpulse(Vec2(2000.0f, 8000.0f));
 	}
 
 }

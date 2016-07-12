@@ -4,16 +4,6 @@ using namespace cocos2d;
 
 ProjectileFactory::ProjectileFactory() {}
 
-
-Texture2D* ProjectileFactory::loadTexture(const char* path) {
-	Image* im = new Image();
-	im->initWithImageFile(path);
-	Texture2D* tex = new Texture2D();
-	tex->initWithImage(im);
-	im->release();
-	return tex;
-}
-
 Projectile * ProjectileFactory::createProjectile(MunitionType mt)
 {
 	int dmg = 0;

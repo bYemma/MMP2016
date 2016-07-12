@@ -242,6 +242,8 @@
             <key type="filename">fussball.png</key>
             <key type="filename">schussanzeige_voll.png</key>
             <key type="filename">schussanzeige_white.png</key>
+            <key type="filename">textures/boden.png</key>
+            <key type="filename">textures/boden_mit_gras.png</key>
             <key type="filename">walking_blue/01.png</key>
             <key type="filename">walking_blue/02.png</key>
             <key type="filename">walking_blue/03.png</key>
