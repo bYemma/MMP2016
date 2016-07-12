@@ -60,6 +60,7 @@ protected:
 		Sprite* sprite; //Renderingcomponent(Sprite)
 
 		PhysicsBody* physicsBody; //Physiccomponent (PhysicsBody for collision)
+		Vector<SpriteFrame*> getAnimation(const char *format, int count);
 	private:
 
 

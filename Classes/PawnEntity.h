@@ -21,5 +21,4 @@ private:
 	int color;
 	void setColor(PawnColor color);
 	void initAnimations();
-	Vector<SpriteFrame*> getAnimation(const char *format, int count);
 };

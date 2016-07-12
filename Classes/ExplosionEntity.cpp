@@ -20,17 +20,3 @@ void ExplosionEntity::initAnimations()
 	sprite = Sprite::createWithSpriteFrame(frames.front());
 	auto animation = Animation::createWithSpriteFrames(frames, 1.0f / count);
 }
-
-Vector<SpriteFrame*> ExplosionEntity::getAnimation(const char *format, int count)
-{
-	auto spritecache = SpriteFrameCache::getInstance();
-	Vector<SpriteFrame*> animFrames = Vector<SpriteFrame*>();
-	char str[100];
-	for (int i = 8; i <= 8+count; i++)
-	{
-		sprintf(str, format, i);
-		CCLOG(str);
-		animFrames.pushBack(spritecache->getSpriteFrameByName(str));
-	}
-	return animFrames;
-}

@@ -230,14 +230,6 @@
             <key type="filename">explosion/12.png</key>
             <key type="filename">explosion/13.png</key>
             <key type="filename">explosion/14.png</key>
-            <key type="filename">explosion/15.png</key>
-            <key type="filename">explosion/16.png</key>
-            <key type="filename">explosion/17.png</key>
-            <key type="filename">explosion/18.png</key>
-            <key type="filename">explosion/19.png</key>
-            <key type="filename">explosion/20.png</key>
-            <key type="filename">explosion/21.png</key>
-            <key type="filename">explosion/22.png</key>
             <key type="filename">football.png</key>
             <key type="filename">fussball.png</key>
             <key type="filename">schussanzeige_voll.png</key>

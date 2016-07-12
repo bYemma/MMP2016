@@ -99,3 +99,16 @@ Sprite * Entity::getSprite()
 {
 	return sprite;
 }
+
+Vector<SpriteFrame*> Entity::getAnimation(const char *format, int count)
+{
+	auto spritecache = SpriteFrameCache::getInstance();
+	Vector<SpriteFrame*> animFrames = Vector<SpriteFrame*>();
+	char str[100];
+	for (int i = 1; i <= count; i++)
+	{
+		sprintf(str, format, i);
+		animFrames.pushBack(spritecache->getSpriteFrameByName(str));
+	}
+	return animFrames;
+}

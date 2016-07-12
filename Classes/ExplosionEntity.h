@@ -13,5 +13,4 @@ public:
 private:
 	Animation* animation;
 	void initAnimations();
-	Vector<SpriteFrame*> getAnimation(const char *format, int count);
 };
