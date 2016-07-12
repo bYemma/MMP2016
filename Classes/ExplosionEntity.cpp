@@ -5,18 +5,24 @@ USING_NS_CC;
 ExplosionEntity::ExplosionEntity()
 {
 	initAnimations();
+	sprite->setOpacity(0.0f);
 }
 
 void ExplosionEntity::startAnimation()
 {
-	sprite->runAction(Animate::create(animation));
+	sprite->setOpacity(1.0f);
+	sprite->runAction(animation);
 }
 
 void ExplosionEntity::initAnimations()
 {
-	const char* path = "explosion/%02d.png";
-	int count = 14;
-	auto frames = getAnimation(path, count);
+	auto frames = getAnimation("explosion/%02d.png", 14);
 	sprite = Sprite::createWithSpriteFrame(frames.front());
-	animation = Animation::createWithSpriteFrames(frames, 1.0f / count);
+	auto animate = Animate::create(Animation::createWithSpriteFrames(frames, 1.0f / 20));
+	auto fadeOut = FadeOut::create(14 * 1.0f / 20);
+	auto explode = Spawn::createWithTwoActions(animate, fadeOut);
+	auto removeEntity = CallFunc::create([]() {
+		log("exploded!");
+	});
+	animation = Sequence::create(explode, removeEntity, nullptr);
 }

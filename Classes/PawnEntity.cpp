@@ -38,6 +38,6 @@ void PawnEntity::initAnimations()
 	}
 	auto frames = getAnimation(path, count);
 	sprite = Sprite::createWithSpriteFrame(frames.front());
-	auto animation = Animation::createWithSpriteFrames(frames, 1.0f / count);
+	auto animation = Animation::createWithSpriteFrames(frames, 1.0f / 20);
 	running_animation = RepeatForever::create(Animate::create(animation));
 }
