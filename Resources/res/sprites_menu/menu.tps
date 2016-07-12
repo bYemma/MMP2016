@@ -194,10 +194,12 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">background_menu.png</key>
             <key type="filename">ballz_cover.png</key>
             <key type="filename">game_over.png</key>
+            <key type="filename">label_background.png</key>
             <key type="filename">quit_button.png</key>
-            <key type="filename">start_bttn.png</key>
+            <key type="filename">start_button.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

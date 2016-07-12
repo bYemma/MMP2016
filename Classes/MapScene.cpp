@@ -37,6 +37,9 @@ bool MapScene::init()
 	redPawn->startRunning();
 
 	ExplosionEntity* ex = new ExplosionEntity();
+	ex->setPosition(Vec2(600, 200));
+	addChild(ex->getSprite());
+	ex->startAnimation();
 
 	return true;
 }

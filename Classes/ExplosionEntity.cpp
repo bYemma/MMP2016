@@ -4,7 +4,7 @@ USING_NS_CC;
 
 ExplosionEntity::ExplosionEntity()
 {
-	
+	initAnimations();
 }
 
 void ExplosionEntity::startAnimation()
@@ -29,6 +29,7 @@ Vector<SpriteFrame*> ExplosionEntity::getAnimation(const char *format, int count
 	for (int i = 8; i <= 8+count; i++)
 	{
 		sprintf(str, format, i);
+		CCLOG(str);
 		animFrames.pushBack(spritecache->getSpriteFrameByName(str));
 	}
 	return animFrames;
