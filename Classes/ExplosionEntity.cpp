@@ -9,7 +9,7 @@ ExplosionEntity::ExplosionEntity()
 
 void ExplosionEntity::startAnimation()
 {
-	Animate::create(animation);
+	sprite->runAction(Animate::create(animation));
 }
 
 void ExplosionEntity::initAnimations()
@@ -18,5 +18,5 @@ void ExplosionEntity::initAnimations()
 	int count = 14;
 	auto frames = getAnimation(path, count);
 	sprite = Sprite::createWithSpriteFrame(frames.front());
-	auto animation = Animation::createWithSpriteFrames(frames, 1.0f / count);
+	animation = Animation::createWithSpriteFrames(frames, 1.0f / count);
 }
