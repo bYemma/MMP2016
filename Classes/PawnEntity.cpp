@@ -6,7 +6,6 @@ PawnEntity::PawnEntity(PawnColor color)
 {
 	setColor(color);
 	initAnimations();
-	physicsBody->setRotationEnable(false);
 }
 
 void PawnEntity::setColor(PawnColor color) {

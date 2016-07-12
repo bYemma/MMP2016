@@ -54,6 +54,7 @@ PawnEntity* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
 	Size psize = pawn->getSprite()->getContentSize();
 	auto pb = PhysicsBody::createBox(Size(psize.width/2.0f, psize.height-10), PhysicsMaterial(0.5f, 0.1f, 10.0f));
 	pb->setPositionOffset(Vec2(-20, 0));
+	pb->setRotationEnable(false);
 	//pawn->setProjectileDropOffPoint(Vec2(2.0f,2.0f)); Doesnt work
 	pawn->setPhysicsBody(pb);
 	pawn->getSprite()->setTag(PAWN_TAG);
