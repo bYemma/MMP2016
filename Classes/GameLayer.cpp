@@ -12,7 +12,7 @@ using namespace cocos2d;
 Scene* GameLayer::scene() {
 
 	auto scene = Scene::createWithPhysics();;
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	scene->getPhysicsWorld()->setGravity(Vec2(0.0f, -350.0f));
 	
 	auto layer = GameLayer::create();

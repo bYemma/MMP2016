@@ -35,6 +35,10 @@ bool MenuScene::init()
 
 	Sprite* tutorialbg = Sprite::createWithSpriteFrameName("label_background.png");
 	Sprite *storybg = Sprite::createWithSpriteFrameName("label_background.png");
+	Sprite *ballzbg = Sprite::createWithSpriteFrameName("label_background.png");
+	storybg->setOpacity(125);
+	tutorialbg->setOpacity(125);
+	ballzbg->setOpacity(125);
 
 	std::string tutstr = "TUTORIAL:\n\nPress  START  to play.\nHold and release  SPACE  to fire a projectile.\nChange your weapon by pressing  1(Rocket)  2(Nade)  3(Bullet) \nYou can move with  A  and  D  to left and right. Jump with  SHIFT \nAdjust your aim by holding  UP  and  DOWN";
 	auto tutorial = Label::createWithTTF(tutstr, font, _sSize.height/50.0f);
@@ -47,8 +51,8 @@ bool MenuScene::init()
 	addChild(tutorial);
 
 	std::string storystr = "HOW IT ALL BEGAN . . .\n\nAll hell broke loose when Blue lost against Red in the EM Semifinale.\n\nThe players grabbed their weapons and started shooting ballz.\n\nThe stadium collapsed and the showdown between red and blue began\n";
-	auto story = Label::createWithTTF(storystr, font, _sSize.height / 75.0f);
-	story->setPosition(Vec2(_sSize.width*0.2, _sSize.height * 0.60));
+	auto story = Label::createWithTTF(storystr, font, _sSize.height / 60.0f);
+	story->setPosition(Vec2(_sSize.width*0.25, _sSize.height * 0.60));
 	story->setTextColor(Color4B::WHITE);
 	storybg->setPosition(story->getPosition());
 	storybg->setScaleX(story->getContentSize().width / storybg->getContentSize().width + 0.02);
@@ -56,15 +60,24 @@ bool MenuScene::init()
 	addChild(storybg);
 	addChild(story);
 
+	std::string ballzstr = "Press START if you have . . .";
+	auto ballz = Label::createWithTTF(ballzstr, font, _sSize.height / 40.0f);
+	ballz->setPosition(Vec2(_sSize.width*0.75, _sSize.height * 0.60));
+	ballzbg->setPosition(ballz->getPosition());
+	ballzbg->setScaleX(ballz->getContentSize().width / ballzbg->getContentSize().width + 0.02);
+	ballzbg->setScaleY(ballz->getContentSize().height / ballzbg->getContentSize().height + 0.02);
+	addChild(ballzbg);
+	addChild(ballz);
+
 	ui::Button* startButton = ui::Button::create("start_button.png", "", "", ui::TextureResType::PLIST);
-	startButton->setPosition(Vec2(_sSize.width * 0.5 - 143, _sSize.height * 0.5 - 254));
+	startButton->setPosition(Vec2(_sSize.width * 0.5, _sSize.height * 0.2));
 	startButton->addClickEventListener(CC_CALLBACK_0(MenuScene::start, this));
 	addChild(startButton);
 
-	ui::Button* altButton = ui::Button::create("start_button.png", "", "", ui::TextureResType::PLIST);
+	/*ui::Button* altButton = ui::Button::create("start_button.png", "", "", ui::TextureResType::PLIST);
 	altButton->setPosition(Vec2(_sSize.width * 0.5 + 143, _sSize.height * 0.5 - 254));
 	altButton->addClickEventListener(CC_CALLBACK_0(MenuScene::test, this));
-	addChild(altButton);
+	addChild(altButton);*/
 
 	ui::Button* quitButton = ui::Button::create("quit_button.png", "", "", ui::TextureResType::PLIST);
 	quitButton->setPosition(Vec2(_sSize.width * 0.9, _sSize.height * 0.9));
