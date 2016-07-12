@@ -6,6 +6,7 @@
 
 #include "cocos2d.h"
 #include <vector>
+#include "ExplosionEntity.h"
 
 using namespace cocos2d;
 
@@ -54,7 +55,9 @@ private:
 		const PhysicsContactPostSolve& solve);
 	void onContactSeperate(PhysicsContact& contact);
 	//key = keycode, value = time
+	void explode(Node* node);
 	void update(float dt);
+	ExplosionEntity* explosion;
 };
 
 

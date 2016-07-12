@@ -11,6 +11,6 @@ public:
 	ExplosionEntity();
 	void startAnimation();
 private:
-	Animation* animation;
+	Action* animation;
 	void initAnimations();
 };

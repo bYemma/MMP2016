@@ -85,6 +85,9 @@ void GameLayer::createUI()
 	_weaponlabel->setPosition(Vec2(_screenSize.width*0.11, _screenSize.height * 0.95));
 	_weaponlabel->setTextColor(Color4B::WHITE);
 	this->addChild(_weaponlabel);
+
+	explosion = new ExplosionEntity();
+	addChild(explosion->getSprite());
 }
 
 void GameLayer::setPhysicsWorld(PhysicsWorld* pw)
@@ -253,25 +256,40 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 {
 	auto nodeA = contact.getShapeA()->getBody()->getNode();
 	auto nodeB = contact.getShapeB()->getBody()->getNode();
+	log("A");
 	if (nodeA && nodeB)
 	{
+		log("B");
 		if (nodeA->getTag() == GND_TAG)
 		{
+			log("C1");
 			if (nodeB->getTag() == PROJ_TAG){
+				log("D1");
 				//make nodeB explode: animations, sprite destruction, damage etc
+				explode(nodeB);
 				//maybe remove nodeA from the layer for terrain destruction
 			}
 		}
 		else if (nodeB->getTag() == GND_TAG)
 		{
+			log("C2");
 			if (nodeA->getTag() == PROJ_TAG){
+				log("D2");
 				//make nodeA explode: animations, sprite destruction, damage etc
+				explode(nodeA);
 				//maybe remove nodeA from the layer for terrain destruction
 			}
 		}
 	}
 
 	return true;
+}
+
+void GameLayer::explode(Node* node)
+{
+	Vec2 pos = node->getPosition();
+	explosion->setPosition(pos);
+	explosion->startAnimation();
 }
 
 // Calling it to eliminate The Jumping Effect... Restitution
