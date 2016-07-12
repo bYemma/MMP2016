@@ -48,10 +48,12 @@ void GameController::createEntities(GameLayer* gLayer)
 }
 
 PawnEntity* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
+	//Create pawn
 	PawnEntity* pawn = new PawnEntity(pc);
 	pawn->setPosition(spawnpos);
 	pawn->getSprite()->setScale(0.4f);
 	Size psize = pawn->getSprite()->getContentSize();
+	//Create physic for pawn
 	auto pb = PhysicsBody::createBox(Size(psize.width/2.0f, psize.height-10), PhysicsMaterial(0.5f, 0.1f, 10.0f));
 	pb->setPositionOffset(Vec2(-20, 0));
 	pb->setRotationEnable(false);
@@ -59,6 +61,14 @@ PawnEntity* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
 	//pawn->setProjectileDropOffPoint(Vec2(2.0f,2.0f)); Doesnt work
 	pawn->setPhysicsBody(pb);
 	pawn->getSprite()->setTag(PAWN_TAG);
+	//Create default aiming direction for pawn(horizontal to left(-1) or right(1) in rX)
+	int rX = rand()%2;
+	if (rX == 0) { //pawn is aiming left per default/after spawn
+		rX = -1;
+		pawn->getSprite()->setRotationSkewY(180.0f); //let the pawn look left
+	}
+	pawn->setAimVec(Vec2(rX,0));
+
 	return pawn;
 }
 
@@ -149,63 +159,43 @@ void GameController::generateWindVec(GameLayer* gLayer)
 	//pw->setGravity(Vec2(xforce,-350.0f));
 }
 
-void GameController::moveEntity(int dir)
+void GameController::moveEntity(int dir, bool move)
 {
 	Vec2 aimvec = selectedPawn->getAimVec();
 	Vec2 pos = selectedPawn->getPosition();
 	float rotation = selectedPawn->getSprite()->getRotationSkewY();
-	std::string fs = std::to_string(rotation);
-	CCLOG(fs.c_str());
+
+	//want to move left
 	if (dir == -1) {
-		if (aimvec.x < 0) { //aiming left
-			if (rotation == 0.0f) {
-				selectedPawn->getSprite()->setRotationSkewY(180.0f);
-			}
+		if (aimvec.x > 0) { //but we aim right
+			selectedPawn->getSprite()->setRotationSkewY(180.0f);
+			selectedPawn->setAimVec(Vec2(-aimvec.x,aimvec.y));
 		}
-		else if (aimvec.x > 0) { //aim right
-			if (rotation == -180.0f) {
-				selectedPawn->getSprite()->setRotationSkewY(0.0f);
-			}
-		}
-		selectedPawn->setPosition(Vec2(--pos.x, pos.y));
+		if(move)
+			selectedPawn->setPosition(Vec2(--pos.x, pos.y)); //acutally move along x
 		//selectedPawn->startRunning();
 	}
-	//move right
+
+	//want to move right
 	else if (dir == 1) {
-		selectedPawn->setPosition(Vec2(++pos.x, pos.y));
-		selectedPawn->getSprite()->setRotationSkewY(-180.0f);
+		if (aimvec.x < 0) { //but we aim right
+			selectedPawn->getSprite()->setRotationSkewY(0.0f);
+			selectedPawn->setAimVec(Vec2(-aimvec.x, aimvec.y));
+		}
+		if(move)
+			selectedPawn->setPosition(Vec2(++pos.x, pos.y));
 	}
 	
 }
 
 void GameController::jumpEntity()
 {
-	//if (!selectedPawn->isJumping()) {
-		selectedPawn->getPhysicsBody()->applyImpulse(Vec2(3000.0f, 12000.0f));
-	//}
+	if (!selectedPawn->isJumping()) {
+		Vec2 aim = selectedPawn->getAimVec();
+		selectedPawn->getPhysicsBody()->applyImpulse(Vec2(aim.x*300000.0f, 300000.0f));
+		//selectedPawn->setJumping(true);
+	}
 
-}
-void GameController::adjustEntityAimDir(int dir)
-{ 
-	Vec2 aimvec = selectedPawn->getAimVec();
-	if (aimvec.x < 0) { //aiming left
-		if (dir == -1) {
-			selectedPawn->setAimVec(Vec2(aimvec.x*-dir, aimvec.y)); //stay
-		} else if(dir == 1){
-			selectedPawn->setAimVec(Vec2(aimvec.x*-dir, aimvec.y)); //swap aim
-		}
-	}
-	else if (aimvec.x > 0) { //aiming right
-		if (dir == -1) {
-			selectedPawn->setAimVec(Vec2(aimvec.x*dir, aimvec.y)); //swap
-		}
-		else if (dir == 1) {
-			selectedPawn->setAimVec(Vec2(aimvec.x*dir, aimvec.y)); //stay
-		}
-	}
-	else { //aimed straight up
-		return;
-	}
 }
 
 void GameController::adjustEntityAimAngle()
