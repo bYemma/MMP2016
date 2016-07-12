@@ -40,6 +40,8 @@ Vector<Sprite*> Ground::createGround(GameLayer* layer)
 
 			newBlock->setPhysicsBody(body);
 
+			newBlock->setTag(GND_TAG);
+
 			gndBlocks.pushBack(newBlock);
 			count++;
 		}

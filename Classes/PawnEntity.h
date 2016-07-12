@@ -3,6 +3,8 @@
 #include "Entity.h"
 #include "cocos2d.h"
 
+//value is of little importance, but this tag can only be given to pawns
+#define PAWN_TAG 30
 
 using namespace cocos2d;
 

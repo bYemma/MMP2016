@@ -5,6 +5,7 @@
 Projectile::Projectile(int damage, Sprite* s) {
 	this->damage = damage;
 	this->sprite = s;
+	sprite->setTag(PROJ_TAG);
 	this->pbody = s->getPhysicsBody();
 }
 

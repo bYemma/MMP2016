@@ -1,6 +1,9 @@
 #pragma once
 #include "Entity.h"
 
+//value is of little importance, but this tag can only be given to projectiles
+#define PROJ_TAG 40
+
 using namespace cocos2d;
 
 class Projectile : public Entity

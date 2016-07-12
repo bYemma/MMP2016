@@ -5,7 +5,7 @@
 
 void Entity::updateHealth(int newHealth)
 {
-health = newHealth;
+	health = newHealth;
 }
 
 void Entity::updateHealthLabel()

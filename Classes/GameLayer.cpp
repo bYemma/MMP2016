@@ -251,7 +251,27 @@ void GameLayer::onCollision(float dt) {
 
 bool GameLayer::onContactBegin(PhysicsContact & contact)
 {
-	return false;
+	auto nodeA = contact.getShapeA()->getBody()->getNode();
+	auto nodeB = contact.getShapeB()->getBody()->getNode();
+	if (nodeA && nodeB)
+	{
+		if (nodeA->getTag() == GND_TAG)
+		{
+			if (nodeB->getTag() == PROJ_TAG){
+				//make nodeB explode: animations, sprite destruction, damage etc
+				//maybe remove nodeA from the layer for terrain destruction
+			}
+		}
+		else if (nodeB->getTag() == GND_TAG)
+		{
+			if (nodeA->getTag() == PROJ_TAG){
+				//make nodeA explode: animations, sprite destruction, damage etc
+				//maybe remove nodeA from the layer for terrain destruction
+			}
+		}
+	}
+
+	return true;
 }
 
 // Calling it to eliminate The Jumping Effect... Restitution

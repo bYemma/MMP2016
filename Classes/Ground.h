@@ -33,6 +33,9 @@
 #define DIRT_SIZE	100.0                       
 #define GRASS_SIZE  100.0
 
+//value is of little importance, but this tag can only be given to terrain blocks
+#define GND_TAG 20
+
 using namespace cocos2d;
 
 class Ground {

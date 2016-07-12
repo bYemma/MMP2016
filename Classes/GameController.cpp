@@ -56,6 +56,7 @@ PawnEntity* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
 	pb->setPositionOffset(Vec2(-20, 0));
 	//pawn->setProjectileDropOffPoint(Vec2(2.0f,2.0f)); Doesnt work
 	pawn->setPhysicsBody(pb);
+	pawn->getSprite()->setTag(PAWN_TAG);
 	return pawn;
 }
 
