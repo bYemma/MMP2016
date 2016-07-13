@@ -304,7 +304,6 @@ void GameLayer::explode(Node* node)
 {
 	Vec2 pos = node->getPosition();
 	explosion->setPosition(pos);
-	explosion->getSprite()->setOpacity(255);
 	explosion->startAnimation();
 }
 

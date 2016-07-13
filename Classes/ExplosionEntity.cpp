@@ -10,6 +10,7 @@ ExplosionEntity::ExplosionEntity()
 
 void ExplosionEntity::startAnimation()
 {
+	sprite->release();
 	sprite->setOpacity(255);
  	sprite->runAction(animation);
 }
