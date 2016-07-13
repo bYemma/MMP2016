@@ -216,7 +216,7 @@ bool GameLayer::init() {
 		switch (keyCode) {
 			case EventKeyboard::KeyCode::KEY_SPACE: { //Shot on release but measure time shot was hold
 				Vec2 force = Vec2(1000.0f * shotstrengthtime_sec, 3000.0f * shotstrengthtime_sec);
-				CCLOG("Time: %f", shotstrengthtime_sec);
+				//CCLOG("Time: %f", shotstrengthtime_sec);
 				_gc->fireProjectile(this,force);
 				break; 
 			}

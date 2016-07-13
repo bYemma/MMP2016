@@ -225,7 +225,7 @@ void GameController::jumpEntity()
 {
 	if (!selectedPawn->isJumping()) {
 		Vec2 aim = selectedPawn->getAimVec();
-		selectedPawn->getPhysicsBody()->applyImpulse(Vec2(aim.x*300000.0f, 300000.0f));
+		selectedPawn->getPhysicsBody()->applyImpulse(Vec2(0.0f, 300000.0f));
 		selectedPawn->setJumping(true);
 	}
 
@@ -261,8 +261,12 @@ void GameController::fireProjectile(GameLayer* gL, Vec2 force)
 	Projectile* proj = ProjectileFactory::createProjectile(selectedWeapon);
 	Sprite* projsprite = proj->getSprite();
 	//projsprite->setPosition(selectedPawn->getProjectileDropOffPoint()); Doesnt work
-	projsprite->setPosition(selectedPawn->getPosition());
-	projsprite->getPhysicsBody()->applyImpulse(force);
+	
+	Vec2 shooter = selectedPawn->getPosition();
+	float dir = selectedPawn->getAimVec().x;
+	projsprite->setPosition(shooter.x + dir*25.0, shooter.y+5.0);
+
+	projsprite->getPhysicsBody()->applyImpulse(Vec2(force.x * dir, force.y));
 	gL->addChild(projsprite);
 }
 
