@@ -6,6 +6,18 @@ PawnEntity::PawnEntity(PawnColor color)
 {
 	setColor(color);
 	initAnimations();
+	health = 100;
+
+}
+
+void PawnEntity::createLabel() {
+	entityLabel = Label::createWithTTF("" + getName() + ": " + std::to_string(health), "res/fonts/Minecraft.ttf", 45);
+	entityLabel->setTextColor(Color4B::GREEN);
+	entityLabel->setPosition(0, sprite->getContentSize().height);
+	sprite->addChild(entityLabel);
+	if (aimvector.x < 0) {
+		entityLabel->setRotationSkewY(180.0f);
+	}
 }
 
 void PawnEntity::setColor(PawnColor color) {
@@ -38,6 +50,7 @@ void PawnEntity::initAnimations()
 	}
 	auto frames = getAnimation(path, count);
 	sprite = Sprite::createWithSpriteFrame(frames.front());
+	sprite->setScale(0.4f);
 	auto animation = Animation::createWithSpriteFrames(frames, 1.0f / 20);
 	running_animation = RepeatForever::create(Animate::create(animation));
 }
