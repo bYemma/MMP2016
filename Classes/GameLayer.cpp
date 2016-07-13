@@ -127,13 +127,10 @@ bool GameLayer::init() {
 	//
 	//
 	auto contactListener = EventListenerPhysicsContact::create();
-	contactListener->onContactBegin = CC_CALLBACK_1(GameLayer::onContactBegin, this);
-
-	/*
-	contactListener->onContactPreSolve = CC_CALLBACK_2(GameLayer::onContactPreSolve, this);
-
+	contactListener->onContactBegin = CC_CALLBACK_1(GameLayer::onContactBegin, this); //for projectile explosions
+	contactListener->onContactPreSolve = CC_CALLBACK_2(GameLayer::onContactPreSolve, this); //to correct pawn restitution
 	contactListener->onContactPostSolve = CC_CALLBACK_2(GameLayer::onContactPostSolve, this);
-	*/
+	
 
 	contactListener->setEnabled(true);
 
@@ -309,12 +306,23 @@ void GameLayer::explode(Node* node)
 
 // Calling it to eliminate The Jumping Effect... Restitution
 bool GameLayer::onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve) {
-	//solve.setRestitution(0);
+	
 	return true;
 }
 
 void GameLayer::onContactPostSolve(PhysicsContact & contact, const PhysicsContactPostSolve & solve)
 {
+	auto nodeA = contact.getShapeA()->getBody()->getNode();
+	auto nodeB = contact.getShapeB()->getBody()->getNode();
+
+	if (nodeA && nodeB){
+		if (nodeA->getTag() == PAWN_TAG){
+			nodeA->getPhysicsBody()->setVelocity(Vec2::ZERO);
+		}
+		else if (nodeB->getTag() == PAWN_TAG){
+			nodeB->getPhysicsBody()->setVelocity(Vec2::ZERO);
+		}
+	}
 }
 
 void GameLayer::onKeyHold(float dt) {
