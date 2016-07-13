@@ -36,6 +36,11 @@ void PawnEntity::setColor(PawnColor color) {
 	this->color = color;
 }
 
+int PawnEntity::getColor()
+{
+	return color;
+}
+
 void PawnEntity::setActive(bool active)
 {
 	int opacity = active ? 255 : 0;

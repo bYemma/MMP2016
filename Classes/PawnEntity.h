@@ -20,6 +20,7 @@ public:
 	void stopRunning();
 	void createLabel();
 	void setActive(bool active);
+	int getColor();
 private:
 
 	Sprite* crosshair;
