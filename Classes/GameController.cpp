@@ -52,7 +52,7 @@ void GameController::createEntities(GameLayer* gLayer)
 std::string GameController::generateName(int i) {
 	std::string name = "";
 	switch (i) {
-	case 0: name = "Bäda"; break;
+	case 0: name = "Baeda"; break;
 	case 1: name = "Rudolf"; break;
 	case 2: name = "Sepp"; break;
 	case 3: name = "Schorsch"; break;
@@ -69,7 +69,7 @@ PawnEntity* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
 	pawn->setPosition(spawnpos);
 	Size psize = pawn->getSprite()->getContentSize();
 	//Create physic for pawn
-	auto pb = PhysicsBody::createBox(Size(psize.width/2, psize.height*0.80f), PhysicsMaterial(0.5f, 0.1f, 10.0f));
+	auto pb = PhysicsBody::createBox(Size(psize.width/2, psize.height*0.80f), PhysicsMaterial(0.5f, 0.0f, 10.0f));
 	pb->setRotationEnable(false);
 	pb->setPositionOffset(Vec2(-15,0));
 	pb->setContactTestBitmask(0xFFFFFFFF);
