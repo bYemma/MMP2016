@@ -7,14 +7,15 @@
 
 using namespace cocos2d;
 
-Scene* GameLayer::scene() {
-
+Scene* GameLayer::scene(std::string player1, std::string player2) {
 	auto scene = Scene::createWithPhysics();;
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	scene->getPhysicsWorld()->setGravity(Vec2(0.0f, -350.0f));
 	
 	auto layer = GameLayer::create();
 	layer->setPhysicsWorld(scene->getPhysicsWorld());
+	layer->setPlayer1(player1);
+	layer->setPlayer2(player2);
 	scene->addChild(layer);
 	
 	return scene;
@@ -85,6 +86,16 @@ void GameLayer::setPhysicsWorld(PhysicsWorld* pw)
 	this->pw = pw;
 }
 
+void GameLayer::setPlayer1(std::string np1)
+{
+	this->p1 = np1;
+}
+
+void GameLayer::setPlayer2(std::string np2)
+{
+	this->p2 = np2;
+}
+
 // Map for keyevents
 static std::map<EventKeyboard::KeyCode, std::chrono::high_resolution_clock::time_point> keys;
 
@@ -102,6 +113,7 @@ bool GameLayer::init() {
 	initSprites();
 	_gc = new GameController(pw); // Controll gameflow and actions
 	_gc->initGame();
+	_gc->createPlayers(p1,p2);
 
 	createUI(); //Initalize and design all UI components used in GameController
 
@@ -204,7 +216,7 @@ bool GameLayer::init() {
 		switch (keyCode) {
 			case EventKeyboard::KeyCode::KEY_SPACE: { //Shot on release but measure time shot was hold
 				Vec2 force = Vec2(1000.0f * shotstrengthtime_sec, 3000.0f * shotstrengthtime_sec);
-				CCLOG("Time: %f", shotstrengthtime_sec);
+				//CCLOG("Time: %f", shotstrengthtime_sec);
 				_gc->fireProjectile(this,force);
 				break; 
 			}

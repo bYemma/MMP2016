@@ -1,16 +1,17 @@
 #include "Player.h"
 #include "Entity.h"
 
-Player::Player()
+Player::Player(int id, std::string name)
 {
-
+	this->playerid = id;
+	this->name = name;
 }
 
 Player::~Player()
 {
 }
 
-std::vector<Entity> Player::getEntities()
+std::vector<Entity*> Player::getEntities()
 {
 	return entPtrs;
 }

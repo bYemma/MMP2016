@@ -21,6 +21,8 @@ public:
 private:
 	Size _sSize;
 	void initSprites();
+	ui::TextField* namep1;
+	ui::TextField* namep2;
 };
 
 #endif // __MENUSCENE_H__

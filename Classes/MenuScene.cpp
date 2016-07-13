@@ -80,13 +80,13 @@ bool MenuScene::init()
 	addChild(namesbg);
 	addChild(entername);
 
-	ui::TextField* namep1 = ui::TextField::create();
+	namep1 = ui::TextField::create();
 	namep1->setString("Player1");
 	namep1->setPosition(Vec2(_sSize.width * 0.4, _sSize.height * 0.3));
 	namep1->setFocused(true);
 	addChild(namep1);
 
-	ui::TextField* namep2 = ui::TextField::create();
+	namep2 = ui::TextField::create();
 	namep2->setString("Player2");
 	namep2->setPosition(Vec2(_sSize.width * 0.6, _sSize.height * 0.3));
 	namep2->setTextColor(Color4B::BLACK);
@@ -112,7 +112,7 @@ bool MenuScene::init()
 
 void MenuScene::start() {
 	auto director = Director::getInstance();
-	auto scene = GameLayer::scene();
+	auto scene = GameLayer::scene(namep1->getString(),namep2->getString());
 	director->replaceScene(scene);
 }
 

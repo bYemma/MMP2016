@@ -36,7 +36,7 @@ public:
 	EventListenerKeyboard* _eventListener;
 	virtual bool init();
 	
-	static Scene* scene();
+	static Scene* scene(std::string p1,std::string p2);
 
 	CREATE_FUNC(GameLayer);
 
@@ -45,11 +45,15 @@ public:
 	void onContactPostSolve(PhysicsContact& contact, const PhysicsContactPostSolve& solve);
 
 private:
+	std::string p1;
+	std::string p2;
 	PhysicsWorld* pw;
 	void createUI();
 	void initSprites();
 
 	void setPhysicsWorld(PhysicsWorld* pw);
+	void setPlayer1(std::string p1);
+	void setPlayer2(std::string p2);
 	//Key events
 	bool isKeyPressed(EventKeyboard::KeyCode);
 	double keyPressedDuration(EventKeyboard::KeyCode);

@@ -17,7 +17,7 @@ public:
 
 	void initGame(); //create players and their stats
 	void createTerrain(GameLayer* gLayer); //create players and their stats
-	void createPlayers(); //create players and their stats
+	void createPlayers(std::string p1, std::string p2); //create players and their stats
 	void createEntities(GameLayer* gLayer);
 	PawnEntity* createEntity(PawnColor pc, Vec2 spawnpos);
 	void endGame(); //close and kill all data
@@ -66,6 +66,8 @@ private:
 
 	float gametime, roundtime;
 	bool gamerunning;
+
+	std::vector<Player*> players;
 
 	const static int max = 4;
 	const static int min = 1;
