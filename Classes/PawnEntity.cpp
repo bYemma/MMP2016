@@ -14,13 +14,17 @@ PawnEntity::PawnEntity(PawnColor color)
 PawnEntity::~PawnEntity()
 {
 	running_animation->release();
+	crosshair->release();
 }
 
 void PawnEntity::createCrosshair() {
 	crosshair = Sprite::createWithSpriteFrameName("schussanzeige_white.png");
 	crosshair->setAnchorPoint(getProjectileDropOffPoint());
-	crosshair->setRotation(45);
+	setAimVec(Vec2(0,1));
+	crosshair->setRotation(Vec2::angle(getAimVec(), Vec2(1,0)));
+	log("%f", Vec2::angle(getAimVec(), Vec2(1, 0)));
 	sprite->addChild(crosshair);
+	crosshair->retain();
 }
 
 void PawnEntity::createLabel() {
