@@ -10,9 +10,10 @@ void Entity::updateHealth(int newHealth)
 
 void Entity::updateHealthLabel()
 {
-	entityLabel->setString(name + std::to_string(health));
-	entityLabel->setPosition(sprite->getPosition());
-
+	if (health < 25) {
+		entityLabel->setTextColor(Color4B::RED);
+	}
+	entityLabel->setString(name + ": "+std::to_string(health));
 }
 
 void Entity::updateEntityPos(Vec2 newPos)

@@ -52,17 +52,16 @@ void GameController::createEntities(GameLayer* gLayer)
 }
 
 std::string GameController::generateName(int i) {
-	std::string name = "";
 	switch (i) {
-	case 0: name = "Baeda"; break;
-	case 1: name = "Rudolf"; break;
-	case 2: name = "Sepp"; break;
-	case 3: name = "Schorsch"; break;
-	case 4: name = "Walter"; break;
-	case 5: name = "Franz-Joseph"; break;
-	case 6: name = "Hiasi"; break;
+	case 0: return "Baeda";
+	case 1: return"Rudolf";
+	case 2: return"Sepp";
+	case 3: return "Schorsch";
+	case 4: return "Walter";
+	case 5: return "Franz-Joseph";
+	case 6: return "Hiasi";
 	}
-	return name;
+	
 }
 
 PawnEntity* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
