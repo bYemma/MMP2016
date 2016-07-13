@@ -46,6 +46,16 @@ void Entity::setPosition(Vec2 newpos)
 	sprite->setPosition(position);
 }
 
+std::string Entity::getName()
+{
+	return name;
+}
+
+void Entity::setName(std::string nname)
+{
+	this->name = nname;
+}
+
 Label * Entity::getEntityLabel()
 {
 	return entityLabel;

@@ -4,6 +4,7 @@
 #include "Ground.h"
 #include "Player.h"
 #include "GameLayer.h"
+#include "EndScene.h"
 #include "PawnEntity.h"
 
 class GameController
@@ -30,6 +31,7 @@ public:
 	void updateUI(GameLayer* gL); // Update labels, buttons etc
 	void updateTimers(float dt); //Updates time for round and game
 
+	std::string generateName(int i);
 	void generateWindVec(GameLayer* gLayer); //Change the wind vector
 	void selectEntity(); //Select the next entity the playing player takes controll over
 

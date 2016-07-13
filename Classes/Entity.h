@@ -23,6 +23,9 @@ class Entity {
 		Vec2 getPosition();
 		void setPosition(Vec2 newpos);
 
+		std::string getName();
+		void setName(std::string nname);
+
 		Label* getEntityLabel();
 		PhysicsBody* getPhysicsBody();
 		void setPhysicsBody(PhysicsBody * pb);

@@ -16,6 +16,7 @@ public:
 	PawnEntity(PawnColor color);
 	void startRunning();
 	void stopRunning();
+	void createLabel();
 private:
 	RepeatForever* running_animation;
 	int color;

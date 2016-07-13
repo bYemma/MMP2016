@@ -41,10 +41,26 @@ void GameController::createEntities(GameLayer* gLayer)
 		xCoord = rand() % WINDOW_W;
 
 		pawn = createEntity(i % 2 == 0 ? PawnColor::red : PawnColor::blue, Vec2(xCoord,600));
+		pawn->setName(generateName(i));
+		pawn->createLabel();
 		gLayer->addChild(pawn->getSprite());
 
 		if(i==3) selectedPawn = pawn;
 	}
+}
+
+std::string GameController::generateName(int i) {
+	std::string name = "";
+	switch (i) {
+	case 0: name = "Bäda"; break;
+	case 1: name = "Rudolf"; break;
+	case 2: name = "Sepp"; break;
+	case 3: name = "Schorsch"; break;
+	case 4: name = "Walter"; break;
+	case 5: name = "Franz-Joseph"; break;
+	case 6: name = "Hiasi"; break;
+	}
+	return name;
 }
 
 PawnEntity* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
@@ -67,8 +83,6 @@ PawnEntity* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
 		rX = -1;
 		pawn->getSprite()->setRotationSkewY(180.0f); //let the pawn look left
 		pb->setPositionOffset(Vec2(15, 0));
-		pawn->getEntityLabel()->setRotationSkewY(180.0f);
-
 	}
 	pawn->setAimVec(Vec2(rX,0));
 
@@ -78,9 +92,8 @@ PawnEntity* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
 void GameController::endGame()
 {
 	//show end screen
-	//auto scene = GameLayer::scene();
-	//Director::getInstance()->replaceScene(scene);
-	Director::getInstance()->end();
+	auto scene = EndScene::createScene();
+	Director::getInstance()->replaceScene(scene);
 }
 
 

@@ -84,6 +84,9 @@
     <ClCompile Include="..\Classes\ExplosionEntity.cpp">
       <Filter>src\data\entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\EndScene.cpp">
+      <Filter>src\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ExplosionEntity.h">
       <Filter>src\data\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EndScene.h">
+      <Filter>src\view</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
