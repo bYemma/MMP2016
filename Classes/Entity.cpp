@@ -82,6 +82,12 @@ Player * Entity::getOwner()
 	return owner;
 }
 
+void Entity::setOwner(Player * np)
+{
+	owner = np;
+}
+
+
 void Entity::setJumping(bool b)
 {
 	isjumping = b;

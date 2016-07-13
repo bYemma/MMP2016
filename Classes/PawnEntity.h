@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Entity.h"
 #include "cocos2d.h"
 
@@ -19,6 +18,8 @@ public:
 	void startRunning();
 	void stopRunning();
 	void createLabel();
+	int getColor();
+
 private:
 
 	Sprite* crosshair;

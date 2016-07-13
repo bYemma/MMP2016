@@ -32,6 +32,7 @@ class Entity {
 
 		int getEntityID();
 		Player* getOwner();
+		void setOwner(Player* np);
 
 		void setJumping(bool b);
 		bool isJumping();

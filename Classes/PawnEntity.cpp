@@ -25,9 +25,16 @@ void PawnEntity::createLabel() {
 	}
 }
 
+int PawnEntity::getColor()
+{
+	return color;
+}
+
 void PawnEntity::setColor(PawnColor color) {
 	this->color = color;
 }
+
+
 
 void PawnEntity::startRunning()
 {

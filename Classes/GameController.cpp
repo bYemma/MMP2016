@@ -26,8 +26,10 @@ void GameController::createTerrain(GameLayer* gLayer)
 	Ground::createGround(gLayer);
 }
 
-void GameController::createPlayers()
+void GameController::createPlayers(std::string p1, std::string p2)
 {
+	players.push_back(new Player(0, p1));
+	players.push_back(new Player(1, p2));
 }
 
 void GameController::createEntities(GameLayer* gLayer)
@@ -46,9 +48,14 @@ void GameController::createEntities(GameLayer* gLayer)
 		gLayer->addChild(pawn->getSprite());
 		pawn->getSprite()->setTag(PAWN_TAG+i);
 		pawns[i] = pawn;
-
+		//Add pawn to player
+		Player* p = players.at(pawn->getColor());
+		p->getEntities().push_back(pawn);
+		pawn->setOwner(p);
 		if(i==3) selectedPawn = pawn;
 	}
+
+
 }
 
 std::string GameController::generateName(int i) {
@@ -60,6 +67,7 @@ std::string GameController::generateName(int i) {
 	case 4: return "Walter";
 	case 5: return "Franz-Joseph";
 	case 6: return "Hiasi";
+	default: return "Maierhorst";
 	}
 	
 }
