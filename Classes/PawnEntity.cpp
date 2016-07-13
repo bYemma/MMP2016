@@ -7,6 +7,7 @@ PawnEntity::PawnEntity(PawnColor color)
 	setColor(color);
 	initAnimations();
 	createCrosshair();
+	setActive(false);
 	health = 100;
 }
 
@@ -44,6 +45,7 @@ int PawnEntity::getColor()
 void PawnEntity::setActive(bool active)
 {
 	int opacity = active ? 255 : 0;
+	crosshair->setOpacity(opacity);
 }
 
 void PawnEntity::startRunning()

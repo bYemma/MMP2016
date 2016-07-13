@@ -52,7 +52,7 @@ void GameController::createEntities(GameLayer* gLayer)
 		Player* p = players.at(pawn->getColor());
 		p->getEntities().push_back(pawn);
 		pawn->setOwner(p);
-		if(i==3) selectedPawn = pawn;
+		if(i==3) setSelectedEntity(pawn);
 	}
 
 
@@ -301,7 +301,9 @@ ProjectileFactory::MunitionType GameController::getSelectedWeapon(){
 
 void GameController::setSelectedEntity(PawnEntity* e)
 {
-	selectedPawn->setActive(false);
+	if (selectedPawn != nullptr) {
+		selectedPawn->setActive(false);
+	}
 	selectedPawn = e;
 	selectedPawn->setActive(true);
 }
