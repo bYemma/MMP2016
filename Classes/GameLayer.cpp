@@ -293,10 +293,6 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 				p->updateHealth(p->getHealth() - dmg);
 				p->updateHealthLabel();
 				removeChild(nodeA);
-				if (p->getHealth() <= 0) {
-					removeChild(p->getSprite());
-					delete p;
-				}
 			}
 		}
 		else if (nodeB->getTag() == PROJ_TAG)
@@ -316,10 +312,6 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 				int dmg = ProjectileFactory::getDmg(_gc->getSelectedWeapon());
 				p->updateHealth(p->getHealth() - dmg);
 				p->updateHealthLabel();
-				if (p->getHealth() <= 0) {
-					removeChild(p->getSprite());
-					delete p;
-				}
 			}
 		}
 	}
