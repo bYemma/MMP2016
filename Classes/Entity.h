@@ -41,10 +41,11 @@ class Entity {
 
 		int getHealth();
 		Sprite* getSprite();
+		Vec2 getSize();
 protected:
+		// Params
 		Player* owner; //Player owning this entity
 		int health; //hitpoints this entity has left
-
 		std::string name; //name of the entity
 		int id; //id of the entity
 
@@ -56,15 +57,11 @@ protected:
 		Vec2 groundJoint; //joint where the entity is fixed on the ground(useless)
 		Vec2 aimvector; //position of entity
 
-		Label* entityLabel; //label showing hitpoints and name
-
 		EventListenerKeyboard* keylistener; //Inputcomponent(s)
 
+		Label* entityLabel; //label showing hitpoints and name
 		Sprite* sprite; //Renderingcomponent(Sprite)
-
 		PhysicsBody* physicsBody; //Physiccomponent (PhysicsBody for collision)
+
 		Vector<SpriteFrame*> getAnimation(const char *format, int count);
-	private:
-
-
 };

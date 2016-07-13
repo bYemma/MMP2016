@@ -15,6 +15,7 @@ class PawnEntity : public Entity
 {
 public:
 	PawnEntity(PawnColor color);
+	~PawnEntity();
 	void startRunning();
 	void stopRunning();
 	void createLabel();

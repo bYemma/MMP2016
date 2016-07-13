@@ -59,9 +59,9 @@ private:
 	//void onCollision(float dt);
 
 	//key = keycode, value = time
+	ExplosionEntity* explosion;
 	void explode(Node* node);
 	void update(float dt);
-	ExplosionEntity* explosion;
 };
 
 

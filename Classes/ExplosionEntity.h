@@ -9,6 +9,7 @@ class ExplosionEntity : public Entity
 {
 public:
 	ExplosionEntity();
+	~ExplosionEntity();
 	void startAnimation();
 private:
 	Action* animation;

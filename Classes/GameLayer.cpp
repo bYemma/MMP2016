@@ -38,11 +38,6 @@ void GameLayer::createUI()
 {
 
 	const std::string font = "res/fonts/Minecraft.ttf";
-
-	SpriteBatchNode* spritebatch = SpriteBatchNode::create("res/game.png");
-	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
-	cache->addSpriteFramesWithFile("res/game.plist");
-	addChild(spritebatch);
 	
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
@@ -83,9 +78,6 @@ void GameLayer::createUI()
 	_weaponlabel->setPosition(Vec2(_screenSize.width*0.11, _screenSize.height * 0.95));
 	_weaponlabel->setTextColor(Color4B::WHITE);
 	this->addChild(_weaponlabel);
-
-	explosion = new ExplosionEntity();
-	addChild(explosion->getSprite());
 }
 
 void GameLayer::setPhysicsWorld(PhysicsWorld* pw)
@@ -116,6 +108,9 @@ bool GameLayer::init() {
 	_gc->generateWindVec(this);
 	_gc->createTerrain(this);
 	_gc->createEntities(this);
+
+	explosion = new ExplosionEntity();
+	this->addChild(explosion->getSprite());
 
 	//
 	//
@@ -247,12 +242,6 @@ bool GameLayer::init() {
 
 }
 
-/*
-void GameLayer::onCollision(float dt) {
-	_gc->getSelectedEntity()->getPhysicsBody()->getCPBody();
-}
-*/
-
 //@KILLIAN: Take into account BORDER_TAG as well as GND_TAG for projectile collisions, but destroy 
 //only nodes with GND_TAG. Example of ground destruction:
 /*
@@ -272,6 +261,7 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 	auto nodeB = contact.getShapeB()->getBody()->getNode();
 	if (nodeA && nodeB)
 	{
+<<<<<<< HEAD
 		if (nodeA->getTag() == PROJ_TAG)
 		{
 			explode(nodeB);
@@ -294,15 +284,32 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 				}
 				p->updateHealth(p->getHealth() - dmg);
 				p->updateHealthLabel();
+=======
+		if (nodeA->getTag() == GND_TAG)
+		{
+			if (nodeB->getTag() == PROJ_TAG){
+				//make nodeB explode: animations, sprite destruction, damage etc
+				explode(nodeB);
+				removeChild(nodeB);
+				//maybe remove nodeA from the layer for terrain destruction
+>>>>>>> origin/master
 			}
 		}
 		else if (nodeB->getTag() == PROJ_TAG)
 		{
+<<<<<<< HEAD
 			explode(nodeA);
 			if (nodeA->getTag() == GND_TAG){
 				//destroy terrain
 				removeChild(nodeA);
 				removeChild(nodeB);
+=======
+			if (nodeA->getTag() == PROJ_TAG){
+				//make nodeA explode: animations, sprite destruction, damage etc
+				explode(nodeA);
+				removeChild(nodeA);
+				//maybe remove nodeA from the layer for terrain destruction
+>>>>>>> origin/master
 			}
 			else if (nodeA->getTag() ==	BORDER_TAG){
 				removeChild(nodeB);
@@ -328,7 +335,8 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 void GameLayer::explode(Node* node)
 {
 	Vec2 pos = node->getPosition();
-	explosion->setPosition(pos);
+	Vec2 size = node->getContentSize();
+	explosion->setPosition(Vec2(pos.x, pos.y - size.y/2 + explosion->getSize().y/2));
 	explosion->startAnimation();
 }
 
