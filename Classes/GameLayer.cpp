@@ -338,9 +338,11 @@ void GameLayer::onContactPostSolve(PhysicsContact & contact, const PhysicsContac
 	if (nodeA && nodeB){
 		if (int(nodeA->getTag()/10) == int(PAWN_TAG/10)){
 			nodeA->getPhysicsBody()->setVelocity(Vec2::ZERO);
+			_gc->getSelectedEntity()->setJumping(false);
 		}
 		if (int(nodeB->getTag() / 10) == int(PAWN_TAG / 10)){
 			nodeB->getPhysicsBody()->setVelocity(Vec2::ZERO);
+			_gc->getSelectedEntity()->setJumping(false);
 		}
 	}
 }
@@ -375,6 +377,7 @@ bool GameLayer::isKeyPressed(EventKeyboard::KeyCode code) {
 		return true;
 	return false;
 }
+
 // Useful for measuring how long the player "loaded" the shot
 //-> we can set velocity of a shot depending on that time
 double GameLayer::keyPressedDuration(EventKeyboard::KeyCode code) {

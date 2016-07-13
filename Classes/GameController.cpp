@@ -218,7 +218,7 @@ void GameController::jumpEntity()
 	if (!selectedPawn->isJumping()) {
 		Vec2 aim = selectedPawn->getAimVec();
 		selectedPawn->getPhysicsBody()->applyImpulse(Vec2(aim.x*300000.0f, 300000.0f));
-		//selectedPawn->setJumping(true);
+		selectedPawn->setJumping(true);
 	}
 
 }

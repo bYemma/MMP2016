@@ -36,9 +36,12 @@ bool MenuScene::init()
 	Sprite* tutorialbg = Sprite::createWithSpriteFrameName("label_background.png");
 	Sprite *storybg = Sprite::createWithSpriteFrameName("label_background.png");
 	Sprite *ballzbg = Sprite::createWithSpriteFrameName("label_background.png");
+	Sprite *namesbg = Sprite::createWithSpriteFrameName("label_background.png");
+
 	storybg->setOpacity(125);
 	tutorialbg->setOpacity(125);
 	ballzbg->setOpacity(125);
+	namesbg->setOpacity(125);
 
 	std::string tutstr = "TUTORIAL:\n\nPress  START  to play.\nHold and release  SPACE  to fire a projectile.\nChange your weapon by pressing  1(Rocket)  2(Nade)  3(Bullet) \nYou can move with  A  and  D  to left and right. Jump with  SHIFT \nAdjust your aim by holding  UP  and  DOWN";
 	auto tutorial = Label::createWithTTF(tutstr, font, _sSize.height/50.0f);
@@ -68,6 +71,26 @@ bool MenuScene::init()
 	ballzbg->setScaleY(ballz->getContentSize().height / ballzbg->getContentSize().height + 0.02);
 	addChild(ballzbg);
 	addChild(ballz);
+
+	auto entername = Label::createWithTTF("Please enter your names:", font, _sSize.height / 25.0f);
+	entername->setPosition(Vec2(_sSize.width*0.5, _sSize.height * 0.4));
+	namesbg->setPosition(entername->getPosition());
+	namesbg->setScaleX(entername->getContentSize().width / namesbg->getContentSize().width + 0.02);
+	namesbg->setScaleY(entername->getContentSize().height / namesbg->getContentSize().height + 0.02);
+	addChild(namesbg);
+	addChild(entername);
+
+	ui::TextField* namep1 = ui::TextField::create();
+	namep1->setString("Player1");
+	namep1->setPosition(Vec2(_sSize.width * 0.4, _sSize.height * 0.3));
+	namep1->setFocused(true);
+	addChild(namep1);
+
+	ui::TextField* namep2 = ui::TextField::create();
+	namep2->setString("Player2");
+	namep2->setPosition(Vec2(_sSize.width * 0.6, _sSize.height * 0.3));
+	namep2->setTextColor(Color4B::BLACK);
+	addChild(namep2);
 
 	ui::Button* startButton = ui::Button::create("start_button.png", "", "", ui::TextureResType::PLIST);
 	startButton->setPosition(Vec2(_sSize.width * 0.5, _sSize.height * 0.2));
