@@ -40,11 +40,6 @@ void GameLayer::createUI()
 {
 
 	const std::string font = "res/fonts/Minecraft.ttf";
-
-	SpriteBatchNode* spritebatch = SpriteBatchNode::create("res/game.png");
-	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
-	cache->addSpriteFramesWithFile("res/game.plist");
-	addChild(spritebatch);
 	
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
@@ -85,9 +80,6 @@ void GameLayer::createUI()
 	_weaponlabel->setPosition(Vec2(_screenSize.width*0.11, _screenSize.height * 0.95));
 	_weaponlabel->setTextColor(Color4B::WHITE);
 	this->addChild(_weaponlabel);
-
-	explosion = new ExplosionEntity();
-	this->addChild(explosion->getSprite());
 }
 
 void GameLayer::setPhysicsWorld(PhysicsWorld* pw)
@@ -118,6 +110,9 @@ bool GameLayer::init() {
 	_gc->generateWindVec(this);
 	_gc->createTerrain(this);
 	_gc->createEntities(this);
+
+	explosion = new ExplosionEntity();
+	this->addChild(explosion->getSprite());
 
 	//
 	//
@@ -300,7 +295,8 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 void GameLayer::explode(Node* node)
 {
 	Vec2 pos = node->getPosition();
-	explosion->setPosition(pos);
+	Vec2 size = node->getContentSize();
+	explosion->setPosition(Vec2(pos.x, pos.y - size.y/2 + explosion->getSize().y/2));
 	explosion->startAnimation();
 }
 
