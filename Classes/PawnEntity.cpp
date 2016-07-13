@@ -10,6 +10,11 @@ PawnEntity::PawnEntity(PawnColor color)
 
 }
 
+PawnEntity::~PawnEntity()
+{
+	running_animation->release();
+}
+
 void PawnEntity::createLabel() {
 	entityLabel = Label::createWithTTF("" + getName() + ": " + std::to_string(health), "res/fonts/Minecraft.ttf", 45);
 	entityLabel->setTextColor(Color4B::GREEN);
@@ -53,4 +58,5 @@ void PawnEntity::initAnimations()
 	sprite->setScale(0.4f);
 	auto animation = Animation::createWithSpriteFrames(frames, 1.0f / 20);
 	running_animation = RepeatForever::create(Animate::create(animation));
+	running_animation->retain();
 }

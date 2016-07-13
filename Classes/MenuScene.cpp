@@ -74,10 +74,10 @@ bool MenuScene::init()
 	startButton->addClickEventListener(CC_CALLBACK_0(MenuScene::start, this));
 	addChild(startButton);
 
-	/*ui::Button* altButton = ui::Button::create("start_button.png", "", "", ui::TextureResType::PLIST);
-	altButton->setPosition(Vec2(_sSize.width * 0.5 + 143, _sSize.height * 0.5 - 254));
+	ui::Button* altButton = ui::Button::create("start_button.png", "", "", ui::TextureResType::PLIST);
+	altButton->setPosition(Vec2(_sSize.width * 0.9, _sSize.height * 0.1));
 	altButton->addClickEventListener(CC_CALLBACK_0(MenuScene::test, this));
-	addChild(altButton);*/
+	addChild(altButton);
 
 	ui::Button* quitButton = ui::Button::create("quit_button.png", "", "", ui::TextureResType::PLIST);
 	quitButton->setPosition(Vec2(_sSize.width * 0.9, _sSize.height * 0.9));

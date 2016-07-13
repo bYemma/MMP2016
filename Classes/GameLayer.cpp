@@ -1,10 +1,8 @@
 #define GOAL_WIDTH 400
 #define SCALE_RATIO 200
 #define COCOS2D_DEBUG 1
+
 #include "GameLayer.h"
-#include "ProjectileFactory.h"
-#include "NadeProjectile.h"
-#include <iostream>
 #include "GameController.h"
 
 using namespace cocos2d;
@@ -40,11 +38,6 @@ void GameLayer::createUI()
 {
 
 	const std::string font = "res/fonts/Minecraft.ttf";
-
-	SpriteBatchNode* spritebatch = SpriteBatchNode::create("res/game.png");
-	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
-	cache->addSpriteFramesWithFile("res/game.plist");
-	addChild(spritebatch);
 	
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
@@ -85,9 +78,6 @@ void GameLayer::createUI()
 	_weaponlabel->setPosition(Vec2(_screenSize.width*0.11, _screenSize.height * 0.95));
 	_weaponlabel->setTextColor(Color4B::WHITE);
 	this->addChild(_weaponlabel);
-
-	explosion = new ExplosionEntity();
-	addChild(explosion->getSprite());
 }
 
 void GameLayer::setPhysicsWorld(PhysicsWorld* pw)
@@ -119,6 +109,9 @@ bool GameLayer::init() {
 	_gc->createTerrain(this);
 	_gc->createEntities(this);
 
+	explosion = new ExplosionEntity();
+	this->addChild(explosion->getSprite());
+
 	//
 	//
 	//
@@ -127,13 +120,10 @@ bool GameLayer::init() {
 	//
 	//
 	auto contactListener = EventListenerPhysicsContact::create();
-	contactListener->onContactBegin = CC_CALLBACK_1(GameLayer::onContactBegin, this);
-
-	/*
-	contactListener->onContactPreSolve = CC_CALLBACK_2(GameLayer::onContactPreSolve, this);
-
+	contactListener->onContactBegin = CC_CALLBACK_1(GameLayer::onContactBegin, this); //for projectile explosions
+	contactListener->onContactPreSolve = CC_CALLBACK_2(GameLayer::onContactPreSolve, this); //to correct pawn restitution
 	contactListener->onContactPostSolve = CC_CALLBACK_2(GameLayer::onContactPostSolve, this);
-	*/
+	
 
 	contactListener->setEnabled(true);
 
@@ -252,12 +242,6 @@ bool GameLayer::init() {
 
 }
 
-/*
-void GameLayer::onCollision(float dt) {
-	_gc->getSelectedEntity()->getPhysicsBody()->getCPBody();
-}
-*/
-
 //@KILLIAN: Take into account BORDER_TAG as well as GND_TAG for projectile collisions, but destroy 
 //only nodes with GND_TAG. Example of ground destruction:
 /*
@@ -271,61 +255,94 @@ if (nodeA->getTag() == GND_TAG || nodeA->getTag() == BORDER_TAG)
 	}
 }
 */
+
+
 bool GameLayer::onContactBegin(PhysicsContact & contact)
 {
 	auto nodeA = contact.getShapeA()->getBody()->getNode();
 	auto nodeB = contact.getShapeB()->getBody()->getNode();
-	log("A");
 	if (nodeA && nodeB)
 	{
-		log("B");
-		if (nodeA->getTag() == GND_TAG)
+		if (nodeA->getTag() == PROJ_TAG)
 		{
-			log("C1");
-			if (nodeB->getTag() == PROJ_TAG){
-				log("D1");
-				//make nodeB explode: animations, sprite destruction, damage etc
-				explode(nodeB);
-				//maybe remove nodeA from the layer for terrain destruction
+			explode(nodeB);
+			if (nodeB->getTag() == GND_TAG){
+				//destroy terrain
+				removeChild(nodeB);
+				removeChild(nodeA);
+			}
+			else if (nodeA->getTag() == BORDER_TAG){
+				removeChild(nodeA);
+			}
+			else if (int(nodeB->getTag() / 10) == int(PAWN_TAG / 10)){
+				//deal damage
+				PawnEntity* p = _gc->pawns[nodeB->getTag() - PAWN_TAG];
+				int dmg = 0;
+				switch (_gc->getSelectedWeapon()){
+				case ProjectileFactory::MunitionType::ROCKET: dmg = 65; break;
+				case ProjectileFactory::MunitionType::NADE: dmg = 45; break;
+				case ProjectileFactory::MunitionType::BULLET: dmg = 25; break;
+				}
+				p->updateHealth(p->getHealth() - dmg);
+				p->updateHealthLabel();
 			}
 		}
-		else if (nodeB->getTag() == GND_TAG)
+		else if (nodeB->getTag() == PROJ_TAG)
 		{
-			log("C2");
-			if (nodeA->getTag() == PROJ_TAG){
-				log("D2");
-				//make nodeA explode: animations, sprite destruction, damage etc
-				explode(nodeA);
-				//maybe remove nodeA from the layer for terrain destruction
+			explode(nodeA);
+			if (nodeA->getTag() == GND_TAG){
+				//destroy terrain
+				removeChild(nodeA);
+				removeChild(nodeB);
+			}
+			else if (nodeA->getTag() == BORDER_TAG){
+				removeChild(nodeB);
+			}
+			else if (int(nodeA->getTag() / 10) == int(PAWN_TAG / 10)){
+				//deal damage
+				PawnEntity* p = _gc->pawns[nodeA->getTag() - PAWN_TAG];
+				int dmg = 0;
+				switch (_gc->getSelectedWeapon()){
+				case ProjectileFactory::MunitionType::ROCKET: dmg = 65; break;
+				case ProjectileFactory::MunitionType::NADE: dmg = 45; break;
+				case ProjectileFactory::MunitionType::BULLET: dmg = 25; break;
+				}
+				p->updateHealth(p->getHealth() - dmg);
+				p->updateHealthLabel();
 			}
 		}
-
-		//Entity ground collision
-		/*else if ((nodeB->getTag() == GND_TAG && nodeA->getTag() == PAWN_TAG) || (nodeA->getTag() == GND_TAG && nodeB->getTag() == PAWN_TAG)) {
-			if (_gc->getSelectedEntity()->isJumping()) {
-				_gc->getSelectedEntity()->setJumping(false);
-			}
-		}*/ //selectedEntity falls through ground :(
 	}
 
 	return true;
 }
 
-void GameLayer::explode(Node* node)
-{
+void GameLayer::explode(Node* node) {
 	Vec2 pos = node->getPosition();
-	explosion->setPosition(pos);
+	Vec2 size = node->getContentSize();
+	explosion->setPosition(Vec2(pos.x, pos.y - size.y/2 + explosion->getSize().y/2));
 	explosion->startAnimation();
 }
 
-// Calling it to eliminate The Jumping Effect... Restitution
+// Ignores collisions between projectiles
 bool GameLayer::onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve) {
-	//solve.setRestitution(0);
-	return true;
+	
+	return !(contact.getShapeA()->getTag() == PROJ_TAG && contact.getShapeB()->getTag() == PROJ_TAG);
 }
 
+// should prevent pawns from bouncing
 void GameLayer::onContactPostSolve(PhysicsContact & contact, const PhysicsContactPostSolve & solve)
 {
+	auto nodeA = contact.getShapeA()->getBody()->getNode();
+	auto nodeB = contact.getShapeB()->getBody()->getNode();
+
+	if (nodeA && nodeB){
+		if (int(nodeA->getTag()/10) == int(PAWN_TAG/10)){
+			nodeA->getPhysicsBody()->setVelocity(Vec2::ZERO);
+		}
+		if (int(nodeB->getTag() / 10) == int(PAWN_TAG / 10)){
+			nodeB->getPhysicsBody()->setVelocity(Vec2::ZERO);
+		}
+	}
 }
 
 void GameLayer::onKeyHold(float dt) {

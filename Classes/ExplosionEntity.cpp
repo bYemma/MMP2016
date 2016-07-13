@@ -8,6 +8,11 @@ ExplosionEntity::ExplosionEntity()
 	sprite->setOpacity(0);
 }
 
+ExplosionEntity::~ExplosionEntity()
+{
+	animation->release();
+}
+
 void ExplosionEntity::startAnimation()
 {
 	sprite->setOpacity(255);
@@ -20,9 +25,6 @@ void ExplosionEntity::initAnimations()
 	sprite = Sprite::createWithSpriteFrame(frames.front());
 	auto animate = Animate::create(Animation::createWithSpriteFrames(frames, 1.0f / 20));
 	auto fadeOut = FadeOut::create(14 * 1.0f / 20);
-	auto explode = Spawn::createWithTwoActions(animate, EaseIn::create(fadeOut, 1.0f));
-	auto removeEntity = CallFunc::create([]() {
-		log("exploded!");
-	});
-	animation = Sequence::create(explode, removeEntity, nullptr);
+	animation = Spawn::createWithTwoActions(animate, EaseIn::create(fadeOut, 1.0f));
+	animation->retain();
 }
