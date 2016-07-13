@@ -1,10 +1,8 @@
 #define GOAL_WIDTH 400
 #define SCALE_RATIO 200
 #define COCOS2D_DEBUG 1
+
 #include "GameLayer.h"
-#include "ProjectileFactory.h"
-#include "NadeProjectile.h"
-#include <iostream>
 #include "GameController.h"
 
 using namespace cocos2d;
@@ -272,36 +270,56 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 {
 	auto nodeA = contact.getShapeA()->getBody()->getNode();
 	auto nodeB = contact.getShapeB()->getBody()->getNode();
-	log("A");
 	if (nodeA && nodeB)
 	{
-		log("B");
-		if (nodeA->getTag() == GND_TAG)
+		if (nodeA->getTag() == PROJ_TAG)
 		{
-			log("C1");
-			if (nodeB->getTag() == PROJ_TAG){
-				log("D1");
-				//make nodeB explode: animations, sprite destruction, damage etc
-				explode(nodeB);
-				//maybe remove nodeA from the layer for terrain destruction
+			explode(nodeB);
+			if (nodeB->getTag() == GND_TAG){
+				//destroy terrain
+				removeChild(nodeB);
+				removeChild(nodeA);
+			}
+			else if (nodeA->getTag() == BORDER_TAG){
+				removeChild(nodeA);
+			}
+			else if (int(nodeB->getTag()/10) == int(PAWN_TAG/10)){
+				//deal damage
+				PawnEntity* p = _gc->pawns[nodeB->getTag() - PAWN_TAG];
+				int dmg = 0;
+				switch (_gc->getSelectedWeapon()){
+				case ProjectileFactory::MunitionType::ROCKET: dmg = 65; break;
+				case ProjectileFactory::MunitionType::NADE: dmg = 45; break;
+				case ProjectileFactory::MunitionType::BULLET: dmg = 25; break;
+				}
+				p->updateHealth(p->getHealth() - dmg);
+				p->updateHealthLabel();
 			}
 		}
-		else if (nodeB->getTag() == GND_TAG)
+		else if (nodeB->getTag() == PROJ_TAG)
 		{
-			log("C2");
-			if (nodeA->getTag() == PROJ_TAG){
-				log("D2");
-				//make nodeA explode: animations, sprite destruction, damage etc
-				explode(nodeA);
-				//maybe remove nodeA from the layer for terrain destruction
+			explode(nodeA);
+			if (nodeA->getTag() == GND_TAG){
+				//destroy terrain
+				removeChild(nodeA);
+				removeChild(nodeB);
+			}
+			else if (nodeA->getTag() ==	BORDER_TAG){
+				removeChild(nodeB);
+			}
+			else if (int(nodeA->getTag()/10) == int(PAWN_TAG/10)){
+				//deal damage
+				PawnEntity* p = _gc->pawns[nodeA->getTag() - PAWN_TAG];
+				int dmg = 0;
+				switch (_gc->getSelectedWeapon()){
+				case ProjectileFactory::MunitionType::ROCKET: dmg = 65; break;
+				case ProjectileFactory::MunitionType::NADE: dmg = 45; break;
+				case ProjectileFactory::MunitionType::BULLET: dmg = 25; break;
+				}
+				p->updateHealth(p->getHealth() - dmg);
+				p->updateHealthLabel();
 			}
 		}
-		//Entity ground collision
-		/*else if ((nodeB->getTag() == GND_TAG && nodeA->getTag() == PAWN_TAG) || (nodeA->getTag() == GND_TAG && nodeB->getTag() == PAWN_TAG)) {
-			if (_gc->getSelectedEntity()->isJumping()) {
-				_gc->getSelectedEntity()->setJumping(false);
-			}
-		}*/ //selectedEntity falls through ground :(
 	}
 
 	return true;
@@ -314,22 +332,23 @@ void GameLayer::explode(Node* node)
 	explosion->startAnimation();
 }
 
-// Calling it to eliminate The Jumping Effect... Restitution
+// Ignores collisions between projectiles
 bool GameLayer::onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve) {
 	
-	return true;
+	return !(contact.getShapeA()->getTag() == PROJ_TAG && contact.getShapeB()->getTag() == PROJ_TAG);
 }
 
+// should prevent pawns from bouncing
 void GameLayer::onContactPostSolve(PhysicsContact & contact, const PhysicsContactPostSolve & solve)
 {
 	auto nodeA = contact.getShapeA()->getBody()->getNode();
 	auto nodeB = contact.getShapeB()->getBody()->getNode();
 
 	if (nodeA && nodeB){
-		if (nodeA->getTag() == PAWN_TAG){
+		if (int(nodeA->getTag()/10) == int(PAWN_TAG/10)){
 			nodeA->getPhysicsBody()->setVelocity(Vec2::ZERO);
 		}
-		else if (nodeB->getTag() == PAWN_TAG){
+		if (int(nodeB->getTag() / 10) == int(PAWN_TAG / 10)){
 			nodeB->getPhysicsBody()->setVelocity(Vec2::ZERO);
 		}
 	}

@@ -40,7 +40,8 @@ public:
 	void adjustEntityAimAngle(); //change angle of aim
 	void changeEntityWeapon(ProjectileFactory::MunitionType selectedWeapon); //change weapon the entity is holding 
 
-	void setSelectedWeapon(ProjectileFactory::MunitionType selectedWeapon);  
+	void setSelectedWeapon(ProjectileFactory::MunitionType selectedWeapon); 
+	ProjectileFactory::MunitionType getSelectedWeapon();
 	void setSelectedEntity(PawnEntity* e); //
 	Entity* getSelectedEntity(); //
 
@@ -52,6 +53,9 @@ public:
 	void destroyTerrain();
 
 	PhysicsWorld* pw;
+
+	//this number must be >= number of pawns created
+	PawnEntity* pawns[4];
 
 private:
 	//GameData and UI

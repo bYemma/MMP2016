@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 
 //value is of little importance, but this tag can only be given to pawns
+//actually the whole range [30,39] is reserved to pawn tags, to be able to distinguish them
 #define PAWN_TAG 30
 
 using namespace cocos2d;

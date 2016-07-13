@@ -44,6 +44,8 @@ void GameController::createEntities(GameLayer* gLayer)
 		pawn->setName(generateName(i));
 		pawn->createLabel();
 		gLayer->addChild(pawn->getSprite());
+		pawn->getSprite()->setTag(PAWN_TAG+i);
+		pawns[i] = pawn;
 
 		if(i==3) selectedPawn = pawn;
 	}
@@ -75,7 +77,6 @@ PawnEntity* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
 	pb->setContactTestBitmask(0xFFFFFFFF);
 	//pawn->setProjectileDropOffPoint(Vec2(2.0f,2.0f)); Doesnt work
 	pawn->setPhysicsBody(pb);
-	pawn->getSprite()->setTag(PAWN_TAG);
 
 	//Create default aiming direction for pawn(horizontal to left(-1) or right(1) in rX)
 	int rX = rand()%2;
@@ -91,6 +92,11 @@ PawnEntity* GameController::createEntity(PawnColor pc, Vec2 spawnpos) {
 
 void GameController::endGame()
 {
+	//this number must be = number of pawns created
+	for (int i = 0; i < 4; i++){
+		delete pawns[i];
+	}
+
 	//show end screen
 	auto scene = EndScene::createScene();
 	Director::getInstance()->replaceScene(scene);
@@ -276,6 +282,10 @@ void GameController::nextPlayer()
 void GameController::setSelectedWeapon(ProjectileFactory::MunitionType newselectedWeapon)
 {
 	selectedWeapon = newselectedWeapon;
+}
+
+ProjectileFactory::MunitionType GameController::getSelectedWeapon(){
+	return selectedWeapon;
 }
 
 void GameController::setSelectedEntity(PawnEntity* e)

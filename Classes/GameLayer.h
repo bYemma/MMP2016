@@ -7,6 +7,11 @@
 #include "cocos2d.h"
 #include <vector>
 #include "ExplosionEntity.h"
+#include "ProjectileFactory.h"
+#include "NadeProjectile.h"
+#include <iostream>
+#include "PawnEntity.h"
+
 
 using namespace cocos2d;
 
