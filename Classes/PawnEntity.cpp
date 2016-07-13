@@ -7,14 +7,12 @@ PawnEntity::PawnEntity(PawnColor color)
 	setColor(color);
 	initAnimations();
 	createCrosshair();
-	setActive(false);
 	health = 100;
 }
 
 PawnEntity::~PawnEntity()
 {
 	running_animation->release();
-	crosshair->release();
 }
 
 void PawnEntity::createCrosshair() {
@@ -23,8 +21,8 @@ void PawnEntity::createCrosshair() {
 	setAimVec(Vec2(0,1));
 	crosshair->setRotation(Vec2::angle(getAimVec(), Vec2(1,0)));
 	log("%f", Vec2::angle(getAimVec(), Vec2(1, 0)));
+	crosshair->setOpacity(0);
 	sprite->addChild(crosshair);
-	crosshair->retain();
 }
 
 void PawnEntity::createLabel() {
