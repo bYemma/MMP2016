@@ -255,13 +255,14 @@ if (nodeA->getTag() == GND_TAG || nodeA->getTag() == BORDER_TAG)
 	}
 }
 */
+
+
 bool GameLayer::onContactBegin(PhysicsContact & contact)
 {
 	auto nodeA = contact.getShapeA()->getBody()->getNode();
 	auto nodeB = contact.getShapeB()->getBody()->getNode();
 	if (nodeA && nodeB)
 	{
-<<<<<<< HEAD
 		if (nodeA->getTag() == PROJ_TAG)
 		{
 			explode(nodeB);
@@ -273,7 +274,7 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 			else if (nodeA->getTag() == BORDER_TAG){
 				removeChild(nodeA);
 			}
-			else if (int(nodeB->getTag()/10) == int(PAWN_TAG/10)){
+			else if (int(nodeB->getTag() / 10) == int(PAWN_TAG / 10)){
 				//deal damage
 				PawnEntity* p = _gc->pawns[nodeB->getTag() - PAWN_TAG];
 				int dmg = 0;
@@ -284,37 +285,20 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 				}
 				p->updateHealth(p->getHealth() - dmg);
 				p->updateHealthLabel();
-=======
-		if (nodeA->getTag() == GND_TAG)
-		{
-			if (nodeB->getTag() == PROJ_TAG){
-				//make nodeB explode: animations, sprite destruction, damage etc
-				explode(nodeB);
-				removeChild(nodeB);
-				//maybe remove nodeA from the layer for terrain destruction
->>>>>>> origin/master
 			}
 		}
 		else if (nodeB->getTag() == PROJ_TAG)
 		{
-<<<<<<< HEAD
 			explode(nodeA);
 			if (nodeA->getTag() == GND_TAG){
 				//destroy terrain
 				removeChild(nodeA);
 				removeChild(nodeB);
-=======
-			if (nodeA->getTag() == PROJ_TAG){
-				//make nodeA explode: animations, sprite destruction, damage etc
-				explode(nodeA);
-				removeChild(nodeA);
-				//maybe remove nodeA from the layer for terrain destruction
->>>>>>> origin/master
 			}
-			else if (nodeA->getTag() ==	BORDER_TAG){
+			else if (nodeA->getTag() == BORDER_TAG){
 				removeChild(nodeB);
 			}
-			else if (int(nodeA->getTag()/10) == int(PAWN_TAG/10)){
+			else if (int(nodeA->getTag() / 10) == int(PAWN_TAG / 10)){
 				//deal damage
 				PawnEntity* p = _gc->pawns[nodeA->getTag() - PAWN_TAG];
 				int dmg = 0;
@@ -332,8 +316,7 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 	return true;
 }
 
-void GameLayer::explode(Node* node)
-{
+void GameLayer::explode(Node* node) {
 	Vec2 pos = node->getPosition();
 	Vec2 size = node->getContentSize();
 	explosion->setPosition(Vec2(pos.x, pos.y - size.y/2 + explosion->getSize().y/2));
