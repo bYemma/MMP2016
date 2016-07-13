@@ -289,7 +289,9 @@ ProjectileFactory::MunitionType GameController::getSelectedWeapon(){
 
 void GameController::setSelectedEntity(PawnEntity* e)
 {
+	selectedPawn->setActive(false);
 	selectedPawn = e;
+	selectedPawn->setActive(true);
 }
 
 Entity * GameController::getSelectedEntity()

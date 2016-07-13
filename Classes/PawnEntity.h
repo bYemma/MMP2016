@@ -19,9 +19,11 @@ public:
 	void startRunning();
 	void stopRunning();
 	void createLabel();
+	void setActive(bool active);
 private:
 
 	Sprite* crosshair;
+	void createCrosshair();
 
 	RepeatForever* running_animation;
 	int color;

@@ -6,13 +6,20 @@ PawnEntity::PawnEntity(PawnColor color)
 {
 	setColor(color);
 	initAnimations();
+	createCrosshair();
 	health = 100;
-
 }
 
 PawnEntity::~PawnEntity()
 {
 	running_animation->release();
+}
+
+void PawnEntity::createCrosshair() {
+	crosshair = Sprite::createWithSpriteFrameName("schussanzeige_white.png");
+	crosshair->setAnchorPoint(getProjectileDropOffPoint());
+	crosshair->setRotation(45);
+	sprite->addChild(crosshair);
 }
 
 void PawnEntity::createLabel() {
@@ -27,6 +34,11 @@ void PawnEntity::createLabel() {
 
 void PawnEntity::setColor(PawnColor color) {
 	this->color = color;
+}
+
+void PawnEntity::setActive(bool active)
+{
+	int opacity = active ? 255 : 0;
 }
 
 void PawnEntity::startRunning()
