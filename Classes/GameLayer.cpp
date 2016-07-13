@@ -265,48 +265,39 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 	{
 		if (nodeA->getTag() == PROJ_TAG)
 		{
-			explode(nodeB);
+			if (nodeB == _gc->getSelectedEntity()->getSprite()) {
+				return true;
+			}
+			explode(nodeA);
+			removeChild(nodeA);
 			if (nodeB->getTag() == GND_TAG){
 				//destroy terrain
 				removeChild(nodeB);
-				removeChild(nodeA);
-			}
-			else if (nodeA->getTag() == BORDER_TAG){
-				removeChild(nodeA);
 			}
 			else if (int(nodeB->getTag() / 10) == int(PAWN_TAG / 10)){
 				//deal damage
 				PawnEntity* p = _gc->pawns[nodeB->getTag() - PAWN_TAG];
-				int dmg = 0;
-				switch (_gc->getSelectedWeapon()){
-				case ProjectileFactory::MunitionType::ROCKET: dmg = 65; break;
-				case ProjectileFactory::MunitionType::NADE: dmg = 45; break;
-				case ProjectileFactory::MunitionType::BULLET: dmg = 25; break;
-				}
+				int dmg = ProjectileFactory::getDmg(_gc->getSelectedWeapon());
 				p->updateHealth(p->getHealth() - dmg);
 				p->updateHealthLabel();
+				removeChild(nodeA);
 			}
 		}
 		else if (nodeB->getTag() == PROJ_TAG)
 		{
-			explode(nodeA);
+			if (nodeA == _gc->getSelectedEntity()->getSprite()) {
+				return true;
+			}
+			explode(nodeB);
+			removeChild(nodeB);
 			if (nodeA->getTag() == GND_TAG){
 				//destroy terrain
 				removeChild(nodeA);
-				removeChild(nodeB);
-			}
-			else if (nodeA->getTag() == BORDER_TAG){
-				removeChild(nodeB);
 			}
 			else if (int(nodeA->getTag() / 10) == int(PAWN_TAG / 10)){
 				//deal damage
 				PawnEntity* p = _gc->pawns[nodeA->getTag() - PAWN_TAG];
-				int dmg = 0;
-				switch (_gc->getSelectedWeapon()){
-				case ProjectileFactory::MunitionType::ROCKET: dmg = 65; break;
-				case ProjectileFactory::MunitionType::NADE: dmg = 45; break;
-				case ProjectileFactory::MunitionType::BULLET: dmg = 25; break;
-				}
+				int dmg = ProjectileFactory::getDmg(_gc->getSelectedWeapon());
 				p->updateHealth(p->getHealth() - dmg);
 				p->updateHealthLabel();
 			}

@@ -53,3 +53,13 @@ Projectile * ProjectileFactory::createProjectile(MunitionType mt)
 	}
 	return nullptr;
 }
+
+int ProjectileFactory::getDmg(MunitionType mt) {
+	int dmg = 0;
+	switch (mt) {
+	case ProjectileFactory::MunitionType::ROCKET: dmg = 65; break;
+	case ProjectileFactory::MunitionType::NADE: dmg = 45; break;
+	case ProjectileFactory::MunitionType::BULLET: dmg = 25; break;
+	}
+	return dmg;
+}

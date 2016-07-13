@@ -15,6 +15,7 @@ public:
 	enum MunitionType { ROCKET, NADE, BULLET };
 	ProjectileFactory();
 	static Projectile* createProjectile(MunitionType mt);
+	static int getDmg(MunitionType mt);
 private:
 	Texture2D* loadTexture(const char* path);
 	bool initalized = false;
