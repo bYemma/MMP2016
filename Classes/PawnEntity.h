@@ -18,6 +18,9 @@ public:
 	void stopRunning();
 	void createLabel();
 private:
+
+	Sprite* crosshair;
+
 	RepeatForever* running_animation;
 	int color;
 	void setColor(PawnColor color);

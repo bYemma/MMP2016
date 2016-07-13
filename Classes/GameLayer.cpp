@@ -299,6 +299,7 @@ bool GameLayer::onContactBegin(PhysicsContact & contact)
 				//maybe remove nodeA from the layer for terrain destruction
 			}
 		}
+
 		//Entity ground collision
 		/*else if ((nodeB->getTag() == GND_TAG && nodeA->getTag() == PAWN_TAG) || (nodeA->getTag() == GND_TAG && nodeB->getTag() == PAWN_TAG)) {
 			if (_gc->getSelectedEntity()->isJumping()) {
